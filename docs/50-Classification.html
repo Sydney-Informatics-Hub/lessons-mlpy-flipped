@@ -1,0 +1,4968 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>50-Classification.utf8</title>
+
+<script src="site_libs/header-attrs-2.5.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="lesson.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="setup.html">Setup</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="03-EDA.html">Exploratory Data Analysis</a>
+    </li>
+    <li>
+      <a href="10-LinReg.html">Linear Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="11-RidgeLassoElasticNet.html">Regularised regression. PCR and PLSR.</a>
+    </li>
+    <li>
+      <a href="30-RF_knn.html">Random Forests and k-NN regression</a>
+    </li>
+    <li>
+      <a href="45-Xgboost.html">Gradient boosting. Extreme Gradient Boosting (XGBoost)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="50-Classification.html">Classification</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="50-Classification.html">Classification (finish)</a>
+    </li>
+    <li>
+      <a href="90-Unsupervised.html">Unsupervised learning</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<!--
+---
+title: "Classification"
+author: "Madhura Killedar, Darya Vanichkina"
+keypoints:
+- Classification attempts to predict the class to which a particular observation belongs
+- Scikit-learn has tons of classifier options
+- There are many different metrics for assessing performance for a classification problem
+- Which metric you choose and optimise for should be considered carefully, and will be different depending on the problem
+- Exporatory data analysis is a time consuming but critical process that needs to be carried out prior to any modeling
+- Support vector machines are a class of ML algorithms that construct a boundary in n-dimensional space to separate different classes
+- They represent flexible methods that can handle a wide range of problems, including those impossible to address using conventional linear approaches
+-  Different models had different best performance depending on the error metric we chose to evaluate
+
+
+objectives: 
+- Explain what a confusion matrix is, and how it relates to common classification error metrics
+- Understand how missing data can be hidden within normal-looking datasets
+- Use the scikit-learn library to work with data
+- Learn how to build and evaluate classifiers
+- Use the online documentation to figure out what the hyperparameters are for a specific method
+- Build classification models using KNN, naive bayes, regularised and boosted logistic regression, decision trees and a random forest
+
+
+questions: 
+- What metrics are used to for evaluation in a classification problem?
+- What dataset will we be working with today?
+- What exploratory data analysis do we need to carry out on datasets we plan to work with for classification?
+- How do we split our data into training and testing sets?
+- How can we use scikit-learn to classify data in python?
+- How can we find out which hyperparameters are best for classification?
+
+source: ipynb
+teaching: 150
+start: 1
+exercises: 120
+---
+-->
+<div id="classification" class="section level2">
+<h2>Classification</h2>
+</div>
+<div id="what-is-a-classifier" class="section level2">
+<h2>What is a classifier?</h2>
+<p>A classifier is some kind of rule / black box / widget that you can feed a new observation/data/record and it will decide whether or not it is part of a given class. E.g. below, we are classifying the animals to be either <em>cat</em> or <em>not cat</em>.</p>
+<div class="figure">
+<img src="../fig/50-CatNotCat.jpg" alt="" />
+<p class="caption">A classifier for cats and not cats</p>
+</div>
+<p>You can have classifiers for anything you can have a yes/no answer to, e.g.</p>
+<ul>
+<li>Is this a cat? 🐱</li>
+<li>Do these test results indicate cancer? 🚑</li>
+<li>Is this email spam or not spam? 📧</li>
+</ul>
+<p>You can also have classifiers that categorise things into multiple (more than two) categories e.g.</p>
+<ul>
+<li>Which animal is this, out of the 12 animals I have trained my model on? 🐱</li>
+<li>Do these test results indicate {none, stage 1, stage 2, stage 3, stage 4} cancer? 🚑</li>
+<li>Is this email important, not important but not spam, or spam? 📧</li>
+</ul>
+<p>It is clear that in some of these examples we are more concerned with being wrong in one direction than the other, e.g. it’s better to let some spam email through accidentally than to block all of it but also junk important emails from people you know. Likewise, we would prefer our medical tests to err on the side of caution and not give a negative test result to someone who needs treatment. So we will need to adjust a parameter to decide how much we want to trade this off.</p>
+</div>
+<div id="model-evaluation-classification" class="section level2">
+<h2>Model evaluation (classification)</h2>
+<p>For now, let’s imagine we have a classifier already. How can we test it to see how good it is? A good start is a confusion matrix - a table of what test data it labels correctly and incorrectly.</p>
+<div class="figure">
+<img src="../fig/50-CatConfusion.jpg" alt="" />
+<p class="caption">An demonstration of a confusion matrix for a cat classifier that has labelled 100 animals as cats or not-cats.</p>
+</div>
+<div id="confusion-matrix" class="section level3">
+<h3>Confusion Matrix</h3>
+<p>When applying classification models, we often use a confusion matrix to evaluate certain performance measures. A confusion matrix is simply a matrix that compares “the truth” to the labels generated by your classifier. When we label a cat correctly, we refer to this as a true positive. When we fail to label a cat as a cat, this is called a false negative. However, if we label something which is not a cat as a cat, this is called a false positive; and of course if we correctly label something which is not a cat, as not a cat, then this is a true negative.</p>
+</div>
+<div id="some-common-metrics" class="section level3">
+<h3>Some common metrics</h3>
+<div class="figure">
+<img src="../fig/50-ErrorMetrics.png" alt="" />
+<p class="caption">Error metrics</p>
+</div>
+<div id="auc-area-under-the-curve" class="section level4">
+<h4>AUC: Area under the curve</h4>
+<p>A good classifier will have high precision and high specificity, minimizing both false positives and false negatives. In practice, and with an imperfect classifier, you can tune a knob to say which of those two you care more about. There will be some kind of a trade-off between the two.</p>
+<p>To capture this balance, we often use a Receiver Operator Characteristic (ROC) curve that plots the false positive rate along the x-axis and the true positive rate along the y-axis, for all possible trade-offs. A line that is diagonal from the lower left corner to the upper right corner represents a random guess at labelling each example. The higher the line is in the upper left-hand corner, the better the classifier in general. AUC computes the area under this curve. For a perfect classifier, AUC = 1, for a random guess, AUC=0.5. Objective: maximize.</p>
+<div class="figure">
+<img src="../fig/50-CatArea.jpg" alt="" />
+<p class="caption">A Receiver Operator Characteristic (ROC) curve, from which the Area Under the Curve (AUC) can be calculated.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="pima-indians-diabetes" class="section level1">
+<h1>Pima Indians Diabetes</h1>
+<p>Today, we are going to be working with the <a href="">Pima Indians Diabetes Dataset</a>. This is a classic dataset from the UCI machine learning repository, which is now hosted on kaggle. We have downloaded the .csv file of this dataset from kaggle. It contains the following variables:</p>
+<ol style="list-style-type: decimal">
+<li>Pregnancies - Number of times pregnant</li>
+<li>Glucose - Plasma glucose concentration a 2 hours in an <a href="https://en.wikipedia.org/wiki/Glucose_tolerance_test">oral glucose tolerance test</a></li>
+<li>BloodPressure - Diastolic blood pressure (mm Hg)</li>
+<li>SkinThickness - Triceps skin fold thickness (mm) - <a href="https://en.wikipedia.org/wiki/Anthropometry_of_the_upper_arm">a measure correlated with body fat</a></li>
+<li>Insulin - 2-Hour serum insulin (mu U/ml)</li>
+<li>BMI - Body mass index (weight in kg/(height in m)^2)</li>
+<li>DiabetesPedigreeFunction - Diabetes pedigree function</li>
+<li>Age - Age (years)</li>
+<li>Outcome - diabetes status (1 - diabetic; 0 - non-diabetic)</li>
+</ol>
+<p>The diabetes pedigree function was developed by <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2245318/">Smith 1988</a> to provide a synthesis ofthe diabetes mellitus history in relatives and the genetic relationship of those relatives to the subject. It uses information from parents, grandparents, siblings, aunts and uncles, and first cousin to provide a measure of the expected genetic influence of affected and unaffected relatives on the subject’s eventual diabetes risk:</p>
+<div class="figure">
+<img src="dpf.png" alt="" />
+<p class="caption">DiabetesPedigree</p>
+</div>
+<ul>
+<li>i - ranges across all relatives who HAD developed diabetes by subject’s examination date</li>
+<li>j - ranges across all relatives who HAD NOT developed diabetes by subject’s examination date</li>
+<li>Kx - percentage of genes shared by relative and subject. Equal to:
+<ul>
+<li>0.5 when relative is parent or full sibling</li>
+<li>0.25 when relative is half-sibling, grandparent, aunt or uncle</li>
+<li>0.125 when relative is half aunt, half uncle or first cousin</li>
+</ul></li>
+<li>ADMi - age when diabetes was diagnosed</li>
+<li>ALC - age of relative when last “non-diabetic” assessment was made</li>
+<li>88 and 14 - constants - maximum and minimum age at which patients in study were diagnosed with diabetes</li>
+<li>Constants 20 and 50 chosen so that:
+<ul>
+<li>A subject with no relatives has DPF slighly lower than average</li>
+<li>DPF value decreases as young relatives free of diabetes join the database</li>
+<li>DPF increases quickly as known relatives develop diabetes</li>
+</ul></li>
+</ul>
+<p>DPF increases as:</p>
+<ul>
+<li>the number of relatives with diabetes increases</li>
+<li>the age at which those relatives develop diabetes decreases</li>
+<li>percentage of genes these relatives share with subject increase</li>
+</ul>
+<p>DPF decreases as:</p>
+<ul>
+<li>the number of relatives who never develop diabetes increases</li>
+<li>their ages at last examination increase</li>
+<li>percentage of genes these relatives share with subject increase</li>
+</ul>
+<div id="lets-explore-our-data" class="section level2">
+<h2>Let’s Explore our data</h2>
+<pre class="python"><code>websiterendering = True
+import warnings
+warnings.simplefilter(&#39;ignore&#39;, category=UserWarning)
+warnings.simplefilter(&#39;ignore&#39;, category=FutureWarning)
+
+import numpy as np
+import pandas as pd
+
+import statsmodels.api as sm
+
+# plotting libraries
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# sklearn libraries
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import (
+    roc_curve, auc, roc_auc_score, confusion_matrix, accuracy_score, recall_score, precision_score
+)
+from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.utils.multiclass import unique_labels
+from sklearn.impute import SimpleImputer
+from sklearn.neighbors import KNeighborsClassifier
+
+%matplotlib inline
+sns.set(font_scale = 1.5)</code></pre>
+<div id="load-data" class="section level3">
+<h3>Load Data</h3>
+<pre class="python"><code>diabetes = pd.read_csv(&#39;../data/diabetes.csv&#39;) # read csv</code></pre>
+<p>Explore the variables:</p>
+<pre class="python"><code>diabetes.columns</code></pre>
+<pre><code>Index([&#39;Pregnancies&#39;, &#39;Glucose&#39;, &#39;BloodPressure&#39;, &#39;SkinThickness&#39;, &#39;Insulin&#39;,
+       &#39;BMI&#39;, &#39;DiabetesPedigreeFunction&#39;, &#39;Age&#39;, &#39;Outcome&#39;],
+      dtype=&#39;object&#39;)</code></pre>
+<p>Recode Outcome into integers</p>
+<pre class="python"><code>diabetes.info()</code></pre>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 768 entries, 0 to 767
+Data columns (total 9 columns):
+ #   Column                    Non-Null Count  Dtype  
+---  ------                    --------------  -----  
+ 0   Pregnancies               768 non-null    int64  
+ 1   Glucose                   768 non-null    int64  
+ 2   BloodPressure             768 non-null    int64  
+ 3   SkinThickness             768 non-null    int64  
+ 4   Insulin                   768 non-null    int64  
+ 5   BMI                       768 non-null    float64
+ 6   DiabetesPedigreeFunction  768 non-null    float64
+ 7   Age                       768 non-null    int64  
+ 8   Outcome                   768 non-null    int64  
+dtypes: float64(2), int64(7)
+memory usage: 54.1 KB</code></pre>
+</div>
+<div id="summary-info" class="section level3">
+<h3>Summary info</h3>
+<p>Shape of data frame</p>
+<pre class="python"><code>diabetes.shape</code></pre>
+<pre><code>(768, 9)</code></pre>
+<p>Look for missing data:</p>
+<pre class="python"><code>diabetes.count()</code></pre>
+<pre><code>Pregnancies                 768
+Glucose                     768
+BloodPressure               768
+SkinThickness               768
+Insulin                     768
+BMI                         768
+DiabetesPedigreeFunction    768
+Age                         768
+Outcome                     768
+dtype: int64</code></pre>
+<p>It seems like there is no missing data. Get a summary of the data frame:</p>
+<pre class="python"><code>diabetes.describe()</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Pregnancies
+</th>
+<th>
+Glucose
+</th>
+<th>
+BloodPressure
+</th>
+<th>
+SkinThickness
+</th>
+<th>
+Insulin
+</th>
+<th>
+BMI
+</th>
+<th>
+DiabetesPedigreeFunction
+</th>
+<th>
+Age
+</th>
+<th>
+Outcome
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+count
+</th>
+<td>
+768.000000
+</td>
+<td>
+768.000000
+</td>
+<td>
+768.000000
+</td>
+<td>
+768.000000
+</td>
+<td>
+768.000000
+</td>
+<td>
+768.000000
+</td>
+<td>
+768.000000
+</td>
+<td>
+768.000000
+</td>
+<td>
+768.000000
+</td>
+</tr>
+<tr>
+<th>
+mean
+</th>
+<td>
+3.845052
+</td>
+<td>
+120.894531
+</td>
+<td>
+69.105469
+</td>
+<td>
+20.536458
+</td>
+<td>
+79.799479
+</td>
+<td>
+31.992578
+</td>
+<td>
+0.471876
+</td>
+<td>
+33.240885
+</td>
+<td>
+0.348958
+</td>
+</tr>
+<tr>
+<th>
+std
+</th>
+<td>
+3.369578
+</td>
+<td>
+31.972618
+</td>
+<td>
+19.355807
+</td>
+<td>
+15.952218
+</td>
+<td>
+115.244002
+</td>
+<td>
+7.884160
+</td>
+<td>
+0.331329
+</td>
+<td>
+11.760232
+</td>
+<td>
+0.476951
+</td>
+</tr>
+<tr>
+<th>
+min
+</th>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.078000
+</td>
+<td>
+21.000000
+</td>
+<td>
+0.000000
+</td>
+</tr>
+<tr>
+<th>
+25%
+</th>
+<td>
+1.000000
+</td>
+<td>
+99.000000
+</td>
+<td>
+62.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+0.000000
+</td>
+<td>
+27.300000
+</td>
+<td>
+0.243750
+</td>
+<td>
+24.000000
+</td>
+<td>
+0.000000
+</td>
+</tr>
+<tr>
+<th>
+50%
+</th>
+<td>
+3.000000
+</td>
+<td>
+117.000000
+</td>
+<td>
+72.000000
+</td>
+<td>
+23.000000
+</td>
+<td>
+30.500000
+</td>
+<td>
+32.000000
+</td>
+<td>
+0.372500
+</td>
+<td>
+29.000000
+</td>
+<td>
+0.000000
+</td>
+</tr>
+<tr>
+<th>
+75%
+</th>
+<td>
+6.000000
+</td>
+<td>
+140.250000
+</td>
+<td>
+80.000000
+</td>
+<td>
+32.000000
+</td>
+<td>
+127.250000
+</td>
+<td>
+36.600000
+</td>
+<td>
+0.626250
+</td>
+<td>
+41.000000
+</td>
+<td>
+1.000000
+</td>
+</tr>
+<tr>
+<th>
+max
+</th>
+<td>
+17.000000
+</td>
+<td>
+199.000000
+</td>
+<td>
+122.000000
+</td>
+<td>
+99.000000
+</td>
+<td>
+846.000000
+</td>
+<td>
+67.100000
+</td>
+<td>
+2.420000
+</td>
+<td>
+81.000000
+</td>
+<td>
+1.000000
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h2 id="challenge">Challenge</h2>
+<p>Look at the output of summary above and the table that explains what each of the variables are. Do the values for all - (a) Pregnancies and Glucose - (b) Blood pressure and Skin thickness - (c) Insulin and DiabetesPedigreeFunction, and - (d) BMI and Age make sense?</p>
+<p>If not, how do you think we should deal with them? Can you hypothesise what the consequences of this approach would be?</p>
+<p>{: .source}</p>
+<blockquote>
+<h2 id="solution">Solution</h2>
+<pre><code>
+# possibly missing
+diabetes[diabetes == 0].count()
+
+# not missing
+diabetes[diabetes != 0].count()
+</code></pre>
+<p>It is clear that the values of several variables are zero when it is impossible for them to be so (i.e. this value could not be zero if it was measured). Hence, we are dealing with “hidden” missing data, and should recode it as NA.</p>
+<p>The following variables have zero “values” that are actually likely to be missing:</p>
+<ol style="list-style-type: decimal">
+<li>Glucose (a)</li>
+<li>BloodPressure (b)</li>
+<li>SkinThickness (b)</li>
+<li>Insulin (c)</li>
+<li>BMI (d)</li>
+</ol>
+<p>{: .output} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+</div>
+<div id="lets-use-visualisation-to-further-explore-the-dataset" class="section level3">
+<h3>Let’s use visualisation to further explore the dataset:</h3>
+<pre class="python"><code>sns.countplot(
+    x=&quot;Pregnancies&quot;,
+    hue=&quot;Outcome&quot;, 
+    data=diabetes
+);</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_19_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<pre class="python"><code>diabetes[&#39;Outcome&#39;].value_counts()</code></pre>
+<pre><code>0    500
+1    268
+Name: Outcome, dtype: int64</code></pre>
+<p>If we wanted to look at all possible scatterplot pairs we would do something like:</p>
+<pre class="python"><code>numVars = diabetes.select_dtypes(exclude = [&#39;object&#39;]).columns
+
+sns.pairplot(
+    data=diabetes,
+    vars=numVars,
+    hue=&#39;Outcome&#39;,
+    palette={0:&#39;k&#39;,1:&#39;r&#39;},
+    # use kernel density estimates for univariate plots
+    diag_kind=&#39;kde&#39;,
+    # make the shape of points circular and diamond, respectively
+    markers=[&quot;o&quot;, &quot;d&quot;]
+);</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_22_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<p>Generate a boxplot by possible prediction variables. Which do you hypothesize would me it easiest for us to separate the data?</p>
+<pre class="python"><code># copy the original dataframe
+diabetes2 = diabetes.copy()
+# create a new patient id column
+diabetes2[&#39;PatientID&#39;] = range(1, len(diabetes2) + 1)
+# melt that dataframe
+diabetes2 = diabetes2.melt(id_vars=[&#39;PatientID&#39;,&#39;Outcome&#39;])
+
+grid = sns.axisgrid.FacetGrid(
+    diabetes2[diabetes2.variable.isin(numVars[:5])], 
+    col=&#39;variable&#39;, 
+    # y axis scale different for each boxplot
+    sharey=False
+)
+grid.map(sns.boxplot, &#39;Outcome&#39;, &#39;value&#39;, order=[0, 1]);</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_24_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<pre class="python"><code>grid = sns.axisgrid.FacetGrid(
+    diabetes2[diabetes2.variable.isin(numVars[5:])], 
+    col=&#39;variable&#39;, 
+    # y axis scale different for each boxplot
+    sharey=False
+)
+grid.map(sns.boxplot, &#39;Outcome&#39;,&#39;value&#39;, order=[0, 1]);</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_25_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<p>Make a correlation plot betwee all numeric variables</p>
+<pre class="python"><code>corr = diabetes.corr()
+
+# Generate a mask for the upper triangle
+mask = np.zeros_like(corr, dtype=np.bool)
+mask[np.triu_indices_from(mask)] = True
+
+# Generate a custom diverging colormap
+# hue_negative, hue_positive
+cmap = sns.diverging_palette(10,260, as_cmap=True)
+
+# Draw the heatmap with the mask and correct aspect ratio
+sns.set(rc={&#39;figure.figsize&#39;:(12,8)})
+sns.set(font_scale = 1.2)
+sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0., square=True, linewidths=.5);</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_27_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+</div>
+</div>
+<div id="prepare-data" class="section level2">
+<h2>Prepare Data</h2>
+<p>Let’s replace the missing values in the diabetes data frame with NaN.</p>
+<pre class="python"><code># get the column names
+diabetes.columns</code></pre>
+<pre><code>Index([&#39;Pregnancies&#39;, &#39;Glucose&#39;, &#39;BloodPressure&#39;, &#39;SkinThickness&#39;, &#39;Insulin&#39;,
+       &#39;BMI&#39;, &#39;DiabetesPedigreeFunction&#39;, &#39;Age&#39;, &#39;Outcome&#39;],
+      dtype=&#39;object&#39;)</code></pre>
+<pre class="python"><code>replaceVars = [&#39;Glucose&#39;, &#39;BloodPressure&#39;, &#39;SkinThickness&#39;, &#39;Insulin&#39;,&#39;BMI&#39;]</code></pre>
+<pre class="python"><code># mark zero values as missing or NaN
+diabetes[replaceVars] = diabetes[replaceVars].replace(0, np.NaN)</code></pre>
+<pre class="python"><code>diabetes.isnull().sum()</code></pre>
+<pre><code>Pregnancies                   0
+Glucose                       5
+BloodPressure                35
+SkinThickness               227
+Insulin                     374
+BMI                          11
+DiabetesPedigreeFunction      0
+Age                           0
+Outcome                       0
+dtype: int64</code></pre>
+<p>Let’s generate a newcorrelation plot where the missing data has been properly recoded as NaN. Which correlations change?</p>
+<pre class="python"><code>corr = diabetes.corr()
+
+# Generate a mask for the upper triangle
+mask = np.zeros_like(corr, dtype=np.bool)
+mask[np.triu_indices_from(mask)] = True
+
+# Generate a custom diverging colormap
+# hue_negative, hue_positive
+cmap = sns.diverging_palette(10,260, as_cmap=True)
+
+# Draw the heatmap with the mask and correct aspect ratio
+sns.set(rc={&#39;figure.figsize&#39;:(12,8)})
+sns.set(font_scale = 1.2)
+sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0., square=True, linewidths=.5);</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_34_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<hr />
+</div>
+<div id="aim" class="section level2">
+<h2>Aim</h2>
+<p>To create a classifier for predicting whether a person has diabetes or not.</p>
+</div>
+<div id="train-test-split" class="section level2">
+<h2>Train-Test split</h2>
+<p>We’re going to split our data into 70% training and 30% testing sets.</p>
+<pre class="python"><code>features_train, features_test, outcome_train, outcome_test = train_test_split(
+    diabetes[diabetes.columns.difference([&#39;Outcome&#39;])],
+    diabetes[&#39;Outcome&#39;], 
+    train_size=0.7, 
+    test_size=0.3, 
+    random_state = 42, 
+    stratify = diabetes[&#39;Outcome&#39;]
+)</code></pre>
+<p>How many examples do we have in the training and testing sets?</p>
+<pre class="python"><code>features_train.shape</code></pre>
+<pre><code>(537, 8)</code></pre>
+<pre class="python"><code>features_test.shape</code></pre>
+<pre><code>(231, 8)</code></pre>
+</div>
+<div id="impute-missing-values-using-median-values" class="section level2">
+<h2>Impute missing values using median values</h2>
+<pre class="python"><code>## Impute missing information
+imp_median = SimpleImputer(strategy=&#39;median&#39;) 
+imp_median.fit(features_train)
+features_train_imp = pd.DataFrame(imp_median.transform(features_train))
+features_test_imp = pd.DataFrame(imp_median.transform(features_test))
+features_train_imp.columns = features_train.columns
+features_test_imp.columns = features_test.columns</code></pre>
+<p>Confirm that we have imputed the values for BOTH training and testing datasets using the TRAINING data median!</p>
+<pre class="python"><code>features_train.head()</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Age
+</th>
+<th>
+BMI
+</th>
+<th>
+BloodPressure
+</th>
+<th>
+DiabetesPedigreeFunction
+</th>
+<th>
+Glucose
+</th>
+<th>
+Insulin
+</th>
+<th>
+Pregnancies
+</th>
+<th>
+SkinThickness
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+209
+</th>
+<td>
+41
+</td>
+<td>
+35.5
+</td>
+<td>
+84.0
+</td>
+<td>
+0.355
+</td>
+<td>
+184.0
+</td>
+<td>
+NaN
+</td>
+<td>
+7
+</td>
+<td>
+33.0
+</td>
+</tr>
+<tr>
+<th>
+176
+</th>
+<td>
+42
+</td>
+<td>
+31.2
+</td>
+<td>
+78.0
+</td>
+<td>
+0.382
+</td>
+<td>
+85.0
+</td>
+<td>
+NaN
+</td>
+<td>
+6
+</td>
+<td>
+NaN
+</td>
+</tr>
+<tr>
+<th>
+147
+</th>
+<td>
+34
+</td>
+<td>
+30.5
+</td>
+<td>
+64.0
+</td>
+<td>
+1.400
+</td>
+<td>
+106.0
+</td>
+<td>
+119.0
+</td>
+<td>
+2
+</td>
+<td>
+35.0
+</td>
+</tr>
+<tr>
+<th>
+454
+</th>
+<td>
+24
+</td>
+<td>
+37.8
+</td>
+<td>
+54.0
+</td>
+<td>
+0.498
+</td>
+<td>
+100.0
+</td>
+<td>
+105.0
+</td>
+<td>
+2
+</td>
+<td>
+28.0
+</td>
+</tr>
+<tr>
+<th>
+636
+</th>
+<td>
+48
+</td>
+<td>
+28.8
+</td>
+<td>
+74.0
+</td>
+<td>
+0.153
+</td>
+<td>
+104.0
+</td>
+<td>
+NaN
+</td>
+<td>
+5
+</td>
+<td>
+NaN
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>features_train_imp.head()</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Age
+</th>
+<th>
+BMI
+</th>
+<th>
+BloodPressure
+</th>
+<th>
+DiabetesPedigreeFunction
+</th>
+<th>
+Glucose
+</th>
+<th>
+Insulin
+</th>
+<th>
+Pregnancies
+</th>
+<th>
+SkinThickness
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+41.0
+</td>
+<td>
+35.5
+</td>
+<td>
+84.0
+</td>
+<td>
+0.355
+</td>
+<td>
+184.0
+</td>
+<td>
+126.0
+</td>
+<td>
+7.0
+</td>
+<td>
+33.0
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+42.0
+</td>
+<td>
+31.2
+</td>
+<td>
+78.0
+</td>
+<td>
+0.382
+</td>
+<td>
+85.0
+</td>
+<td>
+126.0
+</td>
+<td>
+6.0
+</td>
+<td>
+29.0
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+34.0
+</td>
+<td>
+30.5
+</td>
+<td>
+64.0
+</td>
+<td>
+1.400
+</td>
+<td>
+106.0
+</td>
+<td>
+119.0
+</td>
+<td>
+2.0
+</td>
+<td>
+35.0
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+24.0
+</td>
+<td>
+37.8
+</td>
+<td>
+54.0
+</td>
+<td>
+0.498
+</td>
+<td>
+100.0
+</td>
+<td>
+105.0
+</td>
+<td>
+2.0
+</td>
+<td>
+28.0
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+48.0
+</td>
+<td>
+28.8
+</td>
+<td>
+74.0
+</td>
+<td>
+0.153
+</td>
+<td>
+104.0
+</td>
+<td>
+126.0
+</td>
+<td>
+5.0
+</td>
+<td>
+29.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>features_test.tail()</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Age
+</th>
+<th>
+BMI
+</th>
+<th>
+BloodPressure
+</th>
+<th>
+DiabetesPedigreeFunction
+</th>
+<th>
+Glucose
+</th>
+<th>
+Insulin
+</th>
+<th>
+Pregnancies
+</th>
+<th>
+SkinThickness
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+94
+</th>
+<td>
+21
+</td>
+<td>
+24.7
+</td>
+<td>
+82.0
+</td>
+<td>
+0.761
+</td>
+<td>
+142.0
+</td>
+<td>
+64.0
+</td>
+<td>
+2
+</td>
+<td>
+18.0
+</td>
+</tr>
+<tr>
+<th>
+437
+</th>
+<td>
+28
+</td>
+<td>
+29.9
+</td>
+<td>
+75.0
+</td>
+<td>
+0.434
+</td>
+<td>
+147.0
+</td>
+<td>
+NaN
+</td>
+<td>
+5
+</td>
+<td>
+NaN
+</td>
+</tr>
+<tr>
+<th>
+86
+</th>
+<td>
+45
+</td>
+<td>
+36.6
+</td>
+<td>
+72.0
+</td>
+<td>
+0.178
+</td>
+<td>
+106.0
+</td>
+<td>
+NaN
+</td>
+<td>
+13
+</td>
+<td>
+54.0
+</td>
+</tr>
+<tr>
+<th>
+221
+</th>
+<td>
+66
+</td>
+<td>
+31.6
+</td>
+<td>
+90.0
+</td>
+<td>
+0.805
+</td>
+<td>
+158.0
+</td>
+<td>
+NaN
+</td>
+<td>
+2
+</td>
+<td>
+NaN
+</td>
+</tr>
+<tr>
+<th>
+19
+</th>
+<td>
+32
+</td>
+<td>
+34.6
+</td>
+<td>
+70.0
+</td>
+<td>
+0.529
+</td>
+<td>
+115.0
+</td>
+<td>
+96.0
+</td>
+<td>
+1
+</td>
+<td>
+30.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>features_test_imp.tail()</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Age
+</th>
+<th>
+BMI
+</th>
+<th>
+BloodPressure
+</th>
+<th>
+DiabetesPedigreeFunction
+</th>
+<th>
+Glucose
+</th>
+<th>
+Insulin
+</th>
+<th>
+Pregnancies
+</th>
+<th>
+SkinThickness
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+226
+</th>
+<td>
+21.0
+</td>
+<td>
+24.7
+</td>
+<td>
+82.0
+</td>
+<td>
+0.761
+</td>
+<td>
+142.0
+</td>
+<td>
+64.0
+</td>
+<td>
+2.0
+</td>
+<td>
+18.0
+</td>
+</tr>
+<tr>
+<th>
+227
+</th>
+<td>
+28.0
+</td>
+<td>
+29.9
+</td>
+<td>
+75.0
+</td>
+<td>
+0.434
+</td>
+<td>
+147.0
+</td>
+<td>
+126.0
+</td>
+<td>
+5.0
+</td>
+<td>
+29.0
+</td>
+</tr>
+<tr>
+<th>
+228
+</th>
+<td>
+45.0
+</td>
+<td>
+36.6
+</td>
+<td>
+72.0
+</td>
+<td>
+0.178
+</td>
+<td>
+106.0
+</td>
+<td>
+126.0
+</td>
+<td>
+13.0
+</td>
+<td>
+54.0
+</td>
+</tr>
+<tr>
+<th>
+229
+</th>
+<td>
+66.0
+</td>
+<td>
+31.6
+</td>
+<td>
+90.0
+</td>
+<td>
+0.805
+</td>
+<td>
+158.0
+</td>
+<td>
+126.0
+</td>
+<td>
+2.0
+</td>
+<td>
+29.0
+</td>
+</tr>
+<tr>
+<th>
+230
+</th>
+<td>
+32.0
+</td>
+<td>
+34.6
+</td>
+<td>
+70.0
+</td>
+<td>
+0.529
+</td>
+<td>
+115.0
+</td>
+<td>
+96.0
+</td>
+<td>
+1.0
+</td>
+<td>
+30.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>features_train.median()</code></pre>
+<pre><code>Age                          30.000
+BMI                          32.400
+BloodPressure                72.000
+DiabetesPedigreeFunction      0.385
+Glucose                     117.000
+Insulin                     126.000
+Pregnancies                   3.000
+SkinThickness                29.000
+dtype: float64</code></pre>
+<pre class="python"><code>features_test.median()</code></pre>
+<pre><code>Age                          28.000
+BMI                          31.600
+BloodPressure                72.000
+DiabetesPedigreeFunction      0.342
+Glucose                     118.000
+Insulin                     120.000
+Pregnancies                   3.000
+SkinThickness                30.000
+dtype: float64</code></pre>
+<div id="standardize-data-ranges" class="section level3">
+<h3>Standardize data ranges</h3>
+<pre class="python"><code>StSc = StandardScaler()
+StSc.fit(features_train_imp)
+features_train_sc = StSc.transform(features_train_imp)
+features_test_sc  = StSc.transform(features_test_imp)</code></pre>
+</div>
+<div id="check-outcome" class="section level3">
+<h3>Check outcome</h3>
+<pre class="python"><code># 0 is normal 
+# 1 is diabetes
+print(&#39;count of outcome in test set&#39;)
+print((outcome_test == 0).sum())
+print((outcome_test != 0).sum())
+
+# 
+print(&#39;count of outcome in train set&#39;)
+print((outcome_train == 0).sum())
+print((outcome_train != 0).sum())
+
+# is our train/test balanced?
+print(&#39;Check on train vs test balance&#39;)
+print((outcome_test != 0).sum() / (outcome_test == 0).sum())
+print((outcome_train != 0).sum() / (outcome_train == 0).sum())</code></pre>
+<pre><code>count of outcome in test set
+150
+81
+count of outcome in train set
+350
+187
+Check on train vs test balance
+0.54
+0.5342857142857143</code></pre>
+</div>
+</div>
+</div>
+<div id="classifiers" class="section level1">
+<h1>Classifiers</h1>
+<div id="k-nearest-neighbours-classifier" class="section level2">
+<h2>k-Nearest Neighbours Classifier</h2>
+<p>This takes the nearest k things and and says what is the majority vote? E.g. in the example below we look at the seven nearest neighbours, 4 of which are cats so we say that the new example is probably a cat as well.</p>
+<div class="figure">
+<img src="../fig/50-CatKNN.jpg" alt="" />
+<p class="caption">A way to classify a new example as a cat or not…take the average of the nearest k=7 examples. It’s a cat!</p>
+</div>
+<div id="lets-classify" class="section level3">
+<h3>Let’s Classify!</h3>
+<p>Train KNN classifier.</p>
+<p>Link to <a href="https://en.wikipedia.org/wiki/Minkowski_distance">Minkowski distance</a> for students, if you’d like to look at the formulas to understand how one function can generalise two distance metrics.</p>
+<pre class="python"><code># the default settings are metric=&#39;minkowski&#39; and p = 2
+# , which is the same as the standard Euclidean metric
+# p = 1 gets us manhattan distance
+
+cf_knn= KNeighborsClassifier(metric=&#39;minkowski&#39;)
+
+# use GridSeachCV to test how many neighbors are optimal
+cf_knn_gscv = GridSearchCV(
+    cf_knn,
+    # test from 1 to 50 neighbors 
+    param_grid={&#39;n_neighbors&#39;: np.arange(1, 51)},
+    # use 5xfold cross-validation
+    cv=5,
+    # use f1 as error metric
+    scoring = &#39;f1&#39;,
+    return_train_score=True
+)
+
+fit_knn = cf_knn_gscv.fit(features_train_sc, outcome_train)</code></pre>
+<p>Explore the <a href="https://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter">documentation</a> for other error metrics we could have used.</p>
+<pre class="python"><code># Look at the cross-validation results
+knn_results = pd.DataFrame.from_dict(fit_knn.cv_results_)
+knn_results.head()</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+mean_fit_time
+</th>
+<th>
+std_fit_time
+</th>
+<th>
+mean_score_time
+</th>
+<th>
+std_score_time
+</th>
+<th>
+param_n_neighbors
+</th>
+<th>
+params
+</th>
+<th>
+split0_test_score
+</th>
+<th>
+split1_test_score
+</th>
+<th>
+split2_test_score
+</th>
+<th>
+split3_test_score
+</th>
+<th>
+…
+</th>
+<th>
+mean_test_score
+</th>
+<th>
+std_test_score
+</th>
+<th>
+rank_test_score
+</th>
+<th>
+split0_train_score
+</th>
+<th>
+split1_train_score
+</th>
+<th>
+split2_train_score
+</th>
+<th>
+split3_train_score
+</th>
+<th>
+split4_train_score
+</th>
+<th>
+mean_train_score
+</th>
+<th>
+std_train_score
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+0.000964
+</td>
+<td>
+0.000151
+</td>
+<td>
+0.004646
+</td>
+<td>
+0.000491
+</td>
+<td>
+1
+</td>
+<td>
+{‘n_neighbors’: 1}
+</td>
+<td>
+0.571429
+</td>
+<td>
+0.640000
+</td>
+<td>
+0.623377
+</td>
+<td>
+0.500000
+</td>
+<td>
+…
+</td>
+<td>
+0.556513
+</td>
+<td>
+0.073053
+</td>
+<td>
+40
+</td>
+<td>
+1.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+0.000000
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+0.000711
+</td>
+<td>
+0.000090
+</td>
+<td>
+0.003906
+</td>
+<td>
+0.000280
+</td>
+<td>
+2
+</td>
+<td>
+{‘n_neighbors’: 2}
+</td>
+<td>
+0.550725
+</td>
+<td>
+0.474576
+</td>
+<td>
+0.557377
+</td>
+<td>
+0.436364
+</td>
+<td>
+…
+</td>
+<td>
+0.466031
+</td>
+<td>
+0.089967
+</td>
+<td>
+50
+</td>
+<td>
+0.692982
+</td>
+<td>
+0.747899
+</td>
+<td>
+0.717949
+</td>
+<td>
+0.739496
+</td>
+<td>
+0.744770
+</td>
+<td>
+0.728619
+</td>
+<td>
+0.020663
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+0.000675
+</td>
+<td>
+0.000043
+</td>
+<td>
+0.003920
+</td>
+<td>
+0.000196
+</td>
+<td>
+3
+</td>
+<td>
+{‘n_neighbors’: 3}
+</td>
+<td>
+0.627907
+</td>
+<td>
+0.641026
+</td>
+<td>
+0.640000
+</td>
+<td>
+0.606061
+</td>
+<td>
+…
+</td>
+<td>
+0.616332
+</td>
+<td>
+0.027843
+</td>
+<td>
+3
+</td>
+<td>
+0.793220
+</td>
+<td>
+0.831081
+</td>
+<td>
+0.784566
+</td>
+<td>
+0.800000
+</td>
+<td>
+0.804054
+</td>
+<td>
+0.802584
+</td>
+<td>
+0.015705
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+0.000652
+</td>
+<td>
+0.000031
+</td>
+<td>
+0.003859
+</td>
+<td>
+0.000040
+</td>
+<td>
+4
+</td>
+<td>
+{‘n_neighbors’: 4}
+</td>
+<td>
+0.563380
+</td>
+<td>
+0.523077
+</td>
+<td>
+0.593750
+</td>
+<td>
+0.456140
+</td>
+<td>
+…
+</td>
+<td>
+0.534412
+</td>
+<td>
+0.046080
+</td>
+<td>
+49
+</td>
+<td>
+0.688259
+</td>
+<td>
+0.711462
+</td>
+<td>
+0.671875
+</td>
+<td>
+0.692015
+</td>
+<td>
+0.734375
+</td>
+<td>
+0.699597
+</td>
+<td>
+0.021470
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+0.000671
+</td>
+<td>
+0.000075
+</td>
+<td>
+0.003894
+</td>
+<td>
+0.000054
+</td>
+<td>
+5
+</td>
+<td>
+{‘n_neighbors’: 5}
+</td>
+<td>
+0.617284
+</td>
+<td>
+0.619718
+</td>
+<td>
+0.605263
+</td>
+<td>
+0.558824
+</td>
+<td>
+…
+</td>
+<td>
+0.591693
+</td>
+<td>
+0.027866
+</td>
+<td>
+12
+</td>
+<td>
+0.744681
+</td>
+<td>
+0.759582
+</td>
+<td>
+0.724138
+</td>
+<td>
+0.760000
+</td>
+<td>
+0.765517
+</td>
+<td>
+0.750784
+</td>
+<td>
+0.015011
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+5 rows × 21 columns
+</p>
+</div>
+<pre class="python"><code>fit_knn.best_estimator_.n_neighbors</code></pre>
+<pre><code>9</code></pre>
+<pre class="python"><code>split_cols = knn_results.filter(regex=&#39;split.*test_score&#39;).columns
+knn_cv_scores = knn_results.melt(
+    id_vars=&#39;param_n_neighbors&#39;, 
+    value_vars=split_cols
+)
+
+sns.pointplot(
+    x=&quot;param_n_neighbors&quot;,
+    y=&quot;value&quot;,
+    data = knn_cv_scores
+)
+
+best_n = fit_knn.best_estimator_.n_neighbors
+plt.scatter(
+    x = best_n - 1,
+    y = knn_cv_scores.loc[knn_cv_scores[&#39;param_n_neighbors&#39;] == best_n, &#39;value&#39;].mean(),
+    color = &#39;r&#39;,
+    # plots point on top of other plot
+    zorder = 10
+);</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_61_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<blockquote>
+<h2 id="challenge-1">Challenge</h2>
+<p>Do you think this is the optimal solution?</p>
+<p>{: .source}</p>
+<blockquote>
+<h2 id="solution-1">Solution</h2>
+<p>Probably not, since the performance of the classifier after a certain number of neighbors (~9 - 30) doesn’t really seem to improve that much</p>
+<p>{: .output} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+<pre class="python"><code># Use trained classifier to predict outcome for training and test
+knn_outcome_pred_class_train = fit_knn.predict(features_train_sc)
+knn_outcome_pred_class_test = fit_knn.predict(features_test_sc)
+
+
+# get probabilities out
+def model_probabilities(model = fit_knn, dataset = features_train_sc):
+    probs1 = model.predict_proba(dataset)
+    probs2 = [p[1] for p in probs1] 
+    # hopefully close to 1 for true 1&#39;s
+    return(probs2)
+
+knn_outcome_pred_prob_train = model_probabilities(model = fit_knn, dataset = features_train_sc)
+knn_outcome_pred_prob_test = model_probabilities(model = fit_knn, dataset = features_test_sc)</code></pre>
+</div>
+<div id="classifier-diagnosticsevaluation" class="section level3">
+<h3>Classifier Diagnostics/evaluation</h3>
+<p>So how well did the classifier do? Let’s define a function to generate a confusion matrix:</p>
+<pre class="python"><code># define custom confusion matrix function
+def confmatrix(truth = outcome_train, 
+               prediction = knn_outcome_pred_class_train):
+    df = pd.DataFrame(confusion_matrix(truth, prediction))
+    #Total sum per row: 
+    df.loc[&#39;Total&#39;,:]= df.sum(axis=0)
+    # assign multi index label on the left of rows
+    df.index = pd.MultiIndex.from_tuples([(&#39;Truth&#39;, 0), (&#39;Truth&#39;, 1), (&#39;Total&#39;, &#39;&#39;)])
+    #Total sum per column: 
+    df.loc[:,&#39;Total&#39;] = df.sum(axis=1)
+    # assign multi index label at the top of the column names
+    df.columns = pd.MultiIndex.from_tuples([(&#39;Prediction&#39;, 0), (&#39;Prediction&#39;, 1), (&#39;Total&#39;, &#39;&#39;)])
+    return(df)</code></pre>
+<p>Assess performance on the training set:</p>
+<pre class="python"><code>confmatrix(truth = outcome_train, prediction = knn_outcome_pred_class_train)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th colspan="2" halign="left">
+Prediction
+</th>
+<th>
+Total
+</th>
+</tr>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th>
+0
+</th>
+<th>
+1
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="2" valign="top">
+Truth
+</th>
+<th>
+0
+</th>
+<td>
+307.0
+</td>
+<td>
+43.0
+</td>
+<td>
+350.0
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+61.0
+</td>
+<td>
+126.0
+</td>
+<td>
+187.0
+</td>
+</tr>
+<tr>
+<th>
+Total
+</th>
+<th>
+</th>
+<td>
+368.0
+</td>
+<td>
+169.0
+</td>
+<td>
+537.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>confmatrix(truth = outcome_test, prediction = knn_outcome_pred_class_test)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th colspan="2" halign="left">
+Prediction
+</th>
+<th>
+Total
+</th>
+</tr>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th>
+0
+</th>
+<th>
+1
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="2" valign="top">
+Truth
+</th>
+<th>
+0
+</th>
+<td>
+127.0
+</td>
+<td>
+23.0
+</td>
+<td>
+150.0
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+36.0
+</td>
+<td>
+45.0
+</td>
+<td>
+81.0
+</td>
+</tr>
+<tr>
+<th>
+Total
+</th>
+<th>
+</th>
+<td>
+163.0
+</td>
+<td>
+68.0
+</td>
+<td>
+231.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code># define a function to plot an ROC curve
+def plot_ROC(truth = outcome_train, prediction1 = knn_outcome_pred_prob_train, 
+             col = &#39;b&#39;, test=False):
+    fpr, tpr, _ = roc_curve(truth, prediction1)
+    AUC = roc_auc_score(truth, prediction1)
+    plt.xlim([-0.05, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel(&#39;False Positive Rate&#39;)
+    plt.ylabel(&#39;True Positive Rate&#39;)
+    plt.plot([0, 1], [0, 1], &#39;k--&#39;)
+    label_plot = f&#39;Train set, AUC = {AUC:.2f}&#39;
+    if test:
+        label_plot = f&#39;Test set, AUC = {AUC:.2f}&#39;
+    plt.plot(fpr, tpr, label=label_plot, color = col)
+    plt.legend(loc=&quot;lower right&quot;);
+
+
+# plot the roc curves
+# training in blue
+plot_ROC(truth = outcome_train, prediction1 = knn_outcome_pred_prob_train, col = &#39;b&#39;)
+# test in red
+plot_ROC(truth = outcome_test, prediction1 = knn_outcome_pred_prob_test, col = &#39;r&#39;, test=True)</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_69_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<blockquote>
+<h2 id="challenge-2">Challenge</h2>
+<p>How well do you think this model generalised?</p>
+<p>{: .source}</p>
+<blockquote>
+<h2 id="solution-2">Solution</h2>
+<p>While the overall performance of the model is not very good, it does generalise well, as the difference between the</p>
+<p>{: .output} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="naive-bayes-classifier" class="section level2">
+<h2>Naive Bayes Classifier</h2>
+<p>A Naïve Bayes classifier assumes that each of your columns are independent (uncorrelated with each other). It works out a probability that your example is a cat by counting the fraction of cats that had that value in each column, multiplying the values together and then multiplying again by what fraction of your training examples were cats. This is just writing out bayes rule of conditional probability and simplifying it for independent columns.</p>
+<p><span class="math display">\[p(\text{Cat}| x_\text{new})=\frac{p(\text{Cat})p(x_\text{new}|\text{Cat})}{p(\text{Cat})p(x_\text{new}|\text{Cat})+p(\text{Not Cat})p(x_\text{new}|\text{Not Cat})}\]</span></p>
+<p>In practice your columns are probably not independent, but we still use it anyway and it’s usually ok, providing we only care about the label and not the probability it spits out.</p>
+<p>Continuous variables have to be somehow turned into discrete variables before you can use this technique, but most algorithms do this for you automatically.</p>
+<div id="lets-classify-1" class="section level3">
+<h3>Let’s Classify!</h3>
+<p>Train Naive Bayes classifier</p>
+<pre class="python"><code>from sklearn.naive_bayes import GaussianNB
+cf_gnb = GaussianNB()
+
+
+cf_gnb_gscv = GridSearchCV(cf_gnb, 
+                           {&#39;var_smoothing&#39; : [1e-09]},
+                           # use 5xfold cross-validation
+                           cv=5,
+                           # use f1 as error metric
+                           scoring = &#39;f1&#39;)
+
+fit_gnb = cf_gnb_gscv.fit(features_train_sc, outcome_train)</code></pre>
+<p>Use trained classifier to predict outcome for test-set</p>
+<pre class="python"><code>gnb_train_pred_class = cf_gnb_gscv.predict(features_train_sc)
+gnb_test_pred_class = cf_gnb_gscv.predict(features_test_sc)
+
+gnb_pred_prob_train = model_probabilities(model = cf_gnb_gscv, dataset=features_train_sc)
+gnb_pred_prob_test = model_probabilities(model = cf_gnb_gscv, dataset=features_test_sc)</code></pre>
+</div>
+<div id="classifier-diagnostics" class="section level3">
+<h3>Classifier Diagnostics</h3>
+<p>So how well did it go?</p>
+<pre class="python"><code># print matrix for predictions on training and testing
+print(&quot;Training set&quot;)
+confmatrix(truth = outcome_train, prediction = gnb_train_pred_class)</code></pre>
+<pre><code>Training set</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th colspan="2" halign="left">
+Prediction
+</th>
+<th>
+Total
+</th>
+</tr>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th>
+0
+</th>
+<th>
+1
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="2" valign="top">
+Truth
+</th>
+<th>
+0
+</th>
+<td>
+297.0
+</td>
+<td>
+53.0
+</td>
+<td>
+350.0
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+77.0
+</td>
+<td>
+110.0
+</td>
+<td>
+187.0
+</td>
+</tr>
+<tr>
+<th>
+Total
+</th>
+<th>
+</th>
+<td>
+374.0
+</td>
+<td>
+163.0
+</td>
+<td>
+537.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>print(&quot;\nTesting set&quot;)
+confmatrix(truth = outcome_test, prediction = gnb_test_pred_class)</code></pre>
+<pre><code>Testing set</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th colspan="2" halign="left">
+Prediction
+</th>
+<th>
+Total
+</th>
+</tr>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th>
+0
+</th>
+<th>
+1
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="2" valign="top">
+Truth
+</th>
+<th>
+0
+</th>
+<td>
+121.0
+</td>
+<td>
+29.0
+</td>
+<td>
+150.0
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+34.0
+</td>
+<td>
+47.0
+</td>
+<td>
+81.0
+</td>
+</tr>
+<tr>
+<th>
+Total
+</th>
+<th>
+</th>
+<td>
+155.0
+</td>
+<td>
+76.0
+</td>
+<td>
+231.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code># plot the roc curves
+plot_ROC(truth = outcome_train, prediction1 = gnb_pred_prob_train, col = &#39;b&#39;)
+plot_ROC(truth = outcome_test, prediction1 = gnb_pred_prob_test, col = &#39;r&#39;, test=True)</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_79_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+</div>
+</div>
+<div id="regularized-logistic-classifier" class="section level2">
+<h2>Regularized Logistic Classifier</h2>
+<p>This fits a logistic regression to the probability of receiving a class label of 1 or 0. Regularisation (hopefully) stops it from overfitting.</p>
+<div id="lets-classify-2" class="section level3">
+<h3>Let’s Classify!</h3>
+<p>Train Regularized Logistic classifier.</p>
+<p>There are several algorithms to do this accessible in scikit-learn, and we will use the one that uses the saga solver.</p>
+<pre class="python"><code>from sklearn.linear_model import LogisticRegression
+# class_weight balanced will use the values of y to automatically adjust weights inversely 
+# proportional to class frequencies in the input data as n_samples / (n_classes * np.bincount(y)
+# multi_class=&#39;ovr&#39; - a binary problem is fit for each label
+cf_rlc = LogisticRegression(random_state=42, solver=&#39;saga&#39;,
+                            multi_class=&#39;ovr&#39;)
+
+# test different penalty and class weight parameters -
+# define this as a dictionary to make subsequent plotting easier
+rlc_dict = {
+    &#39;penalty&#39;: [&#39;l1&#39;, &#39;l2&#39;],
+    # for proper ENET
+    # &#39;penalty&#39;: [&#39;elasticnet&#39;], 
+    &#39;class_weight&#39;: [None, &#39;balanced&#39;]
+}
+    # l1_ratio with saga implements a proper EN, but doesn&#39;t work ATM b/c pf a
+    # l1_ratio not a recognised parameter issue
+    # &#39;l1_ratio&#39;: np.linspace(start=0.01, stop=0.99, num=8)
+# }
+
+# use GridSeachCV to which form of regularisation is optimal
+cf_rlc_gscv = GridSearchCV(
+    cf_rlc,
+    rlc_dict,
+    # use 5xfold cross-validation
+    cv=5,
+    # use AUC as error metric
+    scoring = &#39;f1&#39;
+)
+# fit model on training data
+fit_rlc = cf_rlc_gscv.fit(features_train_sc, outcome_train)</code></pre>
+<pre class="python"><code># what is the best estimator?
+fit_rlc.best_estimator_</code></pre>
+<pre><code>LogisticRegression(C=1.0, class_weight=&#39;balanced&#39;, dual=False,
+                   fit_intercept=True, intercept_scaling=1, l1_ratio=None,
+                   max_iter=100, multi_class=&#39;ovr&#39;, n_jobs=None, penalty=&#39;l2&#39;,
+                   random_state=42, solver=&#39;saga&#39;, tol=0.0001, verbose=0,
+                   warm_start=False)</code></pre>
+<p>Use trained classifier to predict outcome for training and test sets</p>
+<pre class="python"><code>rlc_train_pred_class = fit_rlc.predict(features_train_sc)
+rlc_test_pred_class = fit_rlc.predict(features_test_sc)
+
+rlc_pred_prob_train = model_probabilities(model = cf_rlc_gscv, dataset=features_train_sc)
+rlc_pred_prob_test = model_probabilities(model = cf_rlc_gscv, dataset=features_test_sc)</code></pre>
+</div>
+<div id="classifier-evaluation" class="section level3">
+<h3>Classifier evaluation</h3>
+<p>So how well did the classifier do?</p>
+<pre class="python"><code># print matrix for predictions on training and testing
+print(&quot;Training set&quot;)
+confmatrix(truth = outcome_train, prediction = rlc_train_pred_class)</code></pre>
+<pre><code>Training set</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th colspan="2" halign="left">
+Prediction
+</th>
+<th>
+Total
+</th>
+</tr>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th>
+0
+</th>
+<th>
+1
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="2" valign="top">
+Truth
+</th>
+<th>
+0
+</th>
+<td>
+279.0
+</td>
+<td>
+71.0
+</td>
+<td>
+350.0
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+51.0
+</td>
+<td>
+136.0
+</td>
+<td>
+187.0
+</td>
+</tr>
+<tr>
+<th>
+Total
+</th>
+<th>
+</th>
+<td>
+330.0
+</td>
+<td>
+207.0
+</td>
+<td>
+537.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>print(&quot;\nTesting set&quot;)
+confmatrix(truth = outcome_test, prediction = rlc_test_pred_class)</code></pre>
+<pre><code>Testing set</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th colspan="2" halign="left">
+Prediction
+</th>
+<th>
+Total
+</th>
+</tr>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th>
+0
+</th>
+<th>
+1
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="2" valign="top">
+Truth
+</th>
+<th>
+0
+</th>
+<td>
+119.0
+</td>
+<td>
+31.0
+</td>
+<td>
+150.0
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+24.0
+</td>
+<td>
+57.0
+</td>
+<td>
+81.0
+</td>
+</tr>
+<tr>
+<th>
+Total
+</th>
+<th>
+</th>
+<td>
+143.0
+</td>
+<td>
+88.0
+</td>
+<td>
+231.0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code># plot the roc curves
+plot_ROC(truth = outcome_train, prediction1 = rlc_pred_prob_train, col = &#39;b&#39;)
+plot_ROC(truth = outcome_test, prediction1 = rlc_pred_prob_test, col = &#39;r&#39;, test=True)</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_88_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+</div>
+</div>
+<div id="decision-trees" class="section level2">
+<h2>Decision Trees</h2>
+<p>A decision tree 🌳 picks the best split in the data greedily for each feature and basically makes a flowchart to follow with a new data point to say what you should classify it as. This makes them easy to understand, but also usually not very accurate.</p>
+<div id="lets-classify-3" class="section level3">
+<h3>Let’s Classify!</h3>
+<p>Train Decision Tree classifier.</p>
+<p>To see how the gini coefficient vs entropy are calculated see <a href="https://scikit-learn.org/stable/modules/tree.html#classification-criteria">here</a>.</p>
+<pre class="python"><code>from sklearn.tree import DecisionTreeClassifier
+cf_dtc = DecisionTreeClassifier(random_state= 42)
+dtc_dict = {
+    # function to measure quality of split
+    &#39;criterion&#39;: [&#39;gini&#39;, &#39;entropy&#39;],
+    # The minimum number of samples required to split an internal node
+    &#39;min_samples_split&#39;: np.arange(start = 2, stop = 20, step = 3),
+    # The minimum number of samples required to be at a leaf node
+    &#39;min_samples_leaf&#39;: np.arange(start = 1, stop = 10, step = 2)}
+
+
+cf_dtc_gscv = GridSearchCV(cf_dtc,
+                           dtc_dict,
+                           # use 5xfold cross-validation
+                           cv=5,
+                           # use AUC as error metric
+                           scoring = &#39;f1&#39;)
+    
+# fit the model on the training data
+fit_dtc = cf_dtc_gscv.fit(features_train_sc, outcome_train)
+
+# what were the best parameters?
+fit_dtc.best_estimator_</code></pre>
+<pre><code>DecisionTreeClassifier(ccp_alpha=0.0, class_weight=None, criterion=&#39;entropy&#39;,
+                       max_depth=None, max_features=None, max_leaf_nodes=None,
+                       min_impurity_decrease=0.0, min_impurity_split=None,
+                       min_samples_leaf=9, min_samples_split=2,
+                       min_weight_fraction_leaf=0.0, presort=&#39;deprecated&#39;,
+                       random_state=42, splitter=&#39;best&#39;)</code></pre>
+<p>Use trained classifier to predict outcome for test-set</p>
+<pre class="python"><code>dtc_train_pred_class = fit_dtc.predict(features_train_sc)
+dtc_test_pred_class = fit_dtc.predict(features_test_sc)
+
+dtc_pred_prob_train = model_probabilities(model = cf_dtc_gscv, dataset=features_train_sc)
+dtc_pred_prob_test = model_probabilities(model = cf_dtc_gscv, dataset=features_test_sc)
+
+
+# # print matrix for predictions on training and testing
+print(&quot;Training set&quot;)
+print(confmatrix(truth = outcome_train, prediction = dtc_train_pred_class))
+print(&quot;\nTesting set&quot;)
+print(confmatrix(truth = outcome_test, prediction = dtc_test_pred_class))
+
+
+
+# # plot the roc curves
+plot_ROC(truth = outcome_train, prediction1 = dtc_pred_prob_train, col = &#39;b&#39;)
+plot_ROC(truth = outcome_test, prediction1 = dtc_pred_prob_test, col = &#39;r&#39;, test=True)</code></pre>
+<pre><code>Training set
+        Prediction         Total
+                 0      1       
+Truth 0      320.0   30.0  350.0
+      1       54.0  133.0  187.0
+Total        374.0  163.0  537.0
+
+Testing set
+        Prediction        Total
+                 0     1       
+Truth 0      131.0  19.0  150.0
+      1       42.0  39.0   81.0
+Total        173.0  58.0  231.0</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_92_1.png" alt="" />
+<p class="caption">png</p>
+</div>
+<p>We can also plot the decision tree</p>
+<pre class="python"><code>from sklearn import tree
+from sklearn.tree import plot_tree
+tree.plot_tree(fit_dtc.best_estimator_, max_depth=2,
+               label=&#39;root&#39;,
+               filled=True); </code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_94_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<blockquote>
+<h2 id="challenge-3">Challenge</h2>
+<p>Do you think this model is fit well?</p>
+<p>{: .source}</p>
+<blockquote>
+<h2 id="solution-3">Solution</h2>
+<p>No, the tree has overfit.</p>
+<p>{: .output} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+</div>
+</div>
+<div id="random-forest-classifier" class="section level2">
+<h2>Random Forest Classifier</h2>
+<p>A random decision tree is where you make a decision tree but only train it on either:</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>a random sample of the available data or</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>a random sample of the available features or</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>both.</li>
+</ol></li>
+</ul>
+<p>A random forest is a whole bunch of these averaged together.</p>
+<p>Turns out these do pretty good and are used all over the place. But because they’re the average of so many different models it’s hard to get an understanding about it. It’s basically a black box that predicts well.</p>
+<pre class="python"><code>from sklearn.ensemble import RandomForestClassifier
+cf_rfc = RandomForestClassifier(random_state=42)
+ 
+rf_dict = {
+    # The number of trees in the forest
+    &#39;n_estimators&#39;: np.arange(10,150,25), 
+    # quality of a split
+    &#39;criterion&#39;: [&#39;entropy&#39;],
+    # The minimum number of samples required to split an internal node
+    &#39;min_samples_split&#39;: np.arange(start = 2, stop = 20, step = 5),
+    # The minimum number of samples required to be at a leaf node
+    &#39;min_samples_leaf&#39;: np.arange(start = 1, stop = 3, step = 1),
+    # the number of features to consider when looking for the best split
+    # max_features=sqrt(n_features)/max_features=log2(n_features)
+    &#39;max_features&#39;: [&#39;sqrt&#39;],
+    &#39;class_weight&#39;: [&#39;balanced_subsample&#39;, None]
+}
+
+# use GridSeachCV to which form of regularisation is optimal
+cf_rf_gscv = GridSearchCV(cf_rfc,
+                           rf_dict,
+                           # use 5xfold cross-validation
+                           cv=5,
+                           # use AUC as error metric
+                           scoring = &#39;f1&#39;)
+
+# fit model on training data
+fit_rf = cf_rf_gscv.fit(features_train_sc, outcome_train)
+
+# what were the best parameters?
+fit_rf.best_estimator_</code></pre>
+<pre><code>RandomForestClassifier(bootstrap=True, ccp_alpha=0.0,
+                       class_weight=&#39;balanced_subsample&#39;, criterion=&#39;entropy&#39;,
+                       max_depth=None, max_features=&#39;sqrt&#39;, max_leaf_nodes=None,
+                       max_samples=None, min_impurity_decrease=0.0,
+                       min_impurity_split=None, min_samples_leaf=2,
+                       min_samples_split=12, min_weight_fraction_leaf=0.0,
+                       n_estimators=110, n_jobs=None, oob_score=False,
+                       random_state=42, verbose=0, warm_start=False)</code></pre>
+<p>Use trained classifier to predict outcome for test-set</p>
+<pre class="python"><code>rf_train_pred_class = cf_rf_gscv.predict(features_train_sc)
+rf_test_pred_class = cf_rf_gscv.predict(features_test_sc)
+
+rf_pred_prob_train = model_probabilities(model = cf_rf_gscv, dataset=features_train_sc)
+rf_pred_prob_test = model_probabilities(model = cf_rf_gscv, dataset=features_test_sc)
+
+
+# print matrix for predictions on training and testing
+print(&quot;Training set&quot;)
+print(confmatrix(truth = outcome_train, prediction = rf_train_pred_class))
+print(&quot;\nTesting set&quot;)
+print(confmatrix(truth = outcome_test, prediction = rf_test_pred_class))
+
+
+# plot the roc curves
+plot_ROC(truth = outcome_train, prediction1 = rf_pred_prob_train, col = &#39;b&#39;)
+plot_ROC(truth = outcome_test, prediction1 = rf_pred_prob_test, col = &#39;r&#39;, test=True);</code></pre>
+<pre><code>Training set
+        Prediction         Total
+                 0      1       
+Truth 0      328.0   22.0  350.0
+      1       14.0  173.0  187.0
+Total        342.0  195.0  537.0
+
+Testing set
+        Prediction        Total
+                 0     1       
+Truth 0      122.0  28.0  150.0
+      1       26.0  55.0   81.0
+Total        148.0  83.0  231.0</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_99_1.png" alt="" />
+<p class="caption">png</p>
+</div>
+</div>
+<div id="support-vector-machine" class="section level2">
+<h2>Support Vector Machine</h2>
+<p>A support vector machine tries to find the data points right on the boundary between the two classes (the “support vectors”) and then uses them to define a maximum margin boundary.</p>
+<div class="figure">
+<img src="../fig/50-CatSVM.jpg" alt="" />
+<p class="caption">A linear Support Vector Machine for Cats</p>
+</div>
+<div id="lets-classify-4" class="section level3">
+<h3>Let’s Classify!</h3>
+<p>Train SVM</p>
+<pre class="python"><code>from sklearn import svm
+cf_svm = svm.SVC(random_state=42, probability=True, 
+                 # Kernel coefficient for ‘rbf’, ‘poly’ and ‘sigmoid’.
+                 # 1 / (n_features * X.var()) 
+                gamma = &#39;scale&#39;)
+
+cf_svm_gscv_lin = GridSearchCV(cf_svm,
+                           {&#39;kernel&#39;: [&#39;linear&#39;]},
+                           # use 5xfold cross-validation
+                           cv=5,
+                           # use F1 score as error metric
+                           scoring = &#39;f1&#39;)
+
+fit_svm_lin = cf_svm_gscv_lin.fit(features_train_sc, outcome_train)
+
+# use GridSeachCV to which form of regularisation is optimal
+cf_svm_gscv_rad = GridSearchCV(cf_svm,
+                           {&#39;kernel&#39;: [&#39;rbf&#39;]},
+                           # use 5xfold cross-validation
+                           cv=5,
+                           # use F1 as error metric
+                           scoring = &#39;f1&#39;)
+
+fit_svm_rbf = cf_svm_gscv_rad.fit(features_train_sc, outcome_train)</code></pre>
+<p>Use trained classifier to predict outcome for test-set</p>
+<pre class="python"><code>fit_svm_lin.best_estimator_</code></pre>
+<pre><code>SVC(C=1.0, break_ties=False, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;, kernel=&#39;linear&#39;,
+    max_iter=-1, probability=True, random_state=42, shrinking=True, tol=0.001,
+    verbose=False)</code></pre>
+<pre class="python"><code>fit_svm_rbf.best_estimator_</code></pre>
+<pre><code>SVC(C=1.0, break_ties=False, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;, kernel=&#39;rbf&#39;,
+    max_iter=-1, probability=True, random_state=42, shrinking=True, tol=0.001,
+    verbose=False)</code></pre>
+<pre class="python"><code>svm_l_train_pred_class = cf_svm_gscv_lin.predict(features_train_sc)
+svm_l_test_pred_class = cf_svm_gscv_lin.predict(features_test_sc)
+
+svm_l_pred_prob_train = model_probabilities(model = cf_svm_gscv_lin, dataset=features_train_sc)
+svm_l_pred_prob_test = model_probabilities(model = cf_svm_gscv_lin, dataset=features_test_sc)
+
+
+# print matrix for predictions on training and testing
+print(&quot;Training set&quot;)
+print(confmatrix(truth = outcome_train, prediction = svm_l_train_pred_class))
+print(&quot;\nTesting set&quot;)
+print(confmatrix(truth = outcome_test, prediction = svm_l_test_pred_class))
+
+
+
+# plot the roc curves
+plot_ROC(truth = outcome_train, prediction1 = svm_l_pred_prob_train, col = &#39;b&#39;)
+plot_ROC(truth = outcome_test, prediction1 = svm_l_pred_prob_test, col = &#39;r&#39;, test=True)</code></pre>
+<pre><code>Training set
+        Prediction         Total
+                 0      1       
+Truth 0      317.0   33.0  350.0
+      1       81.0  106.0  187.0
+Total        398.0  139.0  537.0
+
+Testing set
+        Prediction        Total
+                 0     1       
+Truth 0      130.0  20.0  150.0
+      1       43.0  38.0   81.0
+Total        173.0  58.0  231.0</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_105_1.png" alt="" />
+<p class="caption">png</p>
+</div>
+<pre class="python"><code>svm_r_train_pred_class = cf_svm_gscv_rad.predict(features_train_sc)
+svm_r_test_pred_class = cf_svm_gscv_rad.predict(features_test_sc)
+
+svm_r_pred_prob_train = model_probabilities(model = cf_svm_gscv_rad, dataset=features_train_sc)
+svm_r_pred_prob_test = model_probabilities(model = cf_svm_gscv_rad, dataset=features_test_sc)
+
+
+# print matrix for predictions on training and testing
+print(&quot;Training set&quot;)
+print(confmatrix(truth = outcome_train, prediction = svm_r_train_pred_class))
+print(&quot;\nTesting set&quot;)
+print(confmatrix(truth = outcome_test, prediction = svm_r_test_pred_class))
+
+
+
+# plot the roc curves
+plot_ROC(truth = outcome_train, prediction1 = svm_r_pred_prob_train, col = &#39;b&#39;)
+plot_ROC(truth = outcome_test, prediction1 = svm_r_pred_prob_test, col = &#39;r&#39;, test=True)</code></pre>
+<pre><code>Training set
+        Prediction         Total
+                 0      1       
+Truth 0      327.0   23.0  350.0
+      1       62.0  125.0  187.0
+Total        389.0  148.0  537.0
+
+Testing set
+        Prediction        Total
+                 0     1       
+Truth 0      131.0  19.0  150.0
+      1       40.0  41.0   81.0
+Total        171.0  60.0  231.0</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_106_1.png" alt="" />
+<p class="caption">png</p>
+</div>
+</div>
+</div>
+</div>
+<div id="compare-all-the-classifiers" class="section level1">
+<h1>Compare all the classifiers</h1>
+<pre class="python"><code>evaluations = [&#39;Misclassification rate&#39;, &#39;Sensitivity&#39;, &#39;Specificity&#39;, &#39;AUC&#39;]
+pretrained_models = {&#39;k Nearest Neighbours&#39;:cf_knn_gscv, 
+                     &#39;Naive Bayes&#39;:cf_gnb_gscv, 
+                     &#39;Regularised Logistic Classifier&#39;:cf_rlc_gscv, 
+                     &#39;Decision Tree&#39;:cf_dtc_gscv, 
+                     &#39;Random Forest&#39;:cf_rf_gscv, 
+                     &#39;Linear SVM&#39;:cf_svm_gscv_lin,
+                     &#39;Radial SVM&#39;:cf_svm_gscv_rad}
+comparison_stats = pd.DataFrame(index = pretrained_models.keys(), columns=evaluations)
+for method, model in pretrained_models.items():
+    outcome_pred_class = model.predict(features_test_sc)
+    outcome_pred_prob = model.predict_proba(features_test_sc)
+    outcome_pred_prob1 = [p[1] for p in outcome_pred_prob]
+    AUC = roc_auc_score(outcome_test, outcome_pred_prob1)
+    conf_mat = confusion_matrix(outcome_test, outcome_pred_class)
+    # in this case 0-0 is negatives
+    # 1-1 is diabetes
+    TP = conf_mat[1,1]
+    FP = conf_mat[0,1]
+    TN = conf_mat[0,0]
+    FN = conf_mat[1,0]
+    
+    comparison_stats.loc[method,&#39;Misclassification rate&#39;]  = 1. - accuracy_score(outcome_test, outcome_pred_class)
+    # sensitivity == recall
+    comparison_stats.loc[method,&#39;Sensitivity&#39;] = TP/(TP + FN)
+    comparison_stats.loc[method,&#39;Specificity&#39;] = TN/(TN + FP)
+    comparison_stats.loc[method,&#39;Precision&#39;] = TP/(TP + FP)
+    comparison_stats.loc[method,&#39;Accuracy&#39;] = (TP + TN)/(TP + FP + TN + FN)
+    comparison_stats.loc[method,&#39;FDR&#39;] = FP/(FP + TP)
+    comparison_stats.loc[method,&#39;F1&#39;] = 2 * TP/(2 * TP + FP + FN)
+    comparison_stats.loc[method,&#39;AUC&#39;] = AUC</code></pre>
+<pre class="python"><code>comparison_stats.round(decimals=3).sort_values(by = &#39;AUC&#39;, ascending=False)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Misclassification rate
+</th>
+<th>
+Sensitivity
+</th>
+<th>
+Specificity
+</th>
+<th>
+AUC
+</th>
+<th>
+Precision
+</th>
+<th>
+Accuracy
+</th>
+<th>
+FDR
+</th>
+<th>
+F1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+Random Forest
+</th>
+<td>
+0.233766
+</td>
+<td>
+0.679012
+</td>
+<td>
+0.813333
+</td>
+<td>
+0.841646
+</td>
+<td>
+0.663
+</td>
+<td>
+0.766
+</td>
+<td>
+0.337
+</td>
+<td>
+0.671
+</td>
+</tr>
+<tr>
+<th>
+Regularised Logistic Classifier
+</th>
+<td>
+0.238095
+</td>
+<td>
+0.703704
+</td>
+<td>
+0.793333
+</td>
+<td>
+0.836543
+</td>
+<td>
+0.648
+</td>
+<td>
+0.762
+</td>
+<td>
+0.352
+</td>
+<td>
+0.675
+</td>
+</tr>
+<tr>
+<th>
+Linear SVM
+</th>
+<td>
+0.272727
+</td>
+<td>
+0.469136
+</td>
+<td>
+0.866667
+</td>
+<td>
+0.83284
+</td>
+<td>
+0.655
+</td>
+<td>
+0.727
+</td>
+<td>
+0.345
+</td>
+<td>
+0.547
+</td>
+</tr>
+<tr>
+<th>
+Radial SVM
+</th>
+<td>
+0.255411
+</td>
+<td>
+0.506173
+</td>
+<td>
+0.873333
+</td>
+<td>
+0.817531
+</td>
+<td>
+0.683
+</td>
+<td>
+0.745
+</td>
+<td>
+0.317
+</td>
+<td>
+0.582
+</td>
+</tr>
+<tr>
+<th>
+k Nearest Neighbours
+</th>
+<td>
+0.255411
+</td>
+<td>
+0.555556
+</td>
+<td>
+0.846667
+</td>
+<td>
+0.813827
+</td>
+<td>
+0.662
+</td>
+<td>
+0.745
+</td>
+<td>
+0.338
+</td>
+<td>
+0.604
+</td>
+</tr>
+<tr>
+<th>
+Naive Bayes
+</th>
+<td>
+0.272727
+</td>
+<td>
+0.580247
+</td>
+<td>
+0.806667
+</td>
+<td>
+0.803704
+</td>
+<td>
+0.618
+</td>
+<td>
+0.727
+</td>
+<td>
+0.382
+</td>
+<td>
+0.599
+</td>
+</tr>
+<tr>
+<th>
+Decision Tree
+</th>
+<td>
+0.264069
+</td>
+<td>
+0.481481
+</td>
+<td>
+0.873333
+</td>
+<td>
+0.767202
+</td>
+<td>
+0.672
+</td>
+<td>
+0.736
+</td>
+<td>
+0.328
+</td>
+<td>
+0.561
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>comparison_stats.round(decimals=3).sort_values(by = &#39;Misclassification rate&#39;, ascending=False)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Misclassification rate
+</th>
+<th>
+Sensitivity
+</th>
+<th>
+Specificity
+</th>
+<th>
+AUC
+</th>
+<th>
+Precision
+</th>
+<th>
+Accuracy
+</th>
+<th>
+FDR
+</th>
+<th>
+F1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+Naive Bayes
+</th>
+<td>
+0.272727
+</td>
+<td>
+0.580247
+</td>
+<td>
+0.806667
+</td>
+<td>
+0.803704
+</td>
+<td>
+0.618
+</td>
+<td>
+0.727
+</td>
+<td>
+0.382
+</td>
+<td>
+0.599
+</td>
+</tr>
+<tr>
+<th>
+Linear SVM
+</th>
+<td>
+0.272727
+</td>
+<td>
+0.469136
+</td>
+<td>
+0.866667
+</td>
+<td>
+0.83284
+</td>
+<td>
+0.655
+</td>
+<td>
+0.727
+</td>
+<td>
+0.345
+</td>
+<td>
+0.547
+</td>
+</tr>
+<tr>
+<th>
+Decision Tree
+</th>
+<td>
+0.264069
+</td>
+<td>
+0.481481
+</td>
+<td>
+0.873333
+</td>
+<td>
+0.767202
+</td>
+<td>
+0.672
+</td>
+<td>
+0.736
+</td>
+<td>
+0.328
+</td>
+<td>
+0.561
+</td>
+</tr>
+<tr>
+<th>
+k Nearest Neighbours
+</th>
+<td>
+0.255411
+</td>
+<td>
+0.555556
+</td>
+<td>
+0.846667
+</td>
+<td>
+0.813827
+</td>
+<td>
+0.662
+</td>
+<td>
+0.745
+</td>
+<td>
+0.338
+</td>
+<td>
+0.604
+</td>
+</tr>
+<tr>
+<th>
+Radial SVM
+</th>
+<td>
+0.255411
+</td>
+<td>
+0.506173
+</td>
+<td>
+0.873333
+</td>
+<td>
+0.817531
+</td>
+<td>
+0.683
+</td>
+<td>
+0.745
+</td>
+<td>
+0.317
+</td>
+<td>
+0.582
+</td>
+</tr>
+<tr>
+<th>
+Regularised Logistic Classifier
+</th>
+<td>
+0.238095
+</td>
+<td>
+0.703704
+</td>
+<td>
+0.793333
+</td>
+<td>
+0.836543
+</td>
+<td>
+0.648
+</td>
+<td>
+0.762
+</td>
+<td>
+0.352
+</td>
+<td>
+0.675
+</td>
+</tr>
+<tr>
+<th>
+Random Forest
+</th>
+<td>
+0.233766
+</td>
+<td>
+0.679012
+</td>
+<td>
+0.813333
+</td>
+<td>
+0.841646
+</td>
+<td>
+0.663
+</td>
+<td>
+0.766
+</td>
+<td>
+0.337
+</td>
+<td>
+0.671
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>comparison_stats.round(decimals=3).sort_values(by = &#39;Sensitivity&#39;, ascending=False)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Misclassification rate
+</th>
+<th>
+Sensitivity
+</th>
+<th>
+Specificity
+</th>
+<th>
+AUC
+</th>
+<th>
+Precision
+</th>
+<th>
+Accuracy
+</th>
+<th>
+FDR
+</th>
+<th>
+F1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+Regularised Logistic Classifier
+</th>
+<td>
+0.238095
+</td>
+<td>
+0.703704
+</td>
+<td>
+0.793333
+</td>
+<td>
+0.836543
+</td>
+<td>
+0.648
+</td>
+<td>
+0.762
+</td>
+<td>
+0.352
+</td>
+<td>
+0.675
+</td>
+</tr>
+<tr>
+<th>
+Random Forest
+</th>
+<td>
+0.233766
+</td>
+<td>
+0.679012
+</td>
+<td>
+0.813333
+</td>
+<td>
+0.841646
+</td>
+<td>
+0.663
+</td>
+<td>
+0.766
+</td>
+<td>
+0.337
+</td>
+<td>
+0.671
+</td>
+</tr>
+<tr>
+<th>
+Naive Bayes
+</th>
+<td>
+0.272727
+</td>
+<td>
+0.580247
+</td>
+<td>
+0.806667
+</td>
+<td>
+0.803704
+</td>
+<td>
+0.618
+</td>
+<td>
+0.727
+</td>
+<td>
+0.382
+</td>
+<td>
+0.599
+</td>
+</tr>
+<tr>
+<th>
+k Nearest Neighbours
+</th>
+<td>
+0.255411
+</td>
+<td>
+0.555556
+</td>
+<td>
+0.846667
+</td>
+<td>
+0.813827
+</td>
+<td>
+0.662
+</td>
+<td>
+0.745
+</td>
+<td>
+0.338
+</td>
+<td>
+0.604
+</td>
+</tr>
+<tr>
+<th>
+Radial SVM
+</th>
+<td>
+0.255411
+</td>
+<td>
+0.506173
+</td>
+<td>
+0.873333
+</td>
+<td>
+0.817531
+</td>
+<td>
+0.683
+</td>
+<td>
+0.745
+</td>
+<td>
+0.317
+</td>
+<td>
+0.582
+</td>
+</tr>
+<tr>
+<th>
+Decision Tree
+</th>
+<td>
+0.264069
+</td>
+<td>
+0.481481
+</td>
+<td>
+0.873333
+</td>
+<td>
+0.767202
+</td>
+<td>
+0.672
+</td>
+<td>
+0.736
+</td>
+<td>
+0.328
+</td>
+<td>
+0.561
+</td>
+</tr>
+<tr>
+<th>
+Linear SVM
+</th>
+<td>
+0.272727
+</td>
+<td>
+0.469136
+</td>
+<td>
+0.866667
+</td>
+<td>
+0.83284
+</td>
+<td>
+0.655
+</td>
+<td>
+0.727
+</td>
+<td>
+0.345
+</td>
+<td>
+0.547
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>comparison_stats.round(decimals=3).sort_values(by = &#39;Specificity&#39;, ascending=False)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Misclassification rate
+</th>
+<th>
+Sensitivity
+</th>
+<th>
+Specificity
+</th>
+<th>
+AUC
+</th>
+<th>
+Precision
+</th>
+<th>
+Accuracy
+</th>
+<th>
+FDR
+</th>
+<th>
+F1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+Decision Tree
+</th>
+<td>
+0.264069
+</td>
+<td>
+0.481481
+</td>
+<td>
+0.873333
+</td>
+<td>
+0.767202
+</td>
+<td>
+0.672
+</td>
+<td>
+0.736
+</td>
+<td>
+0.328
+</td>
+<td>
+0.561
+</td>
+</tr>
+<tr>
+<th>
+Radial SVM
+</th>
+<td>
+0.255411
+</td>
+<td>
+0.506173
+</td>
+<td>
+0.873333
+</td>
+<td>
+0.817531
+</td>
+<td>
+0.683
+</td>
+<td>
+0.745
+</td>
+<td>
+0.317
+</td>
+<td>
+0.582
+</td>
+</tr>
+<tr>
+<th>
+Linear SVM
+</th>
+<td>
+0.272727
+</td>
+<td>
+0.469136
+</td>
+<td>
+0.866667
+</td>
+<td>
+0.83284
+</td>
+<td>
+0.655
+</td>
+<td>
+0.727
+</td>
+<td>
+0.345
+</td>
+<td>
+0.547
+</td>
+</tr>
+<tr>
+<th>
+k Nearest Neighbours
+</th>
+<td>
+0.255411
+</td>
+<td>
+0.555556
+</td>
+<td>
+0.846667
+</td>
+<td>
+0.813827
+</td>
+<td>
+0.662
+</td>
+<td>
+0.745
+</td>
+<td>
+0.338
+</td>
+<td>
+0.604
+</td>
+</tr>
+<tr>
+<th>
+Random Forest
+</th>
+<td>
+0.233766
+</td>
+<td>
+0.679012
+</td>
+<td>
+0.813333
+</td>
+<td>
+0.841646
+</td>
+<td>
+0.663
+</td>
+<td>
+0.766
+</td>
+<td>
+0.337
+</td>
+<td>
+0.671
+</td>
+</tr>
+<tr>
+<th>
+Naive Bayes
+</th>
+<td>
+0.272727
+</td>
+<td>
+0.580247
+</td>
+<td>
+0.806667
+</td>
+<td>
+0.803704
+</td>
+<td>
+0.618
+</td>
+<td>
+0.727
+</td>
+<td>
+0.382
+</td>
+<td>
+0.599
+</td>
+</tr>
+<tr>
+<th>
+Regularised Logistic Classifier
+</th>
+<td>
+0.238095
+</td>
+<td>
+0.703704
+</td>
+<td>
+0.793333
+</td>
+<td>
+0.836543
+</td>
+<td>
+0.648
+</td>
+<td>
+0.762
+</td>
+<td>
+0.352
+</td>
+<td>
+0.675
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>comparison_stats.round(decimals=3).sort_values(by = &#39;F1&#39;, ascending=False)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Misclassification rate
+</th>
+<th>
+Sensitivity
+</th>
+<th>
+Specificity
+</th>
+<th>
+AUC
+</th>
+<th>
+Precision
+</th>
+<th>
+Accuracy
+</th>
+<th>
+FDR
+</th>
+<th>
+F1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+Regularised Logistic Classifier
+</th>
+<td>
+0.238095
+</td>
+<td>
+0.703704
+</td>
+<td>
+0.793333
+</td>
+<td>
+0.836543
+</td>
+<td>
+0.648
+</td>
+<td>
+0.762
+</td>
+<td>
+0.352
+</td>
+<td>
+0.675
+</td>
+</tr>
+<tr>
+<th>
+Random Forest
+</th>
+<td>
+0.233766
+</td>
+<td>
+0.679012
+</td>
+<td>
+0.813333
+</td>
+<td>
+0.841646
+</td>
+<td>
+0.663
+</td>
+<td>
+0.766
+</td>
+<td>
+0.337
+</td>
+<td>
+0.671
+</td>
+</tr>
+<tr>
+<th>
+k Nearest Neighbours
+</th>
+<td>
+0.255411
+</td>
+<td>
+0.555556
+</td>
+<td>
+0.846667
+</td>
+<td>
+0.813827
+</td>
+<td>
+0.662
+</td>
+<td>
+0.745
+</td>
+<td>
+0.338
+</td>
+<td>
+0.604
+</td>
+</tr>
+<tr>
+<th>
+Naive Bayes
+</th>
+<td>
+0.272727
+</td>
+<td>
+0.580247
+</td>
+<td>
+0.806667
+</td>
+<td>
+0.803704
+</td>
+<td>
+0.618
+</td>
+<td>
+0.727
+</td>
+<td>
+0.382
+</td>
+<td>
+0.599
+</td>
+</tr>
+<tr>
+<th>
+Radial SVM
+</th>
+<td>
+0.255411
+</td>
+<td>
+0.506173
+</td>
+<td>
+0.873333
+</td>
+<td>
+0.817531
+</td>
+<td>
+0.683
+</td>
+<td>
+0.745
+</td>
+<td>
+0.317
+</td>
+<td>
+0.582
+</td>
+</tr>
+<tr>
+<th>
+Decision Tree
+</th>
+<td>
+0.264069
+</td>
+<td>
+0.481481
+</td>
+<td>
+0.873333
+</td>
+<td>
+0.767202
+</td>
+<td>
+0.672
+</td>
+<td>
+0.736
+</td>
+<td>
+0.328
+</td>
+<td>
+0.561
+</td>
+</tr>
+<tr>
+<th>
+Linear SVM
+</th>
+<td>
+0.272727
+</td>
+<td>
+0.469136
+</td>
+<td>
+0.866667
+</td>
+<td>
+0.83284
+</td>
+<td>
+0.655
+</td>
+<td>
+0.727
+</td>
+<td>
+0.345
+</td>
+<td>
+0.547
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>def rearrange_df(df):
+    out_df = (
+        df.copy()
+        .reset_index()
+        .melt(
+            id_vars=&#39;index&#39;,
+            value_vars=df.columns.values.tolist(),
+            var_name=&#39;metric&#39;,
+            value_name=&#39;number&#39;
+        )
+        .sort_values(&#39;number&#39;)
+    )
+    out_df[&#39;index&#39;] = out_df[&#39;index&#39;].astype(str)
+    out_df= out_df.rename(columns={&#39;index&#39;:&#39;model_features&#39;})
+    return out_df</code></pre>
+<pre class="python"><code>comp_df = comparison_stats.round(decimals=3)
+fig, axes = plt.subplots(2, 1)
+# prevent showing the two subplots
+plt.close()
+
+chart = sns.catplot(
+    ax=axes[0],
+    x=&#39;model_features&#39;,
+    y=&#39;number&#39;,
+    col=&#39;metric&#39;,
+    data=rearrange_df(comp_df[[&#39;Misclassification rate&#39;,&#39;Sensitivity&#39;,&#39;Specificity&#39;,&#39;AUC&#39;]]),
+    kind=&#39;bar&#39;,
+    sharey=False,
+)
+chart.set_xticklabels(rotation=90);
+# ax = f.add_subplot(gs[1, 0])
+chart_sub = sns.catplot(
+    ax=axes[1],
+    x=&#39;model_features&#39;,
+    y=&#39;number&#39;,
+    col=&#39;metric&#39;,
+    data=rearrange_df(comp_df[[&#39;Precision&#39;,&#39;Accuracy&#39;,&#39;FDR&#39;,&#39;F1&#39;]]),
+    kind=&#39;bar&#39;,
+    sharey=False,
+#     facet_kws={&#39;subplot_kws&#39;:{&#39;nrows&#39;:2, &#39;ncols&#39;:4}}
+#     nrows=2, ncols=4
+)
+chart_sub.set_xticklabels(rotation=90);</code></pre>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_115_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<div class="figure">
+<img src="50-Classification_files/50-Classification_115_1.png" alt="" />
+<p class="caption">png</p>
+</div>
+<p>What do you think?</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

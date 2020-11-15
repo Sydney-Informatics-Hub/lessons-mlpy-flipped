@@ -1,0 +1,40 @@
+name: "Sydney Informatics Hub Machine Learning in Python"
+output_dir: "docs"
+exclude: ["*ipynb", "data"]
+navbar:  
+  title: "Home"
+  left:
+  - text: Setup
+    href: setup.html
+  - text: "Session 1"
+    menu:
+    - text: "Exploratory Data Analysis"
+      href: 03-EDA.html
+    - text: "Linear Regression"
+      href: 10-LinReg.html
+  - text: "Session 2"
+    menu:
+    - text: "Regularised regression. PCR and PLSR."
+      href: 11-RidgeLassoElasticNet.html
+    - text: "Random Forests and k-NN regression"
+      href: 30-RF_knn.html
+    - text: "Gradient boosting. Extreme Gradient Boosting (XGBoost)"
+      href: 45-Xgboost.html
+  - text: "Session 3"
+    menu:
+    - text: "Classification"
+      href: 50-Classification.html
+  - text: "Session 4"
+    menu:
+    - text: "Classification (finish)"
+      href: 50-Classification.html
+    - text: "Unsupervised learning"
+      href: 90-Unsupervised.html
+output:
+  html_document:
+    theme: journal
+    toc: true
+    toc_float: true
+    df_print: tibble
+    css: lesson.css
+    anchor_sections: false

@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>11-RidgeLassoElasticNet.utf8</title>
+
+<script src="site_libs/header-attrs-2.5.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="lesson.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="setup.html">Setup</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="03-EDA.html">Exploratory Data Analysis</a>
+    </li>
+    <li>
+      <a href="10-LinReg.html">Linear Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="11-RidgeLassoElasticNet.html">Regularised regression. PCR and PLSR.</a>
+    </li>
+    <li>
+      <a href="30-RF_knn.html">Random Forests and k-NN regression</a>
+    </li>
+    <li>
+      <a href="45-Xgboost.html">Gradient boosting. Extreme Gradient Boosting (XGBoost)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="50-Classification.html">Classification</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="50-Classification.html">Classification (finish)</a>
+    </li>
+    <li>
+      <a href="90-Unsupervised.html">Unsupervised learning</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<!--
+---
+title: "Regularised Regression. Principal components Regression. Partial Least Squares Regression."
+author: "Darya Vanichkina"
+questions:
+- How do we prevent all variables from being incorporated into a regression model?
+objectives:
+- To understand additional regression methods that can help us improve our model fit
+- To explore PCR and PLSR as ways of dealing with variable multicollinearity
+keypoints: 
+- There are many extensions to the basic regression approach which can enable a better fit on the data.
+- Regularisation helps us improve the performance of regression
+- Principal components and partial least squares can help create pseudo-variables which are not correlated
+- Advanced methods like MARS can help us extend linear methods to non-linear problems
+source: Rmd
+teaching: 30
+exercises: 15
+bibliography: references.bib
+---
+-->
+<div id="regularised-regression.-principal-components-regression.-partial-least-squares-regression." class="section level2">
+<h2>Regularised Regression. Principal components Regression. Partial Least Squares Regression.</h2>
+<pre class="python"><code># when delivering live coding, these libraries have already been loaded
+websiterendering = True
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from pandas.api.types import CategoricalDtype
+import statsmodels.api as sm
+import seaborn as sns
+import pickle
+#from sklearn import preprocessing
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error, r2_score,  mean_absolute_error
+from sklearn.linear_model import LinearRegression, RidgeCV, LassoCV, ElasticNet
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
+
+# Set up plotting options for seaborn and matplotlib
+sns.set_context(&#39;notebook&#39;) 
+sns.set_style(&#39;ticks&#39;) 
+%matplotlib inline
+plt.rcParams[&#39;figure.figsize&#39;] = (9, 6)
+
+# This is also written to generate the lesson notes; not used while live-coding
+# load from previous lessons
+cached_files = [&#39;models/ames_train_y.pickle&#39;,&#39;models/ames_test_y.pickle&#39;,
+                &#39;models/ames_train_X.pickle&#39;,&#39;models/ames_test_X.pickle&#39;,
+                &#39;models/predictors.pickle&#39;,&#39;models/ames_ols_all.pickle&#39;]
+
+for file in cached_files:
+    with open(file, &#39;rb&#39;) as f:
+        objectname = file.replace(&#39;models/&#39;, &#39;&#39;).replace(&#39;.pickle&#39;, &#39;&#39;)
+        exec(objectname + &quot; = pickle.load(f)&quot;)
+        f.close()</code></pre>
+<pre class="python"><code># these have not been loaded yet while teaching
+
+from sklearn.decomposition import PCA
+from sklearn.cross_decomposition import PLSRegression
+from sklearn.pipeline import Pipeline
+from sklearn.utils import resample
+
+
+def warn(*args, **kwargs):
+    pass
+import warnings
+warnings.warn = warn
+
+
+## A similar function has already been defined, but it&#39;s better to re copy paste here
+def assess_model_fit(models,
+                     model_labels, 
+                     datasetX, 
+                     datasetY):
+    columns = [&#39;RMSE&#39;, &#39;R2&#39;, &#39;MAE&#39;]
+    rows = model_labels
+    results = pd.DataFrame(0.0, columns=columns, index=rows)
+    for i, method in enumerate(models):
+        tmp_dataset_X = datasetX
+        # while we build the model and predict on the log10Transformed 
+        # sale price, we display the error in dollars as that makes more sense
+        y_pred=10**(method.predict(tmp_dataset_X))
+        results.iloc[i,0] = np.sqrt(mean_squared_error(10**(datasetY), y_pred))
+        results.iloc[i,1] = r2_score(10**(datasetY), y_pred)
+        results.iloc[i,2] = mean_absolute_error(10**(datasetY), y_pred)
+    return(results.round(3))</code></pre>
+</div>
+<div id="hyperparameter-tuning-selecting-the-optimal-value-of-lambda" class="section level2">
+<h2>Hyperparameter tuning: selecting the optimal value of lambda</h2>
+<p>Recall that both ridge and lasso regression have an additional parameter, lambda, which captures the penalty for incorporating additional features in the model.</p>
+<p>Hence, we need to first find the optimal value of lambda (using cross-validation), and THEN fit the model, and assess its fit.</p>
+<p>Also, for both ridge and lasso regression, the SCALE of the variables matters (because the penalty term in the objective function treats all coefficients as comparable!). So we have to use the <code>StandardScaler()</code> function to standardize all numeric variables.</p>
+<p>We will do all of this in a scikit-learn pipeline:</p>
+<div id="ridge-regression-l2-regularisation" class="section level3">
+<h3>Ridge regression (L2 regularisation)</h3>
+<pre class="python"><code># logspace -  returns numbers spaced evenly on a log scale, base 2, from ^-12 to ^10
+# total of 20 of them
+
+alphas = list(np.logspace(-12, 10, 20, base=2))
+ames_ridge = Pipeline([
+    (&#39;scaler&#39;, StandardScaler()),
+    (&#39;estimator&#39;, RidgeCV(alphas=alphas, cv=10)),
+])
+
+
+if websiterendering:
+    with open(&#39;models/ames_ridge.pickle&#39;, &#39;rb&#39;) as f:
+        ames_ridge = pickle.load(f)
+else:
+    # STUDENTS: RUN THE LINE BELOW ONLY:
+    ames_ridge.fit(ames_train_X, ames_train_y)
+    pickle.dump(ames_ridge, open(&#39;models/ames_ridge.pickle&#39;, &#39;wb&#39;))</code></pre>
+<pre class="python"><code># what is the best value of alpha (the penalty parameter for Ridge regression?)
+best_alpha_ridge = ames_ridge.named_steps.estimator.alpha_
+print(best_alpha_ridge)</code></pre>
+<pre><code>205.67327400112214</code></pre>
+<pre class="python"><code># Of the list of elements we tested, which element was it?
+alphas.index(best_alpha_ridge)</code></pre>
+<pre><code>17</code></pre>
+</div>
+<div id="lasso-regression-l1-regularisation" class="section level3">
+<h3>Lasso regression (L1 regularisation)</h3>
+<pre class="python"><code>ames_lasso = Pipeline([
+    (&#39;scaler&#39;, StandardScaler()),
+    (&#39;estimator&#39;, LassoCV(alphas=alphas, cv=10)),
+])
+
+
+if websiterendering:
+    with open(&#39;models/ames_lasso.pickle&#39;, &#39;rb&#39;) as f:
+        ames_lasso = pickle.load(f)
+else:
+    # STUDENTS: RUN THE LINE BELOW ONLY:
+    ames_lasso.fit(ames_train_X, ames_train_y)
+    pickle.dump(ames_lasso, open(&#39;models/ames_lasso.pickle&#39;, &#39;wb&#39;))</code></pre>
+<pre class="python"><code># what is the best value of alpha (the penalty parameter for Lasso regression?)
+best_alpha_lasso = ames_lasso.named_steps.estimator.alpha_
+print(best_alpha_lasso)</code></pre>
+<pre><code>0.0005447548426570041</code></pre>
+<pre class="python"><code># Of the list of elements we tested, which element was it?
+alphas.index(best_alpha_lasso)</code></pre>
+<pre><code>1</code></pre>
+<pre class="python"><code>len(alphas)</code></pre>
+<pre><code>20</code></pre>
+<pre class="python"><code>lasso_cv = ames_lasso.named_steps[&#39;estimator&#39;]
+lasso_mse_means = lasso_cv.mse_path_.mean(axis=1)
+
+fig, ax = plt.subplots()
+ax.plot(lasso_cv.alphas, lasso_mse_means, label=&#39;MSE&#39;)
+ax.set_xlabel(&quot;alpha&quot;);</code></pre>
+<div class="figure">
+<img src="11-RidgeLassoElasticNet_files/11-RidgeLassoElasticNet_12_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+</div>
+</div>
+<div id="elastic-net-combining-l1-and-l2-regularisation" class="section level2">
+<h2>Elastic net: combining L1 and L2 regularisation</h2>
+<pre class="python"><code># For l1_ratio = 0 the penalty is an L2 penalty. For l1_ratio = 1 it is an L1 penalty
+# a * L1 + b * L2
+# alpha = a + b and l1_ratio = a / (a + b)
+
+parametersGrid = {&quot;alpha&quot;: alphas,
+                &quot;l1_ratio&quot;: np.arange(0.01, 1.0, 0.1)}
+
+ames_enet = Pipeline([
+    (&#39;scaler&#39;, StandardScaler()),
+    (&#39;estimator&#39;, GridSearchCV(ElasticNet(), parametersGrid, scoring=&#39;r2&#39;, cv=10)),
+])
+
+if websiterendering:
+    with open(&#39;models/ames_enet.pickle&#39;, &#39;rb&#39;) as f:
+        ames_enet = pickle.load(f)
+else:
+    # STUDENTS: RUN ONLY THE LINE OF CODE BELOW
+    ames_enet.fit(ames_train_X, ames_train_y)
+    pickle.dump(ames_enet, open(&#39;models/ames_enet.pickle&#39;, &#39;wb&#39;))</code></pre>
+<pre class="python"><code># get the best parameter values 
+best_params_enet = ames_enet.named_steps.estimator.best_estimator_</code></pre>
+<pre class="python"><code># what is the best value of alpha (the penalty parameter for Lasso regression?)
+print(best_params_enet.alpha)</code></pre>
+<pre><code>0.06723066163876137</code></pre>
+<pre class="python"><code># Visualise the tuning performance
+enet_cv = ames_enet.named_steps[&#39;estimator&#39;]
+enet_results = pd.DataFrame.from_dict(enet_cv.cv_results_)
+tune_results = enet_results.pivot(
+    index=&#39;param_l1_ratio&#39;, 
+    columns=&#39;param_alpha&#39;,
+    values=&#39;mean_test_score&#39;)
+
+fig, ax = plt.subplots()
+tune_results.plot(ax=ax, cmap=plt.cm.viridis)
+ax.set_xlabel(&quot;Mixing proportion&quot;)
+ax.set_ylabel(&#39;R squared on cross validation&#39;);</code></pre>
+<div class="figure">
+<img src="11-RidgeLassoElasticNet_files/11-RidgeLassoElasticNet_17_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<blockquote>
+<h2 id="challenge-1">Challenge 1</h2>
+<ol style="list-style-type: decimal">
+<li>Look at the coefficients for the model above. What was the balance between L1 (Lasso) and L2 (Ridge) regression?</li>
+<li>What value of alpha was found to be optimal? Was this value expected based on the results we got when we ran Lasso and Ridge independently?</li>
+</ol>
+<p>{: .source}</p>
+<blockquote>
+<h2 id="solution">Solution</h2>
+<pre><code>print(best_params_enet.l1_ratio)
+</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>See <a href="https://stackoverflow.com/questions/47365978/scikit-learn-elastic-net-approaching-ridge">this answer</a> for an explanation why the two values of alpha were not the same. {: .output} {: .solution} {: .challenge}</li>
+</ol>
+</blockquote>
+</blockquote>
+<pre class="python"><code># What was the RMSE on the training data?
+assess_model_fit(models = [ames_ols_all, ames_ridge, ames_lasso, ames_enet],
+                 model_labels =[&#39;OLS&#39;,&#39;Ridge&#39;, &#39;Lasso&#39;, &quot;ENet&quot;], 
+                 datasetX=ames_train_X,
+                 datasetY=ames_train_y).sort_values(&quot;RMSE&quot;)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+RMSE
+</th>
+<th>
+R2
+</th>
+<th>
+MAE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+OLS
+</th>
+<td>
+15757.714
+</td>
+<td>
+0.961
+</td>
+<td>
+10931.668
+</td>
+</tr>
+<tr>
+<th>
+Lasso
+</th>
+<td>
+16480.809
+</td>
+<td>
+0.957
+</td>
+<td>
+11448.829
+</td>
+</tr>
+<tr>
+<th>
+Ridge
+</th>
+<td>
+16497.181
+</td>
+<td>
+0.957
+</td>
+<td>
+11462.724
+</td>
+</tr>
+<tr>
+<th>
+ENet
+</th>
+<td>
+17041.271
+</td>
+<td>
+0.954
+</td>
+<td>
+11799.798
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code># Compare with the test data!
+assess_model_fit(models = [ames_ols_all, ames_ridge, ames_lasso, ames_enet],
+                 model_labels =[&#39;OLS&#39;,&#39;Ridge&#39;, &#39;Lasso&#39;, &quot;ENet&quot;], 
+                 datasetX=ames_test_X,
+                 datasetY=ames_test_y).sort_values(&quot;RMSE&quot;)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+RMSE
+</th>
+<th>
+R2
+</th>
+<th>
+MAE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+ENet
+</th>
+<td>
+19801.125
+</td>
+<td>
+0.933
+</td>
+<td>
+13317.465
+</td>
+</tr>
+<tr>
+<th>
+Lasso
+</th>
+<td>
+19864.493
+</td>
+<td>
+0.933
+</td>
+<td>
+13120.146
+</td>
+</tr>
+<tr>
+<th>
+Ridge
+</th>
+<td>
+20024.975
+</td>
+<td>
+0.932
+</td>
+<td>
+13270.709
+</td>
+</tr>
+<tr>
+<th>
+OLS
+</th>
+<td>
+20541.485
+</td>
+<td>
+0.928
+</td>
+<td>
+13346.733
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="compare-the-coefficients-of-each-of-the-linear-models" class="section level2">
+<h2>Compare the coefficients of each of the linear models:</h2>
+<pre class="python"><code>def plot_coefficients(model, labels):
+    table = pd.Series(model.coef_.ravel(), index = labels)
+    # Get the largest 20 values (by absolute value)
+    table = table[table.abs().nlargest(20).index].sort_values()
+
+    fig, ax = fig, ax = plt.subplots()
+    table.T.plot(kind=&#39;barh&#39;, edgecolor=&#39;black&#39;, width=0.7, 
+                 linewidth=.8, alpha=0.9, ax=ax)
+    ax.tick_params(axis=u&#39;y&#39;, length=0) 
+    ax.set_title(&#39;Estimated coefficients (twenty largest in absolute value)&#39;, fontsize=14)
+    sns.despine()
+    return fig, ax</code></pre>
+<pre class="python"><code>plot_coefficients(ames_ols_all, predictors)# the final_estimator attribute refers to the pipeline
+plt.show()</code></pre>
+<div class="figure">
+<img src="11-RidgeLassoElasticNet_files/11-RidgeLassoElasticNet_23_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<pre class="python"><code>plot_coefficients(ames_ridge._final_estimator, predictors)# the final_estimator attribute refers to the pipeline
+plt.show()</code></pre>
+<div class="figure">
+<img src="11-RidgeLassoElasticNet_files/11-RidgeLassoElasticNet_24_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<pre class="python"><code>plot_coefficients(ames_lasso._final_estimator, predictors)# the final_estimator attribute refers to the pipeline
+plt.show()</code></pre>
+<div class="figure">
+<img src="11-RidgeLassoElasticNet_files/11-RidgeLassoElasticNet_25_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<pre class="python"><code>plot_coefficients(ames_enet.named_steps.estimator.best_estimator_, predictors)# the final_estimator attribute refers to the pipeline
+plt.show()</code></pre>
+<div class="figure">
+<img src="11-RidgeLassoElasticNet_files/11-RidgeLassoElasticNet_26_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<blockquote>
+<h2 id="challenge-2">Challenge 2</h2>
+<p>Compare the top coefficients for the models above. Why do you think the top/bottom predictors are different for each one?</p>
+<p>{: .source}</p>
+<blockquote>
+<h2 id="solution-1">Solution</h2>
+<p>{: .output} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+<hr />
+</div>
+<div id="principal-components-regression-pcr" class="section level2">
+<h2>Principal components regression (PCR)</h2>
+<pre class="python"><code># Define a pipeline to search for the best combination of PCA an
+# and linear regression .
+
+linreg = LinearRegression()
+pca = PCA()
+# how many components?
+numcomp = list(np.linspace(1,len(ames_train_X.columns), num = 40).round().astype(int))
+
+pipe = Pipeline(steps=[(&#39;scaler&#39;, StandardScaler()), 
+                       (&#39;pca&#39;, pca), 
+                       (&#39;linreg&#39;, linreg)])
+param_grid = {&#39;pca__n_components&#39;: numcomp}
+ames_pcr = GridSearchCV(pipe, param_grid, iid=False, cv=5,
+                      return_train_score=False)
+
+
+if websiterendering:
+    with open(&#39;models/ames_pcr.pickle&#39;, &#39;rb&#39;) as f:
+        ames_pcr = pickle.load(f)
+else:
+    # STUDENTS: RUN THE ONE LINE BELOW
+    ames_pcr.fit(ames_train_X, ames_train_y)
+    pickle.dump(ames_pcr, open(&#39;models/ames_pcr.pickle&#39;, &#39;wb&#39;))
+    
+print(&quot;Best parameter (CV score=%0.3f):&quot; % ames_pcr.best_score_)
+print(ames_pcr.best_params_)</code></pre>
+<pre><code>Best parameter (CV score=0.916):
+{&#39;pca__n_components&#39;: 220}</code></pre>
+<pre class="python"><code># How many variables did we have?
+print(ames_train_X.shape)
+# Which number of PCs did we test?
+print(numcomp)</code></pre>
+<pre><code>(2047, 286)
+[1, 8, 16, 23, 30, 38, 45, 52, 59, 67, 74, 81, 89, 96, 103, 111, 118, 125, 133, 140, 147, 154, 162, 169, 176, 184, 191, 198, 206, 213, 220, 228, 235, 242, 249, 257, 264, 271, 279, 286]</code></pre>
+<pre class="python"><code># Visualise the tuning performance
+pcr_results = pd.DataFrame.from_dict(ames_pcr.cv_results_)
+
+fig, ax = plt.subplots()
+# R^2 is invalid for some values and needs to be filtered out
+(pcr_results.query(&#39;mean_test_score &gt; 0&#39;)
+ .plot(x=&#39;param_pca__n_components&#39;, y=&#39;mean_test_score&#39;, 
+       ax=ax)
+)
+ax.set_xlabel(&quot;Number of components&quot;)
+ax.set_ylabel(&#39;R squared on cross validation&#39;);</code></pre>
+<div class="figure">
+<img src="11-RidgeLassoElasticNet_files/11-RidgeLassoElasticNet_31_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<pre class="python"><code># What was the RMSE on the training data?
+assess_model_fit(models = [ames_ols_all, ames_ridge, ames_lasso, ames_enet, ames_pcr],
+                 model_labels = [&#39;OLS&#39;,&#39;Ridge&#39;, &#39;Lasso&#39;, &#39;ENet&#39;, &#39;PCR&#39;], 
+                 datasetX=ames_train_X,
+                 datasetY=ames_train_y).sort_values(&quot;RMSE&quot;)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+RMSE
+</th>
+<th>
+R2
+</th>
+<th>
+MAE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+OLS
+</th>
+<td>
+15757.714
+</td>
+<td>
+0.961
+</td>
+<td>
+10931.668
+</td>
+</tr>
+<tr>
+<th>
+Lasso
+</th>
+<td>
+16480.809
+</td>
+<td>
+0.957
+</td>
+<td>
+11448.829
+</td>
+</tr>
+<tr>
+<th>
+Ridge
+</th>
+<td>
+16497.181
+</td>
+<td>
+0.957
+</td>
+<td>
+11462.724
+</td>
+</tr>
+<tr>
+<th>
+PCR
+</th>
+<td>
+16741.308
+</td>
+<td>
+0.956
+</td>
+<td>
+11753.909
+</td>
+</tr>
+<tr>
+<th>
+ENet
+</th>
+<td>
+17041.271
+</td>
+<td>
+0.954
+</td>
+<td>
+11799.798
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code># What was the RMSE on the training data?
+assess_model_fit(models = [ames_ols_all, ames_ridge, ames_lasso, ames_enet, ames_pcr],
+                 model_labels=[&#39;OLS&#39;,&#39;Ridge&#39;, &#39;Lasso&#39;, &#39;ENet&#39;, &#39;PCR&#39;], 
+                 datasetX=ames_test_X,
+                 datasetY=ames_test_y).sort_values(&quot;RMSE&quot;)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+RMSE
+</th>
+<th>
+R2
+</th>
+<th>
+MAE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+ENet
+</th>
+<td>
+19801.125
+</td>
+<td>
+0.933
+</td>
+<td>
+13317.465
+</td>
+</tr>
+<tr>
+<th>
+Lasso
+</th>
+<td>
+19864.493
+</td>
+<td>
+0.933
+</td>
+<td>
+13120.146
+</td>
+</tr>
+<tr>
+<th>
+Ridge
+</th>
+<td>
+20024.975
+</td>
+<td>
+0.932
+</td>
+<td>
+13270.709
+</td>
+</tr>
+<tr>
+<th>
+OLS
+</th>
+<td>
+20541.485
+</td>
+<td>
+0.928
+</td>
+<td>
+13346.733
+</td>
+</tr>
+<tr>
+<th>
+PCR
+</th>
+<td>
+21139.689
+</td>
+<td>
+0.924
+</td>
+<td>
+13993.637
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h2 id="challenge-3">Challenge 3</h2>
+<p>Look at the code above. Is there anything you can do to perhaps slighly improve the fit of the PCR model?</p>
+<p>{: .source}</p>
+<blockquote>
+<h2 id="solution-2">Solution</h2>
+<p>Test all of the number of principal components from one below the optimum to one right above it.</p>
+<p>{: .output} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+<hr />
+</div>
+<div id="partial-least-squares-regression-plsr" class="section level2">
+<h2>Partial least squares regression (PLSR)</h2>
+<pre class="python"><code># Define a pipeline to search for the best number of components in PLSR
+plsr = PLSRegression()
+# how many components?
+numcomp = list(np.linspace(1,len(ames_train_X.columns), num = 40).round().astype(int))
+
+pipe = Pipeline(steps=[(&#39;scaler&#39;, StandardScaler()),
+                       (&#39;plsr&#39;, plsr)])
+param_grid = {&#39;plsr__n_components&#39;: numcomp}
+ames_plsr = GridSearchCV(pipe, param_grid, iid=False, cv=5,
+                      return_train_score=False)
+
+
+if websiterendering:
+    with open(&#39;models/ames_plsr.pickle&#39;, &#39;rb&#39;) as f:
+        ames_plsr = pickle.load(f)
+else:
+    # STUDENTS: EXECUTE THE CODE BELOW
+    ames_plsr.fit(ames_train_X, ames_train_y)
+    pickle.dump(ames_plsr, open(&#39;models/ames_plsr.pickle&#39;, &#39;wb&#39;))</code></pre>
+<pre class="python"><code># how many components were best for fitting the model?
+ames_plsr.best_params_</code></pre>
+<pre><code>{&#39;plsr__n_components&#39;: 8}</code></pre>
+<pre class="python"><code># Visualise the tuning performance
+plsr_results = pd.DataFrame.from_dict(ames_plsr.cv_results_)
+
+fig, ax = plt.subplots()
+plsr_results.plot(
+    x=&#39;param_plsr__n_components&#39;, 
+    y=&#39;mean_test_score&#39;, 
+    ax=ax
+)
+ax.set_xlabel(&quot;Number of components&quot;)
+ax.set_ylabel(&#39;R squared on cross validation&#39;);</code></pre>
+<div class="figure">
+<img src="11-RidgeLassoElasticNet_files/11-RidgeLassoElasticNet_38_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<pre class="python"><code># What was the RMSE on the training data?
+assess_model_fit(models = [ames_ols_all, ames_ridge, ames_lasso, ames_enet, ames_pcr, ames_plsr],
+                 model_labels=[&#39;OLS&#39;,&#39;Ridge&#39;, &#39;Lasso&#39;, &#39;ENet&#39;, &#39;PCR&#39;,&#39;PLSR&#39;], 
+                 datasetX=ames_train_X,
+                 datasetY=ames_train_y).sort_values(&quot;RMSE&quot;)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+RMSE
+</th>
+<th>
+R2
+</th>
+<th>
+MAE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+OLS
+</th>
+<td>
+15757.714
+</td>
+<td>
+0.961
+</td>
+<td>
+10931.668
+</td>
+</tr>
+<tr>
+<th>
+Lasso
+</th>
+<td>
+16480.809
+</td>
+<td>
+0.957
+</td>
+<td>
+11448.829
+</td>
+</tr>
+<tr>
+<th>
+Ridge
+</th>
+<td>
+16497.181
+</td>
+<td>
+0.957
+</td>
+<td>
+11462.724
+</td>
+</tr>
+<tr>
+<th>
+PLSR
+</th>
+<td>
+16524.567
+</td>
+<td>
+0.957
+</td>
+<td>
+11602.496
+</td>
+</tr>
+<tr>
+<th>
+PCR
+</th>
+<td>
+16741.308
+</td>
+<td>
+0.956
+</td>
+<td>
+11753.909
+</td>
+</tr>
+<tr>
+<th>
+ENet
+</th>
+<td>
+17041.271
+</td>
+<td>
+0.954
+</td>
+<td>
+11799.798
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code># What was the RMSE on the test data?
+assess_model_fit(models= [ames_ols_all, ames_ridge, ames_lasso, ames_enet, ames_pcr, ames_plsr],
+                 model_labels=[&#39;OLS&#39;,&#39;Ridge&#39;, &#39;Lasso&#39;, &#39;ENet&#39;, &#39;PCR&#39;,&#39;PLSR&#39;], 
+                 datasetX=ames_test_X,
+                 datasetY=ames_test_y).sort_values(&quot;RMSE&quot;)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+RMSE
+</th>
+<th>
+R2
+</th>
+<th>
+MAE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+ENet
+</th>
+<td>
+19801.125
+</td>
+<td>
+0.933
+</td>
+<td>
+13317.465
+</td>
+</tr>
+<tr>
+<th>
+Lasso
+</th>
+<td>
+19864.493
+</td>
+<td>
+0.933
+</td>
+<td>
+13120.146
+</td>
+</tr>
+<tr>
+<th>
+Ridge
+</th>
+<td>
+20024.975
+</td>
+<td>
+0.932
+</td>
+<td>
+13270.709
+</td>
+</tr>
+<tr>
+<th>
+PLSR
+</th>
+<td>
+20113.237
+</td>
+<td>
+0.931
+</td>
+<td>
+13372.746
+</td>
+</tr>
+<tr>
+<th>
+OLS
+</th>
+<td>
+20541.485
+</td>
+<td>
+0.928
+</td>
+<td>
+13346.733
+</td>
+</tr>
+<tr>
+<th>
+PCR
+</th>
+<td>
+21139.689
+</td>
+<td>
+0.924
+</td>
+<td>
+13993.637
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="mars---multivariate-adaptive-regression-splines" class="section level2">
+<h2>MARS - Multivariate adaptive regression splines</h2>
+<pre class="python"><code>import sys
+sys.path.insert(0, &#39;py-earth&#39;)
+from pyearth import Earth</code></pre>
+<pre class="python"><code># Define a pipeline to optimise MARS parameters
+mars = Earth()
+max_degree = [1,2,3]
+
+pipe = Pipeline(steps=[(&#39;scaler&#39;, StandardScaler()),
+                       (&#39;mars&#39;, mars)])
+param_grid = {&#39;mars__max_degree&#39;: max_degree}
+ames_mars = GridSearchCV(pipe, param_grid, iid=False, cv=5,
+                      return_train_score=False)
+
+
+    
+if websiterendering:
+    with open(&#39;models/ames_mars.pickle&#39;, &#39;rb&#39;) as f:
+        ames_mars = pickle.load(f)
+else:
+    # STUDENTS: RUN THE LINE BELOW ONLY
+    ames_mars.fit(ames_train_X, ames_train_y)
+    pickle.dump(ames_mars, open(&#39;models/ames_mars.pickle&#39;, &#39;wb&#39;))</code></pre>
+<pre class="python"><code># Visualise the tuning performance
+mars_results = pd.DataFrame.from_dict(ames_mars.cv_results_)
+
+fig, ax = plt.subplots()
+mars_results.plot(
+    x=&#39;param_mars__max_degree&#39;, 
+    y=&#39;mean_test_score&#39;, 
+    ax=ax
+)
+ax.set_xlabel(&quot;Maximum degree&quot;)
+ax.set_ylabel(&#39;R squared on cross validation&#39;);</code></pre>
+<div class="figure">
+<img src="11-RidgeLassoElasticNet_files/11-RidgeLassoElasticNet_44_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<pre class="python"><code># What was the RMSE on the training data?
+assess_model_fit(models = [ames_ols_all, ames_ridge, ames_lasso, ames_enet, ames_pcr, ames_plsr, ames_mars],
+                 model_labels=[&#39;OLS&#39;,&#39;Ridge&#39;, &#39;Lasso&#39;, &#39;ENet&#39;, &#39;PCR&#39;,&#39;PLSR&#39;,&#39;MARS&#39;], 
+                 datasetX=ames_train_X,
+                 datasetY=ames_train_y).sort_values(&quot;RMSE&quot;)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+RMSE
+</th>
+<th>
+R2
+</th>
+<th>
+MAE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+OLS
+</th>
+<td>
+15757.714
+</td>
+<td>
+0.961
+</td>
+<td>
+10931.668
+</td>
+</tr>
+<tr>
+<th>
+Lasso
+</th>
+<td>
+16480.809
+</td>
+<td>
+0.957
+</td>
+<td>
+11448.829
+</td>
+</tr>
+<tr>
+<th>
+Ridge
+</th>
+<td>
+16497.181
+</td>
+<td>
+0.957
+</td>
+<td>
+11462.724
+</td>
+</tr>
+<tr>
+<th>
+PLSR
+</th>
+<td>
+16524.567
+</td>
+<td>
+0.957
+</td>
+<td>
+11602.496
+</td>
+</tr>
+<tr>
+<th>
+PCR
+</th>
+<td>
+16741.308
+</td>
+<td>
+0.956
+</td>
+<td>
+11753.909
+</td>
+</tr>
+<tr>
+<th>
+ENet
+</th>
+<td>
+17041.271
+</td>
+<td>
+0.954
+</td>
+<td>
+11799.798
+</td>
+</tr>
+<tr>
+<th>
+MARS
+</th>
+<td>
+19172.923
+</td>
+<td>
+0.942
+</td>
+<td>
+13498.476
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code># What was the RMSE on the test data?
+assess_model_fit(models = [ames_ols_all, ames_ridge, ames_lasso, ames_enet, ames_pcr, ames_plsr, ames_mars],
+                 model_labels=[&#39;OLS&#39;,&#39;Ridge&#39;, &#39;Lasso&#39;, &#39;ENet&#39;, &#39;PCR&#39;,&#39;PLSR&#39;,&#39;MARS&#39;], 
+                 datasetX=ames_test_X,
+                 datasetY=ames_test_y).sort_values(&quot;RMSE&quot;)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+RMSE
+</th>
+<th>
+R2
+</th>
+<th>
+MAE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+ENet
+</th>
+<td>
+19801.125
+</td>
+<td>
+0.933
+</td>
+<td>
+13317.465
+</td>
+</tr>
+<tr>
+<th>
+Lasso
+</th>
+<td>
+19864.493
+</td>
+<td>
+0.933
+</td>
+<td>
+13120.146
+</td>
+</tr>
+<tr>
+<th>
+Ridge
+</th>
+<td>
+20024.975
+</td>
+<td>
+0.932
+</td>
+<td>
+13270.709
+</td>
+</tr>
+<tr>
+<th>
+PLSR
+</th>
+<td>
+20113.237
+</td>
+<td>
+0.931
+</td>
+<td>
+13372.746
+</td>
+</tr>
+<tr>
+<th>
+OLS
+</th>
+<td>
+20541.485
+</td>
+<td>
+0.928
+</td>
+<td>
+13346.733
+</td>
+</tr>
+<tr>
+<th>
+PCR
+</th>
+<td>
+21139.689
+</td>
+<td>
+0.924
+</td>
+<td>
+13993.637
+</td>
+</tr>
+<tr>
+<th>
+MARS
+</th>
+<td>
+23226.020
+</td>
+<td>
+0.908
+</td>
+<td>
+15355.804
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

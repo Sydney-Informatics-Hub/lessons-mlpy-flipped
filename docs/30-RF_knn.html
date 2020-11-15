@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>30-RF_knn.utf8</title>
+
+<script src="site_libs/header-attrs-2.5.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="lesson.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="setup.html">Setup</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="03-EDA.html">Exploratory Data Analysis</a>
+    </li>
+    <li>
+      <a href="10-LinReg.html">Linear Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="11-RidgeLassoElasticNet.html">Regularised regression. PCR and PLSR.</a>
+    </li>
+    <li>
+      <a href="30-RF_knn.html">Random Forests and k-NN regression</a>
+    </li>
+    <li>
+      <a href="45-Xgboost.html">Gradient boosting. Extreme Gradient Boosting (XGBoost)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="50-Classification.html">Classification</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Session 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="50-Classification.html">Classification (finish)</a>
+    </li>
+    <li>
+      <a href="90-Unsupervised.html">Unsupervised learning</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<!--
+---
+title: "Random forest regression. K nearest neighbor regression"
+author: "Madhura Killedar, Darya Vanichkina"
+
+keypoints: 
+- Random forests can be combined to solve regression tasks
+- kNN is a method that can also be used for regression
+objectives:
+- To fit a RF and KNN model to our data
+- To explore the effect of hyperparameters on model fit
+questions:
+- How do we implement tree-based and proximity-based methods in python?
+source: Rmd
+teaching: 45
+exercises: 45
+bibliography: references.bib
+---
+-->
+<div id="random-forest-regression.-k-nearest-neighbor-regression" class="section level2">
+<h2>Random forest regression. K nearest neighbor regression</h2>
+<pre class="python"><code>websiterendering = True
+
+import warnings
+warnings.simplefilter(&#39;ignore&#39;, category=FutureWarning)
+warnings.simplefilter(&#39;ignore&#39;, category=UserWarning)
+warnings.simplefilter(&#39;ignore&#39;, category=DeprecationWarning)
+
+# when delivering live coding, these libraries and code in this cell have already been loaded
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.special import exp10
+import pandas as pd
+from pandas.api.types import CategoricalDtype
+import statsmodels.api as sm
+import seaborn as sns
+import pickle
+
+import sys
+sys.path.insert(0, &#39;py-earth&#39;)
+from pyearth import Earth
+
+from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
+from sklearn.metrics import mean_squared_error, r2_score,  mean_absolute_error
+
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler, RobustScaler, FunctionTransformer
+
+from sklearn.utils import resample
+
+
+# Set up plotting options for seaborn and matplotlib
+sns.set_context(&#39;notebook&#39;) 
+sns.set_style(&#39;ticks&#39;) 
+%matplotlib inline
+plt.rcParams[&#39;figure.figsize&#39;] = (9, 6)
+
+# load from previous lessons
+cached_files = [&#39;models/ames_train_y.pickle&#39;,&#39;models/ames_test_y.pickle&#39;,
+                &#39;models/ames_train_X.pickle&#39;,&#39;models/ames_test_X.pickle&#39;,
+                &#39;models/predictors.pickle&#39;,&#39;models/ames_ols_all.pickle&#39;,
+                &#39;models/ames_ridge.pickle&#39;,&#39;models/ames_lasso.pickle&#39;, 
+                &#39;models/ames_enet.pickle&#39;,&#39;models/ames_mars.pickle&#39;,
+               &#39;models/ames_pcr.pickle&#39;, &#39;models/ames_plsr.pickle&#39;]
+
+for file in cached_files:
+    with open(file, &#39;rb&#39;) as f:
+        objectname = file.replace(&#39;models/&#39;, &#39;&#39;).replace(&#39;.pickle&#39;, &#39;&#39;)
+        exec(objectname + &quot; = pickle.load(f)&quot;)
+        f.close()
+
+# transformation function for Y
+log_transf_f = FunctionTransformer(
+    func=np.log10,
+    inverse_func=exp10,
+    validate=True
+)
+
+# function to create scores dataframe
+def assess_model_fit(models, model_labels, datasetX, datasetY):
+    columns = [&#39;RMSE&#39;, &#39;R2&#39;, &#39;MAE&#39;]
+    results = pd.DataFrame(0.0, columns=columns, index=model_labels)
+    y_actual = log_transf_f.inverse_transform(datasetY.reshape(-1, 1))
+    for i, method in enumerate(models):
+        tmp_dataset_X = datasetX
+        # while we build the model and predict on the log10Transformed 
+        # sale price, we display the error in dollars as that makes more sense
+        y_pred = log_transf_f.inverse_transform(method.predict(datasetX).reshape(-1, 1))
+        results.iloc[i,0] = np.sqrt(mean_squared_error(y_actual, y_pred))
+        results.iloc[i,1] = r2_score(y_actual, y_pred)
+        results.iloc[i,2] = mean_absolute_error(y_actual, y_pred)
+    return results.round(3)</code></pre>
+</div>
+<div id="random-forest" class="section level2">
+<h2>Random Forest</h2>
+<p>In random forest, each tree in the ensemble is built from a bootstrap sample from the training set. In addition, when splitting a node during the construction of the tree, the split that is chosen is the best split among a random subset of the features.</p>
+<pre class="python"><code># tuning grid was defined to optimise the following RF parameters:
+param_grid = {&quot;n_estimators&quot;: list(np.arange(10,160,10)),
+            &#39;max_depth&#39;: list(np.arange(3,11,1)),
+            &#39;min_samples_split&#39;: [0.005, 0.01, 0.02],
+             &#39;max_features&#39;: [&#39;sqrt&#39;, &#39;auto&#39;]}</code></pre>
+<p>This was optimised on the HPC (we’ll see some sample scripts for this in the next session), and the best outcome of this ended up being:</p>
+<pre><code>{&#39;max_depth&#39;: 9, &#39;min_samples_split&#39;: 0.005, 
+&#39;max_features&#39;: &#39;auto&#39;, &#39;n_estimators&#39;: 150}
+
+# best score
+0.8735794018428228</code></pre>
+<pre class="python"><code>from sklearn.ensemble import RandomForestRegressor
+
+ames_RF = Pipeline([
+    (&#39;estimator&#39;, RandomForestRegressor(n_estimators=150, 
+                                       max_depth = 9,
+                                       min_samples_split = 0.005,
+                                       max_features = &#39;auto&#39;))
+    # If we want to actually tune these parameters
+    #(&#39;estimator&#39;, GridSearchCV(RandomForestRegressor(), param_grid, scoring=&#39;r2&#39;, cv=10))
+])
+
+if websiterendering:
+    with open(&#39;models/ames_RF.pickle&#39;, &#39;rb&#39;) as f:
+        ames_RF = pickle.load(f)
+else:
+    # STUDENTS: execute the line of code below
+    ames_RF.fit(ames_train_X, ames_train_y)
+    pickle.dump(ames_RF, open(&#39;models/ames_RF.pickle&#39;, &#39;wb&#39;))
+    
+#best_RF = ames_RF.named_steps.estimator.best_estimator_
+#print(best_RF)</code></pre>
+<pre class="python"><code>ames_RF.named_steps[&#39;estimator&#39;]</code></pre>
+<pre><code>RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion=&#39;mse&#39;,
+                      max_depth=9, max_features=&#39;auto&#39;, max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=0.005, min_weight_fraction_leaf=0.0,
+                      n_estimators=150, n_jobs=None, oob_score=False,
+                      random_state=None, verbose=0, warm_start=False)</code></pre>
+<blockquote>
+<h2 id="challenge-1">Challenge 1</h2>
+<ol style="list-style-type: decimal">
+<li>Try different hyperparameters, how does it impact the feature importances and RMSE (see below)?</li>
+</ol>
+<p>{: .source}</p>
+<p>{: .challenge}</p>
+</blockquote>
+<pre class="python"><code>def plot_coefficients(model, labels):
+    table = pd.Series(model.feature_importances_, index = labels)
+    # Get the largest 20 values (by absolute value)
+    table = table[table.abs().nlargest(20).index].sort_values()
+
+    fig, ax = fig, ax = plt.subplots()
+    table.T.plot(kind=&#39;barh&#39;, edgecolor=&#39;black&#39;, width=0.7, linewidth=.8, alpha=0.9, ax=ax)
+    ax.tick_params(axis=u&#39;y&#39;, length=0) 
+    ax.set_title(&#39;Feature Importances (twenty largest in absolute value)&#39;, fontsize=14)
+    sns.despine()
+    return fig, ax</code></pre>
+<pre class="python"><code>plot_coefficients(ames_RF.named_steps[&#39;estimator&#39;], predictors)
+plt.show()</code></pre>
+<div class="figure">
+<img src="30-RF_knn_files/30-RF_knn_9_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+</div>
+<div id="k-nearest-neighbours-regression" class="section level2">
+<h2>k-Nearest Neighbours Regression</h2>
+<pre class="python"><code># tuning grid will be defined to optimise the following knn parameters:
+param_grid = {&quot;n_neighbors&quot;: list(np.arange(3,21,2)),
+              &quot;weights&quot;: [&#39;uniform&#39;,&#39;distance&#39;],
+             }
+
+# Results from tuning:
+# print(ames_kNN.named_steps[&#39;estimator&#39;].best_score_)
+# 0.7842456772785913
+# KNeighborsRegressor(algorithm=&#39;auto&#39;, leaf_size=30, metric=&#39;minkowski&#39;,metric_params=None, n_jobs=1, n_neighbors=7, p=2, weights=&#39;distance&#39;)</code></pre>
+<pre class="python"><code>from sklearn.neighbors import KNeighborsRegressor
+
+# Next, let&#39;s try to tune locally, trying 6, 7 and 8 neighbors:
+param_grid = {&quot;n_neighbors&quot;: [6,7,8],
+              &quot;weights&quot;: [&#39;uniform&#39;]}
+
+
+ames_kNN = Pipeline([
+    (&#39;scaler&#39;, StandardScaler()),
+    #(&#39;scaler&#39;, RobustScaler()),
+    #(&#39;estimator&#39;, KNeighborsRegressor(n_neighbors=10))
+    (&#39;estimator&#39;, GridSearchCV(KNeighborsRegressor(), 
+                               param_grid, scoring=&#39;r2&#39;, cv=10))
+])
+
+
+if websiterendering:
+    with open(&#39;models/ames_knn.pickle&#39;, &#39;rb&#39;) as f:
+        ames_kNN = pickle.load(f)
+else:
+    # STUDENTS: RUN THE LINE BELOW ONLY:
+    ames_kNN.fit(ames_train_X, ames_train_y)
+    pickle.dump(ames_kNN, open(&#39;models/ames_knn.pickle&#39;, &#39;wb&#39;))
+
+    
+    
+print(ames_kNN.named_steps[&#39;estimator&#39;].best_estimator_)
+print(ames_kNN.named_steps[&#39;estimator&#39;].best_score_)</code></pre>
+<pre><code>KNeighborsRegressor(algorithm=&#39;auto&#39;, leaf_size=30, metric=&#39;minkowski&#39;,
+                    metric_params=None, n_jobs=None, n_neighbors=8, p=2,
+                    weights=&#39;uniform&#39;)
+0.7775511840741828</code></pre>
+</div>
+<div id="compare-models" class="section level2">
+<h2>Compare Models</h2>
+<pre class="python"><code># What was the RMSE on the training data?
+compare_train = assess_model_fit(
+    models=[ames_ols_all, ames_ridge, ames_lasso, ames_enet, ames_pcr,
+            ames_plsr,ames_mars, ames_RF, ames_kNN],
+    model_labels=[&#39;OLS&#39;,&#39;Ridge&#39;, &#39;Lasso&#39;, &#39;ENet&#39;,&#39;PCR&#39;,&#39;PLSR&#39;, &#39;MARS&#39;,&#39;RF&#39;, &#39;kNN&#39;],
+    datasetX=ames_train_X,
+    datasetY=ames_train_y)
+compare_train.sort_values(&#39;RMSE&#39;)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+RMSE
+</th>
+<th>
+R2
+</th>
+<th>
+MAE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+OLS
+</th>
+<td>
+15757.714
+</td>
+<td>
+0.961
+</td>
+<td>
+10931.668
+</td>
+</tr>
+<tr>
+<th>
+RF
+</th>
+<td>
+16094.641
+</td>
+<td>
+0.959
+</td>
+<td>
+11014.212
+</td>
+</tr>
+<tr>
+<th>
+Lasso
+</th>
+<td>
+16480.809
+</td>
+<td>
+0.957
+</td>
+<td>
+11448.829
+</td>
+</tr>
+<tr>
+<th>
+Ridge
+</th>
+<td>
+16497.181
+</td>
+<td>
+0.957
+</td>
+<td>
+11462.724
+</td>
+</tr>
+<tr>
+<th>
+PLSR
+</th>
+<td>
+16524.567
+</td>
+<td>
+0.957
+</td>
+<td>
+11602.496
+</td>
+</tr>
+<tr>
+<th>
+PCR
+</th>
+<td>
+16741.308
+</td>
+<td>
+0.956
+</td>
+<td>
+11753.909
+</td>
+</tr>
+<tr>
+<th>
+ENet
+</th>
+<td>
+17041.271
+</td>
+<td>
+0.954
+</td>
+<td>
+11799.798
+</td>
+</tr>
+<tr>
+<th>
+MARS
+</th>
+<td>
+19172.923
+</td>
+<td>
+0.942
+</td>
+<td>
+13498.476
+</td>
+</tr>
+<tr>
+<th>
+kNN
+</th>
+<td>
+31651.974
+</td>
+<td>
+0.841
+</td>
+<td>
+20155.938
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>def rearrange_df(df):
+    out_df = (
+        df.copy()
+        .reset_index()
+        .melt(
+            id_vars=&#39;index&#39;,
+            value_vars=df.columns.values.tolist(),
+            var_name=&#39;metric&#39;,
+            value_name=&#39;number&#39;
+        )
+        .sort_values(&#39;number&#39;)
+    )
+    out_df[&#39;index&#39;] = out_df[&#39;index&#39;].astype(str)
+    out_df= out_df.rename(columns={&#39;index&#39;:&#39;model_features&#39;})
+    return out_df</code></pre>
+<pre class="python"><code>chart = sns.catplot(
+    x=&#39;model_features&#39;,
+    y=&#39;number&#39;,
+    col=&#39;metric&#39;,
+    data=rearrange_df(compare_train),
+    kind=&#39;bar&#39;,
+    sharey=False,
+)
+chart.set_xticklabels(rotation=90);</code></pre>
+<div class="figure">
+<img src="30-RF_knn_files/30-RF_knn_16_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<pre class="python"><code># What was the RMSE on the testing data?
+compare_test = assess_model_fit(
+    models=[ames_ols_all, ames_ridge, ames_lasso, ames_enet, 
+            ames_pcr, ames_plsr, ames_mars, ames_RF, ames_kNN],
+    model_labels=[&#39;OLS&#39;,&#39;Ridge&#39;, &#39;Lasso&#39;, &#39;ENet&#39;,&#39;PCR&#39;,&#39;PLSR&#39;,&#39;MARS&#39;, &#39;RF&#39;, &#39;kNN&#39;],
+    datasetX=ames_test_X,
+    datasetY=ames_test_y)
+compare_test.sort_values(&#39;RMSE&#39;)</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+RMSE
+</th>
+<th>
+R2
+</th>
+<th>
+MAE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+ENet
+</th>
+<td>
+19801.125
+</td>
+<td>
+0.933
+</td>
+<td>
+13317.465
+</td>
+</tr>
+<tr>
+<th>
+Lasso
+</th>
+<td>
+19864.493
+</td>
+<td>
+0.933
+</td>
+<td>
+13120.146
+</td>
+</tr>
+<tr>
+<th>
+Ridge
+</th>
+<td>
+20024.975
+</td>
+<td>
+0.932
+</td>
+<td>
+13270.709
+</td>
+</tr>
+<tr>
+<th>
+PLSR
+</th>
+<td>
+20113.237
+</td>
+<td>
+0.931
+</td>
+<td>
+13372.746
+</td>
+</tr>
+<tr>
+<th>
+OLS
+</th>
+<td>
+20541.485
+</td>
+<td>
+0.928
+</td>
+<td>
+13346.733
+</td>
+</tr>
+<tr>
+<th>
+PCR
+</th>
+<td>
+21139.689
+</td>
+<td>
+0.924
+</td>
+<td>
+13993.637
+</td>
+</tr>
+<tr>
+<th>
+MARS
+</th>
+<td>
+23226.020
+</td>
+<td>
+0.908
+</td>
+<td>
+15355.804
+</td>
+</tr>
+<tr>
+<th>
+RF
+</th>
+<td>
+27557.506
+</td>
+<td>
+0.870
+</td>
+<td>
+16899.533
+</td>
+</tr>
+<tr>
+<th>
+kNN
+</th>
+<td>
+34498.941
+</td>
+<td>
+0.797
+</td>
+<td>
+22983.686
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="python"><code>chart = sns.catplot(
+    x=&#39;model_features&#39;,
+    y=&#39;number&#39;,
+    col=&#39;metric&#39;,
+    data=rearrange_df(compare_test),
+    kind=&#39;bar&#39;,
+    sharey=False,
+)
+chart.set_xticklabels(rotation=90);</code></pre>
+<div class="figure">
+<img src="30-RF_knn_files/30-RF_knn_18_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+<pre class="python"><code># compare train vs test scores
+def combine_train_test_res_df(df_train_scores, df_test_scores):
+    df = rearrange_df(df_train_scores)
+    df[&#39;dataset&#39;] = &#39;train&#39;
+    df1 = rearrange_df(df_train_scores)
+    df1[&#39;dataset&#39;] = &#39;test&#39;
+    return df.append(df1)
+
+chart = sns.catplot(
+    x=&#39;model_features&#39;,
+    y=&#39;number&#39;,
+    col=&#39;metric&#39;,
+    data=combine_train_test_res_df(compare_train, compare_test),
+    kind=&#39;bar&#39;,
+    sharey=False,
+    hue=&#39;dataset&#39;
+)
+chart.set_xticklabels(rotation=90);</code></pre>
+<div class="figure">
+<img src="30-RF_knn_files/30-RF_knn_19_0.png" alt="" />
+<p class="caption">png</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

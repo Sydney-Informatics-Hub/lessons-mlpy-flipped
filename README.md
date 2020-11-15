@@ -1,3 +1,6 @@
-# Machine Learning in Python
+# Readme
 
-This is a repository for Sydney Informatics Hub's lesson materials for the "SIH Introduction to Machine Learning in Python" workshop.
+This is a repository for Sydney Informatics Hub's lesson materials for the "Machine learning using python workshop".
+
+
+The data can be downloaded [here](https://cloudstor.aarnet.edu.au/plus/s/rFE58hyYLZEJ9bT).
