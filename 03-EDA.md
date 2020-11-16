@@ -1,24 +1,12 @@
-<!--
----
-title: "Exploratory Data Analysis (EDA) for Regression"
-author: "Darya Vanichkina, David Kohn"
-keypoints: 
-- EDA is the first step of any analysis, and often very time consuming.
-- Skipping EDA can result in substantial issues with subsequent analysis.
-questions:
-- How do we predict one continuous variable based on others?
-- What is the first step of any ML project (and often the most time consuming)?
-objectives:
+### Exploratory Data Analysis (EDA) for Regression
+
+<div class="objectives">  
+### Objectives
+
 - Introduce some of the key packages for EDA and ML
 - Introduce and explore the Ames Housing dataset
-source: Rmd
-teaching: 30
-exercises: 30
-bibliography: references.bib
----
--->
+</div>
 
-### Exploratory Data Analysis (EDA) for Regression
 
 First, let’s load the required libraries. We will use the sklearn library for our ML tasks, and the pandas, numpy, matplotlib seaborn and upsetplot libraries for general data processing and visualisation.
 
@@ -63,27 +51,27 @@ Exploratory data analysis involves looking at:
 - skewed
 - correlated variables
 
-> ## Challenge
->
-> 1. Explore the Ames Housing dataset. What can you figure out about the different variables? 
-> Which do you think are more or less important?
-> 
-> 2. Compare the "Clean" and "Dirty" datasets:
-> - What was missing in the raw data?
-> - What are some of the approaches that have been taken to deal with missingness?
-> 
-> {: .source}
->
-> > ## Solution
-> > print(ameshousingClean.shape)
-> > 
-> > print(ameshousingDirty.shape)
-> > 
-> > Let's now proceed to explore the rest of the answers to this challenge.
-> >
-> > {: .output}
-> {: .solution}
-{: .challenge}
+
+<div class="challenge">
+
+### Challenge 
+
+1. Explore the Ames Housing dataset. What can you figure out about the different variables? Which do you think are more or less important?
+
+2. Compare the "Clean" and "Dirty" datasets:
+    - What was missing in the raw data?
+    - What are some of the approaches that have been taken to deal with missingness?
+
+<details>
+<summary>Solution</summary>
+
+```python
+print(ameshousingClean.shape) 
+print(ameshousingDirty.shape)
+```
+
+</details>
+</div>
 
 What are the dimensions of the data?
 
@@ -925,3 +913,18 @@ sm.qqplot(
 > {: .solution}
 {: .challenge}
 
+
+<div class="keypoints">
+### Key points
+
+- EDA is the first step of any analysis, and often very time consuming.
+- Skipping EDA can result in substantial issues with subsequent analysis.
+questions:
+- How do we predict one continuous variable based on others?
+- What is the first step of any ML project (and often the most time consuming)?
+</div>
+
+
+```python
+
+```

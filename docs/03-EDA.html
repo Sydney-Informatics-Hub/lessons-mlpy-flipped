@@ -437,27 +437,16 @@ div.tocify {
 </div>
 
 
-<!--
----
-title: "Exploratory Data Analysis (EDA) for Regression"
-author: "Darya Vanichkina, David Kohn"
-keypoints: 
-- EDA is the first step of any analysis, and often very time consuming.
-- Skipping EDA can result in substantial issues with subsequent analysis.
-questions:
-- How do we predict one continuous variable based on others?
-- What is the first step of any ML project (and often the most time consuming)?
-objectives:
-- Introduce some of the key packages for EDA and ML
-- Introduce and explore the Ames Housing dataset
-source: Rmd
-teaching: 30
-exercises: 30
-bibliography: references.bib
----
--->
 <div id="exploratory-data-analysis-eda-for-regression" class="section level3">
 <h3>Exploratory Data Analysis (EDA) for Regression</h3>
+</div>
+<div id="objectives" class="section level3 objectives">
+<h3>Objectives</h3>
+<ul>
+<li>Introduce some of the key packages for EDA and ML</li>
+<li>Introduce and explore the Ames Housing dataset</li>
+</ul>
+</div>
 <p>First, let’s load the required libraries. We will use the sklearn library for our ML tasks, and the pandas, numpy, matplotlib seaborn and upsetplot libraries for general data processing and visualisation.</p>
 <pre class="python"><code>import matplotlib.pyplot as plt
 import numpy as np
@@ -469,7 +458,6 @@ from sklearn import model_selection
 import upsetplot
 %matplotlib inline
 sns.set(font_scale = 1.5)</code></pre>
-</div>
 <div id="load-the-data" class="section level2">
 <h2>Load the data</h2>
 <p>We will use the Ames housing data to explore different ML approaches to regression. This dataset was “designed” by Dean De Cock as an alternative to the “classic” Boston housing dataset, and has been extensively used in ML teaching. It is also available from kaggle as part of its <a href="https://www.kaggle.com/c/house-prices-advanced-regression-techniques">advanced regression practice competition</a>.</p>
@@ -492,25 +480,24 @@ ameshousingDirty = pd.read_csv(&#39;data/AmesHousingDirty.csv&#39;)</code></pre>
 <li>skewed</li>
 <li>correlated variables</li>
 </ul>
-<blockquote>
-<h2 id="challenge">Challenge</h2>
+<div id="challenge" class="section level3 challenge">
+<h3>Challenge</h3>
 <ol style="list-style-type: decimal">
 <li><p>Explore the Ames Housing dataset. What can you figure out about the different variables? Which do you think are more or less important?</p></li>
-<li><p>Compare the “Clean” and “Dirty” datasets:</p></li>
-</ol>
+<li><p>Compare the “Clean” and “Dirty” datasets:</p>
 <ul>
 <li>What was missing in the raw data?</li>
 <li>What are some of the approaches that have been taken to deal with missingness?</li>
-</ul>
-<p>{: .source}</p>
-<blockquote>
-<h2 id="solution">Solution</h2>
-<p>print(ameshousingClean.shape)</p>
-<p>print(ameshousingDirty.shape)</p>
-<p>Let’s now proceed to explore the rest of the answers to this challenge.</p>
-<p>{: .output} {: .solution} {: .challenge}</p>
-</blockquote>
-</blockquote>
+</ul></li>
+</ol>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="python"><code>print(ameshousingClean.shape) 
+print(ameshousingDirty.shape)</code></pre>
+</details>
+</div>
 <p>What are the dimensions of the data?</p>
 <p>Look at the data:</p>
 <pre class="python"><code>ameshousingClean.head()</code></pre>
@@ -1228,7 +1215,7 @@ upsetplot.plot(missing_counts);</code></pre>
 <blockquote>
 <p>{: .source}</p>
 <blockquote>
-<h2 id="solution-1">Solution</h2>
+<h2 id="solution">Solution</h2>
 <pre><code># poolQC
 print(ameshousingDirty[&#39;Pool QC&#39;].value_counts())
 print(ameshousingClean[&#39;Pool_QC&#39;].value_counts())
@@ -1409,12 +1396,22 @@ sm.qqplot(
 <p>If you were working with this dataset, which of the above would you prefer?</p>
 <p>{: .source}</p>
 <blockquote>
-<h2 id="solution-2">Solution</h2>
+<h2 id="solution-1">Solution</h2>
 <p>The log10 transformation seems best, as it both helps the distribution look more normal and helps keep our error metrics and final predictions easily interpretable. It also means that the errors of predicting the values of inexpensive and expensive houses will affect the prediction equally.</p>
 <p>{: .output} {: .solution} {: .challenge}</p>
 </blockquote>
 </blockquote>
 </div>
+<div id="key-points" class="section level3 keypoints">
+<h3>Key points</h3>
+<ul>
+<li>EDA is the first step of any analysis, and often very time consuming.</li>
+<li>Skipping EDA can result in substantial issues with subsequent analysis. questions:</li>
+<li>How do we predict one continuous variable based on others?</li>
+<li>What is the first step of any ML project (and often the most time consuming)?</li>
+</ul>
+</div>
+<pre class="python"><code></code></pre>
 </div>
 
 
