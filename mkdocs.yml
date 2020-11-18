@@ -7,8 +7,11 @@ copyright: Copyright &copy; 2020 - 2025 Sydney Informatics Hub, The University o
 
 theme:
   name: material
+  font:
+    text: Source Sans Pro
   features:
     - navigation.instant
+    - navigation.tabs
 
 docs_dir: course
 site_dir: docs
