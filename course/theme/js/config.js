@@ -10,3 +10,7 @@ window.MathJax = {
     processHtmlClass: "arithmatex"
   }
 };
+
+Array.from(document.getElementsByTagName("table")).forEach( function(item) {
+  item.parentElement.style.overflowX = "auto";
+})
