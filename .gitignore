@@ -2,3 +2,4 @@
 .vscode
 _models*
 .ipynb_checkpoint*
+.DS_Store
