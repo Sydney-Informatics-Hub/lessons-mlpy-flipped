@@ -34,8 +34,8 @@
       
         
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"Source Sans Pro",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
     
@@ -113,6 +113,60 @@
     <div class="md-container" data-md-component="container">
       
       
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+    
+    <a href="../.." class="md-tabs__link">
+      Machine learning in Python
+    </a>
+  </li>
+
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+        
+      
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        Session 1 - Regression
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../50-Classification/" class="md-tabs__link">
+        Session 2 - Classification
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
         
       
       <main class="md-main" data-md-component="main">
@@ -1375,16 +1429,14 @@ dtype: int64</code>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Of the numeric variables, which ones are the most correlated (with Sale price, and, more critically, with each other)?</p>
-<div class="challenge">
-
-## Challenge
-
-What variables are the most correlated with SalePrice?
-
-<details>
-    <summary>Solution</summary>
-
-<div class="highlight"><pre><span></span><code><span class="n">ameshousingClean</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">numericVars</span><span class="p">)]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Sale_Price&#39;</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)[</span><span class="s1">&#39;Sale_Price&#39;</span><span class="p">]</span>
+<div class="admonition challenge">
+<p class="admonition-title">Challenge</p>
+<p>What variables are the most correlated with SalePrice?</p>
+<details><summary>Solution</summary><div class="highlight"><pre><span></span><code><span class="p">(</span><span class="n">ameshousingClean</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">numericVars</span><span class="p">)]</span>
+    <span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Sale_Price&#39;</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="p">[</span><span class="s1">&#39;Sale_Price&#39;</span><span class="p">])</span>
 </code></pre></div>
 </details>
 </div>
@@ -1770,7 +1822,7 @@ questions:</li>
       <script>
         app = initialize({
           base: "../..",
-          features: ['navigation.instant'],
+          features: ['navigation.instant', 'navigation.tabs'],
           search: Object.assign({
             worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)
