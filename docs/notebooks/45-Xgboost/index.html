@@ -1,0 +1,1548 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="lessons for introduction to machine learning in Python course: Exploratory Data Analysis, Regression,">
+      
+      
+      
+      
+        <meta name="author" content="Sydney Informatics Hub Team">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+    
+    
+      
+        <title>XGBoost - Introduction to Machine learning in Python</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.21aed14c.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../theme/css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gbm-xgboost" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Introduction to Machine learning in Python" class="md-header-nav__button md-logo" aria-label="Introduction to Machine learning in Python">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Introduction to Machine learning in Python
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              XGBoost
+            
+          </span>
+        </div>
+      
+    </div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Introduction to Machine learning in Python" class="md-nav__button md-logo" aria-label="Introduction to Machine learning in Python">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Introduction to Machine learning in Python
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      Machine learning in Python
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../setup/" class="md-nav__link">
+      Setup
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../01-ML1/" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    <label class="md-nav__link" for="nav-4">
+      Session 1 - Regression
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Session 1 - Regression" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Session 1 - Regression
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03-EDA/" class="md-nav__link">
+      Exploratory Data Analysis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../10-LinReg/" class="md-nav__link">
+      Linear Regression
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../11-RidgeLassoElasticNet/" class="md-nav__link">
+      Advanced Regression
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../30-RF_knn/" class="md-nav__link">
+      Random Forest and K-Nearest Neighbours
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        XGBoost
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      XGBoost
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gbm-xgboost" class="md-nav__link">
+    GBM. XGBoost
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gradient-boosting" class="md-nav__link">
+    Gradient boosting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xgboost" class="md-nav__link">
+    XGBoost
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      Session 2 - Classification
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Session 2 - Classification" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Session 2 - Classification
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../50-Classification/" class="md-nav__link">
+      Classification
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../90-Unsupervised/" class="md-nav__link">
+      Unsupervised Learning
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gbm-xgboost" class="md-nav__link">
+    GBM. XGBoost
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gradient-boosting" class="md-nav__link">
+    Gradient boosting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xgboost" class="md-nav__link">
+    XGBoost
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>XGBoost</h1>
+                
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script>
+(function() {
+  function addWidgetsRenderer() {
+    var mimeElement = document.querySelector('script[type="application/vnd.jupyter.widget-view+json"]');
+    var scriptElement = document.createElement('script');
+    var widgetRendererSrc = 'https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js';
+    var widgetState;
+
+    // Fallback for older version:
+    try {
+      widgetState = mimeElement && JSON.parse(mimeElement.innerHTML);
+
+      if (widgetState && (widgetState.version_major < 2 || !widgetState.version_major)) {
+        widgetRendererSrc = 'jupyter-js-widgets@*/dist/embed.js';
+      }
+    } catch(e) {}
+
+    scriptElement.src = widgetRendererSrc;
+    document.body.appendChild(scriptElement);
+  }
+
+  document.addEventListener('DOMContentLoaded', addWidgetsRenderer);
+}());
+</script>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<!--
+---
+title: "Gradient boosting. XGBoost"
+author: "Darya Vanichkina"
+exercises: 30
+questions:
+- What are some newer approaches to ML?
+- What are their pros and cons?
+objectives:
+- To appreciate that more advanced methods can have a much larger number of parameters to optimise
+- This optimisation is best done iteratively on the HPC
+keypoints: 
+- Modern approaches such as GBM and XGBoost can drastically improve prediction performance
+- Tuning hyperparameters is, however, computationally expensive 
+source: Rmd
+teaching: 60
+exercises: 30
+bibliography: references.bib
+---
+-->
+<h3 id="gbm-xgboost">GBM. XGBoost<a class="headerlink" href="#gbm-xgboost" title="Permanent link">&para;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="c1"># these need to be loaded for this section</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingRegressor</span>  <span class="c1"># GBM algorithm</span>
+<span class="kn">import</span> <span class="nn">xgboost</span> <span class="k">as</span> <span class="nn">xgb</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="gradient-boosting">Gradient boosting<a class="headerlink" href="#gradient-boosting" title="Permanent link">&para;</a></h2>
+<p>Unlike algorithms we&rsquo;ve worked with up to now, GBM has a substantially larger number of parameters. While we could optimise them all together using a GridSearchCV(), it makes more sense to do so iteratively, honing down on the best parameter sets one by one. </p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First, let&rsquo;s take a <code>learning_rate</code> of 0.1, and identify how many <code>n_estimators</code> we&rsquo;d use to fit the model. To do this:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="c1"># param_test1 = {&#39;n_estimators&#39;: list(range(20, len(predictors)+1, 10))}</span>
+
+<span class="c1"># gbm1 = GridSearchCV(estimator=GradientBoostingRegressor(</span>
+<span class="c1">#        loss=&#39;ls&#39;,</span>
+<span class="c1">#        learning_rate=0.1, </span>
+<span class="c1">#        min_samples_split=20, </span>
+<span class="c1">#        min_samples_leaf=10,</span>
+<span class="c1">#        max_depth=7, </span>
+<span class="c1">#        max_features=&#39;sqrt&#39;, </span>
+<span class="c1">#        subsample=0.8,   </span>
+<span class="c1">#        random_state=42),</span>
+<span class="c1">#    param_grid=param_test1, </span>
+<span class="c1">#    n_jobs=4, </span>
+<span class="c1">#    iid=False,</span>
+<span class="c1">#    cv=10)</span>
+<span class="c1"># gbm1.fit(ames_train_X, ames_train_y)</span>
+<span class="c1"># pickle.dump(gbm1, open(&#39;models/gbm1.pickle&#39;, &#39;wb&#39;))</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;models/gbm1.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">gbm1</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># print(gsearch1.grid_scores_)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gbm1</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gbm1</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>{&#39;n_estimators&#39;: 280}
+0.9068897670500741
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="c1"># How many estimators did we test?</span>
+<span class="c1">#print(param_test1)</span>
+<span class="c1">#print(len(predictors))</span>
+
+
+<span class="c1"># </span>
+<span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.31</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_text output_subarea output_execute_result">
+<pre>
+<code>[0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3]</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can see that the optimum number was found to be 280 (almost all of them!) - but we only tested 270 and 286. Perhaps the number is between these two? :et&rsquo;s see if we can find out:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="n">param_test1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">270</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">predictors</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))}</span>
+
+<span class="c1"># gbm2 = GridSearchCV(estimator=GradientBoostingRegressor(</span>
+<span class="c1">#        loss=&#39;ls&#39;,</span>
+<span class="c1">#        learning_rate=0.1, </span>
+<span class="c1">#        min_samples_split=20, </span>
+<span class="c1">#        min_samples_leaf=10,</span>
+<span class="c1">#        max_depth=7, </span>
+<span class="c1">#        max_features=&#39;sqrt&#39;, </span>
+<span class="c1">#        subsample=0.8,   </span>
+<span class="c1">#        random_state=42),</span>
+<span class="c1">#    param_grid=param_test1, </span>
+<span class="c1">#    n_jobs=4, </span>
+<span class="c1">#    iid=False, </span>
+<span class="c1">#    cv=10)</span>
+<span class="c1"># gbm2.fit(ames_train_X, ames_train_y)</span>
+
+
+<span class="c1"># print(gbm2.best_params_)</span>
+<span class="c1"># print(gbm2.best_score_)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">param_test1</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>{&#39;n_estimators&#39;: [270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286]}
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It turns out that with a <code>learning_rate</code> of 0.1, the optimal number of <code>n_estimators</code> is 280. (From this point, we start running things on the HPC, to achieve faster optimisation rates. However, this also means that we may not be able to match our pickles with those from our desktop, due to incompatibility of python package versions.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The next step is to optimise tree-specific parameters, starting with <code>max_depth</code> and <code>min_samples_split</code>. These correspond to:</p>
+<ul>
+<li><code>min_samples_split</code> : The minimum number of samples required to split an internal node. Values around 0.5-1% of the dataset can be feasible<ul>
+<li>We will test values of 5 to 30, in increments of 5</li>
+</ul>
+</li>
+<li><code>max_depth</code> : maximum depth of the individual regression estimators. The maximum depth limits the number of nodes in the tree. <ul>
+<li>We will test values of 3 to 15, in increments of 2</li>
+</ul>
+</li>
+</ul>
+<p>This ends up being quite an expansive grid search, as we need to fit 6 * 7 = 42 models!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="n">param_test2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;min_samples_split&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span>
+               <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="p">))}</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To do this, we can use Artemis, the university&rsquo;s HPC cluster. A simple way to do this is to fit each of the <code>min_samples_split</code> independently, using a python and bash script. The python script we&rsquo;d use would look like this:
+It would write out the best model to a tsv file, with the corresponding paramter, after which we could use Unix to look at them.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><code># Import libraries:
+import os
+os.chdir(&#39;/scratch/RDS-LALA/darya/gbm&#39;)
+
+import argparse
+import numpy as np
+import pandas as pd
+import pickle
+from sklearn.ensemble import GradientBoostingRegressor  # GBM algorithm
+from sklearn import cross_validation, metrics  # Additional scklearn functions
+from sklearn.grid_search import GridSearchCV  # Perforing grid search
+
+
+
+parser = argparse.ArgumentParser(description=&#39;GBM model fitting&#39;)
+parser.add_argument(&#39;min_samples_split&#39;, type=int, help=&#39;min_samples_split value to test&#39;)
+args = parser.parse_args()
+
+
+
+
+# load from previous lessons
+cached_files = [&#39;models/ames_train_y.pickle&#39;,&#39;models/ames_test_y.pickle&#39;,
+                &#39;models/ames_train_X.pickle&#39;,&#39;models/ames_test_X.pickle&#39;,
+                &#39;models/predictors.pickle&#39;]
+
+for file in cached_files:
+    with open(file, &#39;rb&#39;) as f:
+        objectname = file.replace(&#39;models/&#39;, &#39;&#39;).replace(&#39;.pickle&#39;, &#39;&#39;)
+        exec(objectname + &quot; = pickle.load(f)&quot;)
+        f.close()
+
+
+
+
+param_test = {&#39;min_samples_split&#39;: [args.min_samples_split],
+              &#39;max_depth&#39;: list(range(3,16, 2))}
+
+gbm2 = GridSearchCV(estimator=GradientBoostingRegressor(
+       loss=&#39;ls&#39;,
+       learning_rate=0.1,
+       n_estimators = 279,
+       min_samples_leaf=10,
+       max_features=&#39;sqrt&#39;,
+       subsample=0.8,
+       random_state=42),
+   param_grid=param_test,
+   n_jobs=4,
+   iid=False,
+   cv=10)
+gbm2.fit(ames_train_X, ames_train_y)
+
+filename = &#39;fit1/&#39; + str(args.min_samples_split) + &#39;fit.tsv&#39;
+with open(filename, &#39;w&#39;) as f:
+    print(gbm2.best_score_,&quot;\t&quot;,gbm2.best_params_, file = f)
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The shell script we could use is very basic:</p>
+<div class="highlight"><pre><span></span><code>python /home/darya/gbm/optimise1.py $PARAM
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And, finally, we could execute it using the following qsub commands:</p>
+<div class="highlight"><pre><span></span><code>qsub -P RDS-CORE-SIH4HPC-RW -l select=1:ncpus=4:mem=4gb -l walltime=2:0:0 -N gbm1 -v PARAM=5 /home/dvanichkina/scratch_sih/darya/gbm/optimise1.sh
+qsub -P RDS-CORE-SIH4HPC-RW -l select=1:ncpus=4:mem=4gb -l walltime=2:0:0 -N gbm1 -v PARAM=10 /home/dvanichkina/scratch_sih/darya/gbm/optimise1.sh
+qsub -P RDS-CORE-SIH4HPC-RW -l select=1:ncpus=4:mem=4gb -l walltime=2:0:0 -N gbm1 -v PARAM=15 /home/dvanichkina/scratch_sih/darya/gbm/optimise1.sh
+qsub -P RDS-CORE-SIH4HPC-RW -l select=1:ncpus=4:mem=4gb -l walltime=2:0:0 -N gbm1 -v PARAM=20 /home/dvanichkina/scratch_sih/darya/gbm/optimise1.sh
+qsub -P RDS-CORE-SIH4HPC-RW -l select=1:ncpus=4:mem=4gb -l walltime=2:0:0 -N gbm1 -v PARAM=25 /home/dvanichkina/scratch_sih/darya/gbm/optimise1.sh
+qsub -P RDS-CORE-SIH4HPC-RW -l select=1:ncpus=4:mem=4gb -l walltime=2:0:0 -N gbm1 -v PARAM=30 /home/dvanichkina/scratch_sih/darya/gbm/optimise1.sh
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The results for this are as follows. 
+<div class="highlight"><pre><span></span><code>0.9107460935801089   {&#39;max_depth&#39;: 7, &#39;min_samples_split&#39;: 30}
+</code></pre></div></p>
+<p>It&rsquo;s clear that we need to test higher values of the <code>min_samples_split</code>, so we can run another round of the optimisation with:</p>
+<div class="highlight"><pre><span></span><code>qsub -P RDS-CORE-SIH4HPC-RW -l select=1:ncpus=4:mem=4gb -l walltime=2:0:0 -N gbm1 -v PARAM=35 /home/dvanichkina/scratch_sih/darya/gbm/optimise1.sh
+qsub -P RDS-CORE-SIH4HPC-RW -l select=1:ncpus=4:mem=4gb -l walltime=2:0:0 -N gbm1 -v PARAM=40 /home/dvanichkina/scratch_sih/darya/gbm/optimise1.sh
+qsub -P RDS-CORE-SIH4HPC-RW -l select=1:ncpus=4:mem=4gb -l walltime=2:0:0 -N gbm1 -v PARAM=45 /home/dvanichkina/scratch_sih/darya/gbm/optimise1.sh
+qsub -P RDS-CORE-SIH4HPC-RW -l select=1:ncpus=4:mem=4gb -l walltime=2:0:0 -N gbm1 -v PARAM=50 /home/dvanichkina/scratch_sih/darya/gbm/optimise1.sh
+qsub -P RDS-CORE-SIH4HPC-RW -l select=1:ncpus=4:mem=4gb -l walltime=2:0:0 -N gbm1 -v PARAM=55 /home/dvanichkina/scratch_sih/darya/gbm/optimise1.sh
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We then arrive at the following optimum:</p>
+<div class="highlight"><pre><span></span><code>0.9109466273291733   {&#39;max_depth&#39;: 7, &#39;min_samples_split&#39;: 40}
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To improve the fit of our model, let&rsquo;s try <code>max_depth</code> of 6, 7, or 8 and <code>min_samples_split</code> of 35 to 45 (increments of 1).
+<div class="highlight"><pre><span></span><code>param_test = {&#39;min_samples_split&#39;: list(range(35,46,1)),
+              &#39;max_depth&#39;: list(range(6,9, 1))}
+</code></pre></div></p>
+<p>We finally arrive at the optimum of:
+<div class="highlight"><pre><span></span><code>0.9118552463171431   {&#39;max_depth&#39;: 7, &#39;min_samples_split&#39;: 41}
+</code></pre></div></p>
+<hr />
+<p>Let&rsquo;s leave <code>max_depth</code> at 7, and test a range of values for:
+- <code>min_samples_split</code> (35 to 45, increments of 1)
+- <code>min_samples_leaf</code> (5 to 45, increments of 5)</p>
+<p>We can use the HPC, as above, to run the code, or run it locally on our machine (takes ~20 mins):</p>
+<div class="highlight"><pre><span></span><code>param_test = {&#39;min_samples_split&#39;: list(range(35,46,1)),
+              &#39;min_samples_leaf&#39;: list(range(5,36, 5))}
+
+gbm2 = GridSearchCV(estimator=GradientBoostingRegressor(
+       loss=&#39;ls&#39;,
+       learning_rate=0.1, 
+       n_estimators = 279,
+       max_depth=7, 
+       max_features=&#39;sqrt&#39;, 
+       subsample=0.8,   
+       random_state=42),
+   param_grid=param_test, 
+   n_jobs=4, 
+   iid=False, 
+   cv=10)
+gbm2.fit(ames_train_X, ames_train_y)
+
+print(gbm2.best_score_,&quot;\t&quot;,gbm2.best_params_)
+</code></pre></div>
+<p>The outcome of this is</p>
+<div class="highlight"><pre><span></span><code>0.9151989049335256   {&#39;min_samples_leaf&#39;: 5, &#39;min_samples_split&#39;: 36}
+</code></pre></div>
+<hr />
+<p>Next, let&rsquo;s tune the <code>max_features</code> parameter, trying values from &lsquo;auto&rsquo; to &lsquo;log2&rsquo; to &lsquo;sqrt&rsquo; to only 20 parameters. </p>
+<div class="highlight"><pre><span></span><code>param_test = {&#39;max_features&#39;: [&#39;auto&#39;,&#39;log2&#39;,&#39;sqrt&#39;],
+              &#39;min_samples_leaf&#39;: list(range(5,21, 5))}
+
+gbm2 = GridSearchCV(estimator=GradientBoostingRegressor(
+       loss=&#39;ls&#39;,
+       min_samples_split = 36,
+       learning_rate=0.1, 
+       n_estimators = 279,
+       max_depth=7,  
+       subsample=0.8,   
+       random_state=42),
+   param_grid=param_test, 
+   n_jobs=4, 
+   iid=False, 
+   cv=10)
+gbm2.fit(ames_train_X, ames_train_y)
+
+print(gbm2.best_score_,&quot;\t&quot;,gbm2.best_params_)
+</code></pre></div>
+<p>The resulf of this is:</p>
+<p><code>0.9151989049335256      {'min_samples_leaf': 5, 'max_features': 'sqrt'}</code></p>
+<hr />
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, let&rsquo;s go back to optimising the number of trees and learning rate, this time going with a lower learning rate (because the lower the learning rate, the slower the CV will be):</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><code>param_test = {&#39;n_estimators&#39;: list(range(275, len(predictors)+1, 1)),
+             &#39;learning_rate&#39;: list(np.arange(0.001, 1.0, 0.1)),
+             &#39;subsample&#39;: list(np.arange(0.6, 1.0))}
+
+gbm2 = GridSearchCV(estimator=GradientBoostingRegressor(
+       loss=&#39;ls&#39;,
+       max_depth=7, 
+       max_features=&#39;sqrt&#39;, 
+       min_samples_leaf=5,
+       min_samples_split = 36,
+       random_state=42),
+   param_grid=param_test, 
+   n_jobs=4, 
+   iid=False, 
+   cv=10)
+gbm2.fit(ames_train_X, ames_train_y)
+
+print(gbm2.best_score_,&quot;\t&quot;,gbm2.best_params_)
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>0.9117722351540429      {'learning_rate': 0.101, 'n_estimators': 280, 'subsample': 0.6}</code></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note that we could also have &ldquo;brute forced&rdquo; the estimation using HPC, combining 3 scripts:</p>
+<div class="highlight"><pre><span></span><code># optimise2.py ----------------
+#
+#
+# Import libraries:
+import os
+os.chdir(&#39;/scratch/RDS-CORE-SIH4HPC-RW/darya/gbm&#39;)
+
+import argparse
+import numpy as np
+import pandas as pd
+import pickle
+from sklearn.ensemble import GradientBoostingRegressor  # GBM algorithm
+from sklearn import cross_validation, metrics  # Additional scklearn functions
+from sklearn.grid_search import GridSearchCV  # Perforing grid search
+
+
+
+parser = argparse.ArgumentParser(description=&#39;GBM model fitting&#39;)
+parser.add_argument(&#39;min_samples_split&#39;, type=int, help=&#39;min_samples_split value to test&#39;)
+parser.add_argument(&#39;n_estimators&#39;, type=int, help=&#39;n_estimators value to test&#39;)
+args = parser.parse_args()
+
+
+# load from previous lessons
+cached_files = [&#39;models/ames_train_y.pickle&#39;,&#39;models/ames_test_y.pickle&#39;,
+                &#39;models/ames_train_X.pickle&#39;,&#39;models/ames_test_X.pickle&#39;,
+                &#39;models/predictors.pickle&#39;]
+
+for file in cached_files:
+    with open(file, &#39;rb&#39;) as f:
+        objectname = file.replace(&#39;models/&#39;, &#39;&#39;).replace(&#39;.pickle&#39;, &#39;&#39;)
+        exec(objectname + &quot; = pickle.load(f)&quot;)
+        f.close()
+
+
+
+# [args.min_samples_split]
+
+param_test = {&#39;n_estimators&#39;: [args.n_estimators], 
+            &#39;min_samples_split&#39; : [args.min_samples_split], 
+             &#39;learning_rate&#39;: list(np.arange(0.001, 0.31, 0.05).round(2)), 
+             &#39;min_samples_leaf&#39;:  list(range(1,22, 4)),
+             &#39;max_depth&#39;: [1,3,5,6,7,8,9,10,15],
+             &#39;subsample&#39;: [0.65, 0.75, 0.8, 0.85, 0.9]
+             }
+
+gbm2 = GridSearchCV(estimator=GradientBoostingRegressor(
+       loss=&#39;ls&#39;,
+       max_features=&#39;sqrt&#39;,
+       random_state=42),
+   param_grid=param_test,
+   n_jobs=4,
+   iid=False,
+   cv=10)
+
+
+gbm2.fit(ames_train_X, ames_train_y)
+
+filename = &#39;fit1/&#39; + str(args.min_samples_split) + &quot;_&quot; + str(args.n_estimators) + &#39;fit.tsv&#39;
+with open(filename, &#39;w&#39;) as f:
+    print(gbm2.best_score_,&quot;\t&quot;,gbm2.best_params_, file = f)
+
+
+
+
+
+####----
+optimise2.pbs
+#PBS -P PROJECTNAME
+#PBS -N gbmOpt3
+#PBS -l select=1:ncpus=3:mem=2gb
+#PBS -l walltime=02:0:00
+#PBS -J 100-286:5
+
+# unload all modules
+module purge
+
+cd /home/dvanichkina/scratch_sih/darya/gbm/
+python /home/dvanichkina/scratch_sih/darya/gbm/optimise2.py $PARAM $PBS_ARRAY_INDEX
+
+
+
+#### --------------
+# optimise2.sh
+qsub -v PARAM=5 /home/dvanichkina/scratch_sih/darya/gbm/optimise2.pbs
+qsub -v PARAM=10 /home/dvanichkina/scratch_sih/darya/gbm/optimise2.pbs
+qsub -v PARAM=15 /home/dvanichkina/scratch_sih/darya/gbm/optimise2.pbs
+qsub -v PARAM=20 /home/dvanichkina/scratch_sih/darya/gbm/optimise2.pbs
+qsub -v PARAM=25 /home/dvanichkina/scratch_sih/darya/gbm/optimise2.pbs
+qsub -v PARAM=30 /home/dvanichkina/scratch_sih/darya/gbm/optimise2.pbs
+qsub -v PARAM=35 /home/dvanichkina/scratch_sih/darya/gbm/optimise2.pbs
+qsub -v PARAM=40 /home/dvanichkina/scratch_sih/darya/gbm/optimise2.pbs
+qsub -v PARAM=45 /home/dvanichkina/scratch_sih/darya/gbm/optimise2.pbs
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>After all of this finishes running, the optimal parameter values we obtain are:
+<div class="highlight"><pre><span></span><code>0.918410561940631    {&#39;learning_rate&#39;: 0.051, &#39;n_estimators&#39;: 280, &#39;min_samples_split&#39;: 35, &#39;max_depth&#39;: 7, &#39;subsample&#39;: 0.8, &#39;min_samples_leaf&#39;: 1}
+</code></pre></div></p>
+<p>Let&rsquo;s fit this model locally:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="n">param_test</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">280</span><span class="p">]}</span>
+
+<span class="n">ames_gbm</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">GradientBoostingRegressor</span><span class="p">(</span>
+        <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.051</span><span class="p">,</span> 
+        <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> 
+        <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> 
+        <span class="n">max_features</span><span class="o">=</span><span class="s1">&#39;sqrt&#39;</span><span class="p">,</span> 
+        <span class="n">subsample</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>   
+        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="n">param_grid</span><span class="o">=</span><span class="n">param_test</span><span class="p">,</span> 
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
+    <span class="n">iid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1">#ames_gbm.fit(ames_train_X, ames_train_y)</span>
+<span class="c1">#pickle.dump(ames_gbm, open(&#39;models/ames_gbm.pickle&#39;, &#39;wb&#39;))</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;models/ames_gbm.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">ames_gbm</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># print(gsearch1.grid_scores_)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ames_gbm</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ames_gbm</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>{&#39;n_estimators&#39;: 280}
+0.9182771422480472
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+<h2 id="xgboost">XGBoost<a class="headerlink" href="#xgboost" title="Permanent link">&para;</a></h2>
+<ol>
+<li>First, optimise <code>max_depth</code> and <code>min_child_weight</code>, with a varying number of <code>n_estimators</code> and a fixed, large <code>learning_rate</code> 0.1.</li>
+</ol>
+<div class="highlight"><pre><span></span><code>import numpy as np
+import pandas as pd
+import pickle
+import xgboost as xgb
+from sklearn import cross_validation, metrics  # Additional scklearn functions
+from sklearn.grid_search import GridSearchCV  # Perforing grid search
+# load from previous lessons
+cached_files = [&#39;models/ames_train_y.pickle&#39;,&#39;models/ames_test_y.pickle&#39;,
+                &#39;models/ames_train_X.pickle&#39;,&#39;models/ames_test_X.pickle&#39;,
+                &#39;models/predictors.pickle&#39;]
+
+for file in cached_files:
+    with open(file, &#39;rb&#39;) as f:
+        objectname = file.replace(&#39;models/&#39;, &#39;&#39;).replace(&#39;.pickle&#39;, &#39;&#39;)
+        exec(objectname + &quot; = pickle.load(f)&quot;)
+        f.close()
+
+
+
+
+param_test = {
+ &#39;max_depth&#39;:list(range(3,10,2)),
+ &#39;min_child_weight&#39;:list(range(1,7,2)),
+ &#39;n_estimators&#39;: [180, 230, 280]
+}
+
+
+
+xgbmodel = GridSearchCV(estimator=xgb.XGBRegressor(
+  objective=&#39;reg:linear&#39;,
+  learning_rate =0.1,
+  n_estimators=280,
+  gamma=0,
+  subsample=0.8,
+  colsample_bytree=0.8,
+  random_state=42),
+   param_grid=param_test,
+   n_jobs=4,
+   iid=False,
+   cv=10)
+
+xgbmodel.fit(ames_train_X, ames_train_y)
+print(xgbmodel.best_score_,&quot;\t&quot;,xgbmodel.best_params_)
+
+# 0.9159701741062035     {&#39;max_depth&#39;: 3, &#39;min_child_weight&#39;: 1, &#39;n_estimators&#39;: 280}
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Of these, it turns out the best parameter values are:
+- &lsquo;max_depth&rsquo;: 3, &lsquo;min_child_weight&rsquo;: 1, &lsquo;n_estimators&rsquo;: 280</p>
+<p>Now, let&rsquo;s see if we can improve this even more:</p>
+<div class="highlight"><pre><span></span><code>param_test = {
+ &#39;max_depth&#39;:[2,3,4],
+ &#39;min_child_weight&#39;:[0.5,1,1.5,2],
+ &#39;n_estimators&#39;: [275, 280, 285]
+}
+
+# 0.9162060722720288     {&#39;max_depth&#39;: 3, &#39;min_child_weight&#39;: 0.5, &#39;n_estimators&#39;: 285}
+</code></pre></div>
+<ol>
+<li>Next, optimise gamma, the minimum split loss. This is the minimum loss reduction required to make a further partition on a leaf node of the tree. </li>
+</ol>
+<div class="highlight"><pre><span></span><code>param_test = {
+ &#39;max_depth&#39;:[3],
+ &#39;min_child_weight&#39;:[0.5],
+ &#39;n_estimators&#39;: [283, 284, 285],
+ &#39;gamma&#39;: [i/10.0 for i in range(0,5)]
+}
+
+# 0.9162060722720288     {&#39;gamma&#39;: 0.0, &#39;min_child_weight&#39;: 0.5, &#39;max_depth&#39;: 3, &#39;n_estimators&#39;: 285}
+# Default zero seems best
+</code></pre></div>
+<ol>
+<li>Next, optimise <code>subsample</code> and <code>colsample_bytree</code>, which represent the proportion of data used to make each tree and how many features can go into a tree at each branch</li>
+</ol>
+<div class="highlight"><pre><span></span><code>param_test = {
+ &#39;max_depth&#39;:[3],
+ &#39;min_child_weight&#39;:[0.5],
+ &#39;n_estimators&#39;: [283, 284, 285, 286],
+ &#39;gamma&#39;: [0],
+ &#39;subsample&#39;:[i/10.0 for i in range(6,10)],
+ &#39;colsample_bytree&#39;:[i/10.0 for i in range(6,10)]
+
+}
+
+
+# 0.916463171211643      {&#39;max_depth&#39;: 3, &#39;gamma&#39;: 0, &#39;min_child_weight&#39;: 0.5, &#39;colsample_bytree&#39;: 0.6, &#39;subsample&#39;: 0.8, &#39;n_estimators&#39;: 284}
+</code></pre></div>
+<p>Let&rsquo;s zero in on that, and subsample values plus/minus 0.05 around the idenfied optima:</p>
+<div class="highlight"><pre><span></span><code>param_test = {
+ &#39;max_depth&#39;:[3],
+ &#39;min_child_weight&#39;:[0.5],
+ &#39;n_estimators&#39;: [283, 284, 285, 286],
+ &#39;gamma&#39;: [0],
+ &#39;subsample&#39;:[0.75, 0.775,  0.8, 0.825, 0.85],
+ &#39;colsample_bytree&#39;:[0.5, 0.55, 0.6]
+
+}
+
+
+# 0.918366305109824      {&#39;max_depth&#39;: 3, &#39;gamma&#39;: 0, &#39;min_child_weight&#39;: 0.5, &#39;colsample_bytree&#39;: 0.5, &#39;subsample&#39;: 0.75, &#39;n_estimators&#39;: 285}
+</code></pre></div>
+<p>Perhaps need to reduce those two even more, as their values are the lowest that we&rsquo;re testing!</p>
+<div class="highlight"><pre><span></span><code>param_test = {
+ &#39;max_depth&#39;:[3],
+ &#39;min_child_weight&#39;:[0.5],
+ &#39;n_estimators&#39;: [283, 284, 285, 286],
+ &#39;gamma&#39;: [0],
+ &#39;subsample&#39;:[0.65, 0.7, 0.75, 0.8],
+ &#39;colsample_bytree&#39;:[0.4,0.45, 0.5, 0.55]
+
+}
+# 0.918366305109824      {&#39;max_depth&#39;: 3, &#39;gamma&#39;: 0, &#39;min_child_weight&#39;: 0.5, &#39;colsample_bytree&#39;: 0.5, &#39;subsample&#39;: 0.75, &#39;n_estimators&#39;: 285}
+</code></pre></div>
+<ol>
+<li>Next, let&rsquo;s tune the regularisation parameters:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>param_test = {
+ &#39;max_depth&#39;:[3],
+ &#39;min_child_weight&#39;:[0.5],
+ &#39;n_estimators&#39;: [285],
+ &#39;gamma&#39;: [0],
+ &#39;subsample&#39;:[0.75],
+ &#39;colsample_bytree&#39;:[0.5],
+ &#39;reg_alpha&#39;:[0, 0.1, 0.2, 0.5, 1],
+ &#39;reg_lambda&#39;: [0, 0.1, 0.2, 0.5, 1]
+}
+
+# 0.918366305109824      {&#39;max_depth&#39;: 3, &#39;reg_lambda&#39;: 1, &#39;reg_alpha&#39;: 0, &#39;gamma&#39;: 0, &#39;min_child_weight&#39;: 0.5, &#39;colsample_bytree&#39;: 0.5, &#39;subsample&#39;: 0.75, &#39;n_estimators&#39;: 285}
+
+# defaults we&#39;ve been using so far: alpha = 0 , lambda = 1, are optimal for us (i.e. ridge regression-like)
+</code></pre></div>
+<p>Let&rsquo;s fit the final model, and assess its performance on the training and test sets:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="n">param_test</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="s1">&#39;max_depth&#39;</span><span class="p">:[</span><span class="mi">3</span><span class="p">],</span>
+ <span class="s1">&#39;min_child_weight&#39;</span><span class="p">:[</span><span class="mf">0.5</span><span class="p">],</span>
+ <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">285</span><span class="p">],</span>
+ <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+ <span class="s1">&#39;subsample&#39;</span><span class="p">:[</span><span class="mf">0.75</span><span class="p">],</span>
+ <span class="s1">&#39;colsample_bytree&#39;</span><span class="p">:[</span><span class="mf">0.5</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="n">websiterendering</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;models/ames_xgb.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">ames_xgb</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># STUDENTS: RUN THE LINE BELOW ONLY:</span>
+    <span class="n">ames_xgb</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">xgb</span><span class="o">.</span><span class="n">XGBRegressor</span><span class="p">(</span>
+    <span class="n">objective</span><span class="o">=</span><span class="s1">&#39;reg:linear&#39;</span><span class="p">,</span>
+    <span class="n">learning_rate</span> <span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="n">param_grid</span><span class="o">=</span><span class="n">param_test</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">iid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ames_xgb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ames_train_X</span><span class="p">,</span> <span class="n">ames_train_y</span><span class="p">)</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">ames_xgb</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;models/ames_xgb.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
+
+
+
+<span class="c1"># print(gsearch1.grid_scores_)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ames_xgb</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ames_xgb</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>[17:11:24] WARNING: /home/conda/feedstock_root/build_artifacts/xgboost_1572314959925/work/src/objective/regression_obj.cu:152: reg:linear is now deprecated in favor of reg:squarederror.
+{&#39;colsample_bytree&#39;: 0.5, &#39;gamma&#39;: 0, &#39;max_depth&#39;: 3, &#39;min_child_weight&#39;: 0.5, &#39;n_estimators&#39;: 285, &#39;subsample&#39;: 0.75}
+0.9113828044927915
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Unfortunately, even the code above runs out of RAM on my normal machine, so I optimised it all on Artemis HPC. I then ran code very similar to what we&rsquo;ve used before to get the training and testing RMSE.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="c1"># What was the RMSE on the training data?</span>
+<span class="n">assess_model_fit</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="p">[</span><span class="n">ames_ols_all</span><span class="p">,</span> <span class="n">ames_ridge</span><span class="p">,</span> <span class="n">ames_lasso</span><span class="p">,</span> <span class="n">ames_enet</span><span class="p">,</span> <span class="n">ames_pcr</span><span class="p">,</span> <span class="n">ames_plsr</span><span class="p">,</span> <span class="n">ames_mars</span><span class="p">,</span> <span class="n">ames_RF</span><span class="p">,</span> <span class="n">ames_knn</span><span class="p">,</span> <span class="n">ames_gbm</span><span class="p">,</span> <span class="n">ames_xgb</span><span class="p">],</span>
+    <span class="n">model_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OLS&#39;</span><span class="p">,</span><span class="s1">&#39;Ridge&#39;</span><span class="p">,</span> <span class="s1">&#39;Lasso&#39;</span><span class="p">,</span> <span class="s1">&#39;ENet&#39;</span><span class="p">,</span><span class="s1">&#39;PCR&#39;</span><span class="p">,</span><span class="s1">&#39;PLSR&#39;</span><span class="p">,</span><span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;RF&#39;</span><span class="p">,</span> <span class="s1">&#39;kNN&#39;</span><span class="p">,</span> <span class="s1">&#39;GB&#39;</span><span class="p">,</span> <span class="s2">&quot;XGB&quot;</span><span class="p">],</span>
+    <span class="n">datasetX</span><span class="o">=</span><span class="n">ames_train_X</span><span class="p">,</span>
+    <span class="n">datasetY</span><span class="o">=</span><span class="n">ames_train_y</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;RMSE&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="scoped">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>RMSE</th>
+<th>R2</th>
+<th>MAE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>GB</th>
+<td>11528.128</td>
+<td>0.979</td>
+<td>7274.574</td>
+</tr>
+<tr>
+<th>XGB</th>
+<td>11755.607</td>
+<td>0.978</td>
+<td>8566.560</td>
+</tr>
+<tr>
+<th>OLS</th>
+<td>15757.714</td>
+<td>0.961</td>
+<td>10931.668</td>
+</tr>
+<tr>
+<th>RF</th>
+<td>16094.641</td>
+<td>0.959</td>
+<td>11014.212</td>
+</tr>
+<tr>
+<th>Lasso</th>
+<td>16480.809</td>
+<td>0.957</td>
+<td>11448.829</td>
+</tr>
+<tr>
+<th>Ridge</th>
+<td>16497.181</td>
+<td>0.957</td>
+<td>11462.724</td>
+</tr>
+<tr>
+<th>PLSR</th>
+<td>16524.567</td>
+<td>0.957</td>
+<td>11602.496</td>
+</tr>
+<tr>
+<th>PCR</th>
+<td>16741.308</td>
+<td>0.956</td>
+<td>11753.909</td>
+</tr>
+<tr>
+<th>ENet</th>
+<td>17041.271</td>
+<td>0.954</td>
+<td>11799.798</td>
+</tr>
+<tr>
+<th>MARS</th>
+<td>19172.923</td>
+<td>0.942</td>
+<td>13498.476</td>
+</tr>
+<tr>
+<th>kNN</th>
+<td>31651.974</td>
+<td>0.841</td>
+<td>20155.938</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="c1"># What was the RMSE on the test data?</span>
+
+<span class="n">assess_model_fit</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="p">[</span><span class="n">ames_ols_all</span><span class="p">,</span> <span class="n">ames_ridge</span><span class="p">,</span> <span class="n">ames_lasso</span><span class="p">,</span> <span class="n">ames_enet</span><span class="p">,</span> <span class="n">ames_pcr</span><span class="p">,</span> <span class="n">ames_plsr</span><span class="p">,</span> <span class="n">ames_mars</span><span class="p">,</span> <span class="n">ames_RF</span><span class="p">,</span> <span class="n">ames_knn</span><span class="p">,</span> <span class="n">ames_gbm</span><span class="p">,</span> <span class="n">ames_xgb</span><span class="p">],</span>
+                 <span class="n">model_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OLS&#39;</span><span class="p">,</span><span class="s1">&#39;Ridge&#39;</span><span class="p">,</span> <span class="s1">&#39;Lasso&#39;</span><span class="p">,</span> <span class="s1">&#39;ENet&#39;</span><span class="p">,</span><span class="s1">&#39;PCR&#39;</span><span class="p">,</span><span class="s1">&#39;PLSR&#39;</span><span class="p">,</span><span class="s1">&#39;MARS&#39;</span><span class="p">,</span> <span class="s1">&#39;RF&#39;</span><span class="p">,</span> <span class="s1">&#39;kNN&#39;</span><span class="p">,</span> <span class="s1">&#39;GB&#39;</span><span class="p">,</span> <span class="s2">&quot;XGB&quot;</span><span class="p">],</span>
+                 <span class="n">datasetX</span><span class="o">=</span><span class="n">ames_test_X</span><span class="p">,</span>
+                 <span class="n">datasetY</span><span class="o">=</span><span class="n">ames_test_y</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;RMSE&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="scoped">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>RMSE</th>
+<th>R2</th>
+<th>MAE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>GB</th>
+<td>19131.898</td>
+<td>0.938</td>
+<td>11399.676</td>
+</tr>
+<tr>
+<th>ENet</th>
+<td>19801.125</td>
+<td>0.933</td>
+<td>13317.465</td>
+</tr>
+<tr>
+<th>Lasso</th>
+<td>19864.493</td>
+<td>0.933</td>
+<td>13120.146</td>
+</tr>
+<tr>
+<th>Ridge</th>
+<td>20024.975</td>
+<td>0.932</td>
+<td>13270.709</td>
+</tr>
+<tr>
+<th>PLSR</th>
+<td>20113.237</td>
+<td>0.931</td>
+<td>13372.746</td>
+</tr>
+<tr>
+<th>OLS</th>
+<td>20541.485</td>
+<td>0.928</td>
+<td>13346.733</td>
+</tr>
+<tr>
+<th>PCR</th>
+<td>21139.689</td>
+<td>0.924</td>
+<td>13993.637</td>
+</tr>
+<tr>
+<th>XGB</th>
+<td>21230.108</td>
+<td>0.923</td>
+<td>13446.263</td>
+</tr>
+<tr>
+<th>MARS</th>
+<td>23226.020</td>
+<td>0.908</td>
+<td>15355.804</td>
+</tr>
+<tr>
+<th>RF</th>
+<td>27557.506</td>
+<td>0.870</td>
+<td>16899.533</td>
+</tr>
+<tr>
+<th>kNN</th>
+<td>34498.941</td>
+<td>0.797</td>
+<td>22983.686</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../30-RF_knn/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Random Forest and K-Nearest Neighbours
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../50-Classification/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Classification
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 - 2025 Sydney Informatics Hub, The University of Sydney - all right reserved
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.7e0ee788.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['navigation.instant'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../theme/js/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,690 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="lessons for introduction to machine learning in Python course: Exploratory Data Analysis, Regression,">
+      
+      
+      
+      
+        <meta name="author" content="Darya Vanichkina">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+    
+    
+      
+        <title>Introduction to machine learning using python - Introduction to Machine learning in Python</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.21aed14c.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../theme/css/extra.css">
+    
+      <link rel="stylesheet" href="../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../css/pandas-dataframe.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview-of-the-course" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Introduction to Machine learning in Python" class="md-header-nav__button md-logo" aria-label="Introduction to Machine learning in Python">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Introduction to Machine learning in Python
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Introduction to machine learning using python
+            
+          </span>
+        </div>
+      
+    </div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Introduction to Machine learning in Python" class="md-nav__button md-logo" aria-label="Introduction to Machine learning in Python">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Introduction to Machine learning in Python
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." class="md-nav__link">
+      Machine learning in Python
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../setup/" class="md-nav__link">
+      Setup
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Overview
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Overview
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-the-course" class="md-nav__link">
+    Overview of the course
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-machine-learning-how-is-it-different-from-statistical-learning" class="md-nav__link">
+    What is machine learning? How is it different from statistical learning?
+  </a>
+  
+    <nav class="md-nav" aria-label="What is machine learning? How is it different from statistical learning?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#caveat" class="md-nav__link">
+    Caveat:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-some-case-studies-of-the-use-of-ml" class="md-nav__link">
+    What are some case studies of the use of ML?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-machine-learning" class="md-nav__link">
+    Types of Machine learning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-free-lunch-theorem" class="md-nav__link">
+    "No Free Lunch" theorem
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-terms" class="md-nav__link">
+    Key terms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#training-and-testing" class="md-nav__link">
+    Training and testing
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    <label class="md-nav__link" for="nav-4">
+      Session 1 - Regression
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Session 1 - Regression" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Session 1 - Regression
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notebooks/03-EDA/" class="md-nav__link">
+      Exploratory Data Analysis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notebooks/10-LinReg/" class="md-nav__link">
+      Linear Regression
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notebooks/11-RidgeLassoElasticNet/" class="md-nav__link">
+      Advanced Regression
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notebooks/30-RF_knn/" class="md-nav__link">
+      Random Forest and K-Nearest Neighbours
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notebooks/45-Xgboost/" class="md-nav__link">
+      XGBoost
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      Session 2 - Classification
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Session 2 - Classification" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Session 2 - Classification
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notebooks/50-Classification/" class="md-nav__link">
+      Classification
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../notebooks/90-Unsupervised/" class="md-nav__link">
+      Unsupervised Learning
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-the-course" class="md-nav__link">
+    Overview of the course
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-machine-learning-how-is-it-different-from-statistical-learning" class="md-nav__link">
+    What is machine learning? How is it different from statistical learning?
+  </a>
+  
+    <nav class="md-nav" aria-label="What is machine learning? How is it different from statistical learning?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#caveat" class="md-nav__link">
+    Caveat:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-some-case-studies-of-the-use-of-ml" class="md-nav__link">
+    What are some case studies of the use of ML?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-machine-learning" class="md-nav__link">
+    Types of Machine learning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-free-lunch-theorem" class="md-nav__link">
+    "No Free Lunch" theorem
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-terms" class="md-nav__link">
+    Key terms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#training-and-testing" class="md-nav__link">
+    Training and testing
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Overview</h1>
+                
+                <!--- Instructor note: this lesson is usually taught with the help of the slide deck. -->
+
+<div class="admonition questions">
+<p class="admonition-title">Questions</p>
+<ul>
+<li>What is machine learning? </li>
+<li>How is it different from statistics? </li>
+<li>What types of machine learning exist?</li>
+</ul>
+</div>
+<div class="admonition objectives">
+<p class="admonition-title">Objectives</p>
+<ul>
+<li>Introduce the course</li>
+<li>Explain python proficiency required </li>
+<li>Contrast machine learning with statistical inference</li>
+<li>Understand the key types of ML problems </li>
+</ul>
+</div>
+<h2 id="overview-of-the-course">Overview of the course<a class="headerlink" href="#overview-of-the-course" title="Permanent link">&para;</a></h2>
+<p>This workshop is designed to provide and introduction to practical machine learning with python.</p>
+<p>The attendees are expected to have some python background (at least at the level of the <a href="https://intersect.org.au/training/course/python203/">Intersect python courses</a>, especially numpy, pandas and the use of python as a data processing tool.</p>
+<p>The workshop will include a lot of live coding and hands-on &ldquo;experimenting&rdquo; with python code, and not a lot of detail about the underlying mathematical and computational details of the algorithms used  - we suggest that when you want to try applying one of these algorithms to your own work, you review its underlying assumption in one of the recommended reference resources.</p>
+<p>We will provide an introduction to some basic principles of machine learning experimentation, describing how one selects a model to use, the concepts of cross-validation. We will demonstrate how these apply to several classical machine learning approaches in python, including supervised (classification and regression, such as K-nearest neighbour and linear regression) and unsupervised (clustering, such as hierarchical and k-means clustering, and dimensionality reduction, such as principal component analysis) methods.</p>
+<p>We hope that at the end of the course, learners are able to assess whether any of these approaches are applicable to their own analysis problems, to apply the demonstrated methods to their own datasets (if they&rsquo;re appropriate), and to evaluate whether the models are a good fit for their data. Furthermore, we hope learners become more confident in discovering and trying out new methods of interest that they come across in the literature. </p>
+<h2 id="what-is-machine-learning-how-is-it-different-from-statistical-learning">What is machine learning? How is it different from statistical learning?<a class="headerlink" href="#what-is-machine-learning-how-is-it-different-from-statistical-learning" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Machine learning</strong> - also called predictive modelling or statistical learning - is the process of developing a mathematical tool or model that generates an active prediction (Kuhn 2013).</p>
+</li>
+<li>
+<p>This makes it distinct from <strong>statistical inference</strong>, where the model must be interpretable and possibly illuminate causal relationships in the data. In ML, we care less about that, and more about the accuracy of our prediction.</p>
+</li>
+</ul>
+<h3 id="caveat">Caveat:<a class="headerlink" href="#caveat" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>If a predictive signal exists in the data, many models will find some degree of 
+that signal regardless of the technique or care placed in developing the model &lt;&hellip;&gt; 
+But the best, most predictive models are fundamentally influenced by a modeller with 
+expert knowledge and context of the problem. (Kuhn and Johnson 2013).</p>
+</blockquote>
+<h2 id="what-are-some-case-studies-of-the-use-of-ml">What are some case studies of the use of ML?<a class="headerlink" href="#what-are-some-case-studies-of-the-use-of-ml" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Predicting whether a patient has a disease or not, based on a set of symptoms</li>
+<li>Predicting the likelihood a patient will return to hospital after treatment</li>
+<li>Segmenting viewers to suggest which films they should watch</li>
+</ul>
+<h2 id="types-of-machine-learning">Types of Machine learning<a class="headerlink" href="#types-of-machine-learning" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Supervised learning</strong>:</li>
+<li>The dataset contains a series of inputs, based on which we are trying to predict a predefined outcome, which we know for the original data in the dataset. The outcome can be numerical (in which case the problem is called regression) or categorical (classification).</li>
+<li><strong>Unsupervised learning</strong>:</li>
+<li>No labels are provided, and the algorithm tries to find structure in unlabelled data. Finding groups of similar users (think Netflix) is a classic example of this. </li>
+<li><strong>Semi-supervised learning</strong>:</li>
+<li>A combination of the two approaches, where we try to use labels from the data to influence the unlabelled data to identify and annotate new classes in the dataset (aka novelty detection). Example: image clustering + manual annotation of clusters.</li>
+<li><strong>Reinforcement learning</strong>:</li>
+<li>The learning algorithm performs a task and gets feedback in real time from operating in a real or simulated environment. Examples are elevator scheduling or learning to play a game.</li>
+</ol>
+<h2 id="no-free-lunch-theorem">&ldquo;No Free Lunch&rdquo; theorem<a class="headerlink" href="#no-free-lunch-theorem" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Without strong, potentially causal, information about the modeling problem, there is no single model 
+that will always do better than any other model. (Wolpert 1996)</p>
+</blockquote>
+<h2 id="key-terms">Key terms<a class="headerlink" href="#key-terms" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>The main goal of the machine learning process is to find an algorithm <span class="arithmatex">\(f(x)\)</span> that most accurately predicts 
+   future values <span class="arithmatex">\(y\)</span> based on a set of inputs <span class="arithmatex">\(\mathbf{X}\)</span>. </p>
+</li>
+<li>
+<p>The terms <code>sample</code>, <code>data point</code>, <code>observation</code>, and <code>instance</code> refer to a single independent unit of study, i.e. a customer, patient, compound, email, etc. The term <code>sample</code> can also be used (next slides) to describe a set of entries, when discussing a training and test sample. </p>
+</li>
+<li>
+<p>The <code>inputs</code> <strong>X</strong>, which can also be called <code>predictors</code>, <code>independent variables</code>, <code>attributes</code> or <code>descriptors</code> are used as inputs for the prediction equation. </p>
+</li>
+<li>
+<p><code>Outcome</code>, <code>dependent variable</code>, <code>target</code>, <code>class</code>, or <code>response</code> - what you&rsquo;re trying to predict (usually more applicable in the context of supervised learning). </p>
+</li>
+</ol>
+<p>The &ldquo;predicts future values&rdquo; phrase here is very important: it&rsquo;s more important for our function to predict the future outcome accurately, not to fit the existing data as well as possible! This ability to predict the future well is called <strong>generalizability</strong>, whereas a situation when the algorithm fits our existing data very well, but doesn&rsquo;t generalise is called <strong>overfitting</strong>. </p>
+<h2 id="training-and-testing">Training and testing<a class="headerlink" href="#training-and-testing" title="Permanent link">&para;</a></h2>
+<p>To enable us to assess how generalizable our model is, we can split the data into a training and testing set:</p>
+<ul>
+<li>The training set is used to train the model, and to tune the (hyper)parameters</li>
+<li>The testing or validation set is withheld during training, and is used once we have chosen a final model to estimate the prediction error (also known as generalisation error).</li>
+</ul>
+<p>We expect/hope/assume that the prediction error determined using the testing set is the same as what would be characteristic of completely new data that we would need to use the model to make a prediction for. </p>
+<ul>
+<li>The relative proportions of the training and testing set depend on the total of number of observations, and the variability observed in the data. The tradeoff to be considered is:</li>
+<li>if there is too much data in the training set, the assessment of the prediction error will be carried out on a very small test set - therefor we might overfit the model, finding a formula that fits the existing data very well, but generalizes very poorly</li>
+<li>
+<p>if there is too much data in the testing set, this means that we might not have enough data in the training set to accurately estimate the model parameters - so the model won&rsquo;t be very accurate</p>
+</li>
+<li>
+<p>Some commonly used cutoffs include:</p>
+</li>
+<li>60% training / 40% testing</li>
+<li>70% training / 30% testing</li>
+<li>80% training / 20% testing</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../setup/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Setup
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../notebooks/03-EDA/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Exploratory Data Analysis
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 - 2025 Sydney Informatics Hub, The University of Sydney - all right reserved
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.7e0ee788.min.js"></script>
+      <script src="../assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: ['navigation.instant'],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../theme/js/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
