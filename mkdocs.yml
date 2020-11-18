@@ -1,0 +1,65 @@
+site_name: Introduction to Machine learning in Python
+site_description: >-
+  lessons for introduction to machine learning in Python course: Exploratory Data Analysis, Regression,
+site_author: Sydney Informatics Hub Team
+copyright: Copyright &copy; 2020 - 2025 Sydney Informatics Hub, The University of Sydney - all right reserved
+
+
+theme:
+  name: material
+  font:
+    text: Source Sans Pro
+  features:
+    - navigation.instant
+    - navigation.tabs
+
+docs_dir: course
+site_dir: docs
+dev_addr: localhost:8001
+
+extra_css:
+  - theme/css/extra.css
+
+extra_javascript:
+  # Needed for mathjax support
+  - theme/js/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - index.md
+  - Setup: setup.md
+  - Overview: 01-ML1.md
+  - Session 1 - Regression:
+      - Exploratory Data Analysis: notebooks/03-EDA.ipynb
+      - Linear Regression: notebooks/10-LinReg.ipynb
+      - Advanced Regression: notebooks/11-RidgeLassoElasticNet.ipynb
+      - Random Forest and K-Nearest Neighbours: notebooks/30-RF_knn.ipynb
+      - XGBoost: notebooks/45-Xgboost.ipynb
+  - Session 2 - Classification:
+      - Classification: notebooks/50-Classification.ipynb
+      - Unsupervised Learning: notebooks/90-Unsupervised.ipynb
+
+plugins:
+  - mknotebooks:
+      execute: False
+      # enable_default_pandas_dataframe_styling: false
+      # enable_default_jupyter_cell_styling: false
+      # allow_errors: true
+      # write_markdown: true
+      # Hide some code cells using cell tags
+      tag_remove_configs:
+        remove_cell_tags:
+          - hide
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - smarty
+  - pymdownx.arithmatex:
+      generic: true

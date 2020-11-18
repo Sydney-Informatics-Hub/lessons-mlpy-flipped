@@ -1,0 +1,24 @@
+name: mlpy
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+  - conda
+  - anaconda
+  - xgboost
+  - pandas
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - sklearn-contrib-py-earth
+  - upsetplot
+  # Website Rendering/building
+  - mkdocs=1.1.2
+  - mkdocs-material=6.1.5
+  - mkdocs-material-extensions=1.0.1
+  - pymdown-extensions=8.0.1
+  - pip
+  - pip:
+    - mknotebooks
+
