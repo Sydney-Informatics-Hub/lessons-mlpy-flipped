@@ -1,5 +1,15 @@
 .Rproj.user/
 .vscode
 _models*
-.ipynb_checkpoint*
 .DS_Store
+
+# Jupyter checkpoint folders
+.ipynb_checkpoints
+**/**/.ipynb_checkpoints
+
+# editors
+*.sublime*
+.code
+**/**/.code
+.vscode
+**/**/.vscode

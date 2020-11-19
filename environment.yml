@@ -21,4 +21,5 @@ dependencies:
   - pip
   - pip:
     - mknotebooks
+    - mkdocs-minify-plugin
 
