@@ -51,6 +51,13 @@ plugins:
       tag_remove_configs:
         remove_cell_tags:
           - hide
+  - minify:
+      minify_html: true
+      htmlmin_opts:
+        remove_comments: true
+      minify_js: true
+      js_files:
+        - theme/js/config.js
 
 markdown_extensions:
   - admonition
