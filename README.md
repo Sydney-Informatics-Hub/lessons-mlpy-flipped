@@ -82,13 +82,13 @@ theme:
 │   ├── sitemap.xml.gz
 │   └── theme
 ├── environment.yml # conda Python enviroment packages
-├── _extras
+├── extras # extra content folder
 │   ├── 30-RF_knn1.ipynb
 │   ├── 50-Classification1.ipynb
 │   ├── about.md
-│   ├── figures.md
-│   ├── ParameterTuningGBM.docx
-│   └── ParameterTuningXGBoost.docx
+│   ├── figs
+│   ├── Parameter-Tuning-GBM.md # instructions to tune a GBM model
+│   └── Parameter-Tuning-XGBoost.md # instructions to tune a XGBoost model
 ├── mkdocs.yml # mkdocs setting file
 └── README.md
 ```
