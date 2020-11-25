@@ -13,3 +13,6 @@ _models*
 **/**/.code
 .vscode
 **/**/.vscode
+
+# mkdocs building folder
+docs/
