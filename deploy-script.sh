@@ -8,4 +8,5 @@ WEBSITERENDERING="False" jupyter nbconvert ./course/notebooks/*.ipynb --to noteb
 # git commit -m 'Running the deploying script' && git push
 echo '------'
 echo 'deploying to gh-pages with mkdocs . . .'
-mkdocs gh-deploy --force
+mkdocs gh-deploy
+date
