@@ -2,6 +2,16 @@
 
 This is a repository for Sydney Informatics Hub's lesson materials for the "Introduction to Machine Learning using Python" workshop.
 
+## Table of Contents
+
+- [Quickstart](#quickstart)
+  * [Installation](#installation)
+  * [Usage](#usage)
+    + [Jupyter Notebooks](#jupyter-notebooks)
+    + [Static website](#static-website)
+  * [Structure of Repository](#structure-of-repository)
+- [Deployment to GitHub Pages](#deployment-to-github-pages)
+
 ## Quickstart
 
 ### Installation
@@ -105,4 +115,13 @@ course/notebooks/
 ├── 50-Classification.ipynb
 ├── 90-Unsupervised.ipynb
 └── data
+```
+
+## Deployment to GitHub Pages
+
+In order to execute the notebooks and deploy the content to the static GitHub pages website, execute:
+
+```bash
+$ : conda activate mlpy
+(mlpy)$ : ./deploy-script.sh
 ```
