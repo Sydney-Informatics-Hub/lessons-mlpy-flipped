@@ -37,7 +37,7 @@ nav:
       - Linear Regression: notebooks/10-LinReg.ipynb
       - Advanced Regression: notebooks/11-RidgeLassoElasticNet.ipynb
       - Random Forest and K-Nearest Neighbours: notebooks/30-RF_knn.ipynb
-      - XGBoost: notebooks/45-Xgboost.ipynb
+      - GBM and XGBoost: notebooks/45-Xgboost.ipynb
   - Session 2 - Classification:
       - Classification: notebooks/50-Classification.ipynb
       - Unsupervised Learning: notebooks/90-Unsupervised.ipynb
