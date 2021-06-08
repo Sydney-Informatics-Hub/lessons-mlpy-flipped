@@ -15,7 +15,7 @@ theme:
 
 docs_dir: course
 site_dir: docs
-dev_addr: localhost:8001
+dev_addr: 0.0.0.0:8001
 
 extra_css:
   - theme/css/extra.css
