@@ -38,7 +38,7 @@ Instructions to run the notebooks for the lessons
 ```bash
 $ : cd course/notebooks
 $ : conda activate mlpy
-(mlpy)$ : jupyter notebook
+(mlpy)$ : jupyter lab
 ```
 
 #### Static website
