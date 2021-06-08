@@ -15,6 +15,7 @@ dependencies:
   - seaborn
   - scikit-learn
   - sklearn-contrib-py-earth
+  - statsmodels
   - upsetplot
   # Website Rendering/building
   - pip
