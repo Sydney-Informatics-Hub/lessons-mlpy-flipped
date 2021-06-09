@@ -25,8 +25,8 @@ $ : git clone https://github.sydney.edu.au/informatics/lessons-mlpy.git
 Install environment with conda (if you already have a `mlpy` the instructions might not work):
 
 ```bash
-$ : cd lessons-mlpy/requirements
-$ : conda env create --file environment.yml
+$ : cd lessons-mlpy
+$ : conda env create --file requirements/environment.yml
 ```
 
 ### Usage
