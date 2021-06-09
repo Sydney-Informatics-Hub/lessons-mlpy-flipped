@@ -22,25 +22,12 @@ Clone the repository:
 $ : git clone https://github.sydney.edu.au/informatics/lessons-mlpy.git
 ```
 
-#### Conda environment
-
 Install environment with conda (if you already have a `mlpy` the instructions might not work):
 
 ```bash
 $ : cd lessons-mlpy/requirements
 $ : conda env create --file environment.yml
 ```
-
-#### Docker environment
-
-The development environment can be installed with Docker:
-
-```python
-$ : cd lessons-mlpy/requirements
-$ : ./build-run.sh
-```
-
-both Jupyter lab and mkdocs website ports will be accessible on localhost.
 
 ### Usage
 
