@@ -26,7 +26,7 @@ Install environment with conda (if you already have a `mlpy` the instructions mi
 
 ```bash
 $ : cd lessons-mlpy
-$ : conda env create --file environment.yml
+$ : conda env create --file requirements/environment.yml
 ```
 
 ### Usage
@@ -38,7 +38,7 @@ Instructions to run the notebooks for the lessons
 ```bash
 $ : cd course/notebooks
 $ : conda activate mlpy
-(mlpy)$ : jupyter notebook
+(mlpy)$ : jupyter lab
 ```
 
 #### Static website
