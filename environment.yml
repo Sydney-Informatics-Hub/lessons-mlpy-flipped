@@ -1,0 +1,27 @@
+name: mlpy
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11.2
+  - conda
+  - xgboost
+  - jupyterlab>=3
+  - ipympl
+  - pandas=2.0.0
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - statsmodels
+  - upsetplot
+  # Website Rendering/building
+  - mkdocs=1.4.2
+  - pygments=2.14.0
+  - mkdocs-material=9.1.5
+  - mkdocs-material-extensions=1.1.1
+  - pymdown-extensions=9.10
+  - pip
+  - pip:
+    - mknotebooks
+    - mkdocs-minify-plugin
+
