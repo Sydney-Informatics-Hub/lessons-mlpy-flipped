@@ -12,6 +12,7 @@ theme:
   features:
     - navigation.instant
     - navigation.tabs
+    - content.code.copy
 
 docs_dir: course
 site_dir: docs
