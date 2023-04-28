@@ -13,3 +13,6 @@ the second - classification and unsupervised learning.
     - You need to be comfortable with using python.
     - You need your own laptop with Python and a few key packages installed. See
       the [setup instructions](setup.md) for more details.
+
+!!! keypoints "Data"
+    - You can download the data required for the course [here](https://github.sydney.edu.au/informatics/lessons-mlpy/blob/master/downloads/mlpy_data.zip).
