@@ -15,4 +15,4 @@ the second - classification and unsupervised learning.
       the [setup instructions](setup.md) for more details.
 
 !!! keypoints "Data"
-    - You can download the data required for the course [here](https://github.sydney.edu.au/informatics/lessons-mlpy/raw/master/downloads/mlpy_data.zip).
+    - You can download the data required for the course [here](https://github.com/Sydney-Informatics-Hub/mlpy/raw/main/downloads/mlpy_data.zip).
