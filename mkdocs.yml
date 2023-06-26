@@ -29,6 +29,11 @@ extra_javascript:
   # Extra custom js code
   - theme/js/extra.js
 
+extra:
+  analytics:
+    provider: google
+    property: G-TNWWV3HK57
+
 nav:
   - index.md
   - Setup: setup.md
