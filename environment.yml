@@ -13,7 +13,6 @@ dependencies:
   - seaborn
   - scikit-learn
   - statsmodels
-  - upsetplot
   # Website Rendering/building
   - mkdocs
   - pygments
@@ -24,4 +23,5 @@ dependencies:
   - pip:
     - mknotebooks
     - mkdocs-minify-plugin
+    - upsetplot
 
