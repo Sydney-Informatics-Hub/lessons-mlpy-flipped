@@ -2,6 +2,7 @@ site_name: Introduction to Machine learning in Python
 site_description: >-
   lessons for introduction to machine learning in Python course: Exploratory Data Analysis, Regression,
 site_author: Sydney Informatics Hub Team
+repo_url: https://github.com/Sydney-Informatics-Hub/lessons-mlpy-flipped
 copyright: >-
   Copyright &copy; 2020 - 2025 Sydney Informatics Hub, The University of Sydney – all rights reserved – 
   <a href="#__consent">Change cookie settings</a>
