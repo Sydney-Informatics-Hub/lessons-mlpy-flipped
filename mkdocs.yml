@@ -2,6 +2,7 @@ site_name: Introduction to Machine learning in Python
 site_description: >-
   lessons for introduction to machine learning in Python course: Exploratory Data Analysis, Regression,
 site_author: Sydney Informatics Hub Team
+repo_url: https://github.com/Sydney-Informatics-Hub/lessons-mlpy-flipped
 copyright: >-
   Copyright &copy; 2020 - 2025 Sydney Informatics Hub, The University of Sydney – all rights reserved – 
   <a href="#__consent">Change cookie settings</a>
@@ -50,14 +51,14 @@ nav:
   - Setup: setup.md
   - Overview: 01-ML1.md
   - Session 1 - Regression:
-      - Exploratory Data Analysis: notebooks/03-EDA.ipynb
-      - Linear Regression: notebooks/10-LinReg.ipynb
-      - Advanced Regression: notebooks/11-RidgeLassoElasticNet.ipynb
-      - Random Forest and K-Nearest Neighbours: notebooks/30-RF_knn.ipynb
-      - GBM and XGBoost: notebooks/45-Xgboost.ipynb
+      - Exploratory Data Analysis: notebooks/01-EDA.ipynb
+      - Linear Regression: notebooks/02-LinearRegression.ipynb
+      - Advanced Regression: notebooks/03-PenalizedRegression.ipynb
+      - Random Forest and K-Nearest Neighbours: notebooks/04-RandomForestKnn.ipynb
+      - GBM and XGBoost: notebooks/05-XGBoost.ipynb
   - Session 2 - Classification:
-      - Classification: notebooks/50-Classification.ipynb
-      - Unsupervised Learning: notebooks/90-Unsupervised.ipynb
+      - Classification: notebooks/06-Classification.ipynb
+      - Unsupervised Learning: notebooks/07-Unsupervised.ipynb
 
 plugins:
   - mknotebooks:
